@@ -1,2 +1,6 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% if current_user.admin? %>
+<h1>I'm an admin!</h1>
+<%= render partial: 'signup_form', locals: {user: @user} %>
+<% else %>
+<h2>I'm not an admin :(</h2>
+<% end %>
