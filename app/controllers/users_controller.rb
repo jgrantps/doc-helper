@@ -1,15 +1,19 @@
 class UsersController < ApplicationController
-  before_filter :authorize_admin, except: [:index, :show]
+  before_action :authorize_admin, except: [:index, :show]
   def index
   end
-
+  
   def show
-    @user = User.new
+    if current_user.admin?
+      @test = "Hello world!, I'm admin?" 
+    else
+      @test = "not admin!"
+    end
   end
-
+  
   def update
   end
-
+  
   def edit
   end
 end
