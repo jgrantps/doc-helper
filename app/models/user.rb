@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  has_many :users_companies
+  has_many :companies, through: :users_companies
+  has_many :accounts, through: :companies
+  has_many :account_comments, through: :accounts
+  has_many :packages, through: :accounts
+  has_many :package_comments, through: :packages
+  has_many :documents, through: :packages
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
