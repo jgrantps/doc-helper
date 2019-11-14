@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'users/update'
   get 'users/edit'
   devise_for :users,  controllers: {
-    confirmations: 'confirmations'
+    confirmations: 'confirmations', invitations: 'devise/invitations'
   } 
   resources :users
   resources :dashboard, only: [:index]
