@@ -28,7 +28,7 @@ gem 'cancancan'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-
+gem 'devise_invitable', '~> 2.0.0'
 gem 'devise', '~> 4.2'
 
 group :development, :test do
