@@ -15,8 +15,6 @@ ActiveRecord::Schema.define(version: 2019_11_13_143232) do
   create_table "account_comments", force: :cascade do |t|
     t.string "comment"
     t.integer "account_id"
-    t.integer "company_id"
-    t.integer "users_company_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -47,9 +45,6 @@ ActiveRecord::Schema.define(version: 2019_11_13_143232) do
   create_table "package_comments", force: :cascade do |t|
     t.string "comment"
     t.integer "package_id"
-    t.integer "account_id"
-    t.integer "company_id"
-    t.integer "users_company_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

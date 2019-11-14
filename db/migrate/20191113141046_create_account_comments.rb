@@ -3,10 +3,7 @@ class CreateAccountComments < ActiveRecord::Migration[6.0]
     create_table :account_comments do |t|
       t.string :comment
       t.integer :account_id
-      t.integer :company_id
-      t.integer :users_company_id
       t.integer :user_id
-
       t.timestamps
     end
   end
