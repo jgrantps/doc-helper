@@ -29,14 +29,14 @@ DATA = {
   ],
   
   :companies =>[
-    ["Gerald Mitchell Contracting"], #=> 1
-    ["Mercers Best Built Structures"], #=> 2
-    ["Grain Spaces"], #=> 3
-    ["On The Level"], #=> 4
-    ["Me And The Boys Contracting"], #=> 5
-    ["JonesCo Contracting"], #=> 6
-    ["Bowers Construction"], #=> 7
-    ["Boris Developments"], #=> 8
+    "Gerald Mitchell Contracting", #=> 1
+    "Mercers Best Built Structures", #=> 2
+    "Grain Spaces", #=> 3
+    "On The Level", #=> 4
+    "Me And The Boys Contracting", #=> 5
+    "JonesCo Contracting", #=> 6
+    "Bowers Construction", #=> 7
+    "Boris Developments", #=> 8
     
   ],
   :users_company_keys =>
@@ -51,7 +51,7 @@ DATA = {
     [8,4],
     [14,7],
     [15,8],
-    [16,6],
+    [16,2],
 
     [9,1],
     [9,2],
@@ -116,9 +116,10 @@ DATA = {
 
 def main
   make_users
-  make_companies
   make_users_companies
+  make_companies
   make_accounts
+  make_packages
 end
 
 def make_users
@@ -141,32 +142,25 @@ end
 
 def make_users_companies
   DATA[:users_companies].each do |user_company|
-    new_user_company = UsersCompany.new
-    user_company.each_with_index do |attribute, i|
-      new_user_company.send(DATA[:users_company_keys][i]+"=", attribute)
-    end
-
-    new_user_company.save
+    relation = UsersCompany.new(user_id: user_company[0], company_id: user_company[1])
+    relation.save
   end
 end
 
 def make_accounts
   DATA[:accounts].each do |account|
     new_account = Account.new
-    new_account.name = self[0]
-    new_account.company_id = self[1]
+    
+    new_account.name = account[0]
+    new_account.company_id = account[1]
     new_account.save
   end
 end
 
 def make_packages
   DATA[:packages].each do |package|
-    new_package = Package.new
-    package.each_with_index do |attribute, i|
-      new_package.send(DATA[:package_keys][i]+"=", attribute)
-    end
-
-    new_package.save 
+   bob = Package.new(name: package[0], account_id: package[1], importance: package[2], complete: package[3], due_date: package[4])
+    bob.save 
   end
 end
 
