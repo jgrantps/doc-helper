@@ -27,8 +27,7 @@ DATA = {
     ["Dean Hartman", "DeanH", "dean@borisdevelopments.ca", "contact", "password111"], #=>15
     ["Jeremy Mercer", "JeremyM", "jeremy@bestbuiltstructures.ca", "contact", "password111"], #=>16
   ],
-  :company_keys =>
-  ["name"],
+  
   :companies =>[
     ["Gerald Mitchell Contracting"], #=> 1
     ["Mercers Best Built Structures"], #=> 2
@@ -116,6 +115,13 @@ DATA = {
 }
 
 def main
+  make_users
+  make_companies
+  make_users_companies
+  make_accounts
+end
+
+def make_users
   DATA[:users].each do |user|
     new_user = User.new
     user.each_with_index do |attribute, i|
@@ -125,4 +131,44 @@ def main
     new_user.save
   end
 end
+
+def make_companies
+  DATA[:companies].each do |company|
+    new_company = Company.new(:name => company)
+    new_company.save
+  end
+end
+
+def make_users_companies
+  DATA[:users_companies].each do |user_company|
+    new_user_company = UsersCompany.new
+    user_company.each_with_index do |attribute, i|
+      new_user_company.send(DATA[:users_company_keys][i]+"=", attribute)
+    end
+
+    new_user_company.save
+  end
+end
+
+def make_accounts
+  DATA[:accounts].each do |account|
+    new_account = Account.new
+    new_account.name = self[0]
+    new_account.company_id = self[1]
+    new_account.save
+  end
+end
+
+def make_packages
+  DATA[:packages].each do |package|
+    new_package = Package.new
+    package.each_with_index do |attribute, i|
+      new_package.send(DATA[:package_keys][i]+"=", attribute)
+    end
+
+    new_package.save 
+  end
+end
+
+
 main
