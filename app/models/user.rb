@@ -7,6 +7,10 @@ class User < ApplicationRecord
   has_many :package_comments, through: :packages
   has_many :documents, through: :packages
 
+  def invite_key_fields
+    [:username]
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -18,4 +22,6 @@ class User < ApplicationRecord
   def set_default_role
     self.role ||= :contact
   end
+
+  
 end

@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, except: [:index, :show]
   def index
-    raise params.inspect
+   byebug
   end
+
   
   def show
     if current_user.admin?

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  helper_method :resource_name, :resource, :devise_mapping, :resource_class
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :invitee_fields, :resource_name, :resource, :devise_mapping, :resource_class
 
   def resource_name
     :user
@@ -24,5 +25,16 @@ class ApplicationController < ActionController::Base
   def after_invite_path_for(resource)
     users_path
   end
-  
+
+  protected
+
+  def invitee_fields
+    [:username, :email, :name]
+  end
+
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :username, :email])
+  end
+
 end
