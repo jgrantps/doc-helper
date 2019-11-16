@@ -2,8 +2,6 @@
 <% if current_user.admin? %>
 <%= render partial: "invite_user", locals: {user: @test} %>
 
-<%#= render partial: 'signup_form', locals: {user: @test} %>
-
 <h2>this is passed directly to the view from the controller: ...</h2>
 <% else %>
 <h2>I'm not an admin :(</h2>

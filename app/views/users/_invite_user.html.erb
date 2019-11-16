@@ -6,7 +6,7 @@
     
  
   <% resource.class.invite_key_fields.each do |field| %>
-  <%# byebug %>
+  <% byebug %>
     <div class="field">
       <%= f.label field %><br />
       <%= f.text_field field %>
@@ -14,8 +14,8 @@
   <% end -%>
 
     <div class="form-group">
-      <%#= f.label :role, class: 'sr-only' %>
-      <%#= f.text_field :role, autofocus: true, class: 'form-control' %>
+      <%= f.label :role, class: 'sr-only' %>
+      <%= f.text_field :role, autofocus: true, class: 'form-control' %>
     </div>
     
   <div class="actions">
