@@ -5,7 +5,8 @@
 <%#= render partial: 'signup_form', locals: {user: @test} %>
 
 <h2>this is passed directly to the view from the controller: ...</h2>
+<% elsif current_user.manager? %>
+<h2>I'm a manager! </h2>
 <% else %>
-<h2>I'm not an admin :(</h2>
+<h2>I'm a contact!</h2>
 <% end %>
-<%=@test%>

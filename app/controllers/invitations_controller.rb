@@ -4,6 +4,7 @@ class InvitationsController < Devise::InvitationsController
 
   # PUT /resource/invitation
   def create
+    # byebug
     super
   end
 
@@ -25,7 +26,7 @@ class InvitationsController < Devise::InvitationsController
   protected
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :role, :username])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
   end
 
 end
