@@ -3,6 +3,10 @@ class InvitationsController < Devise::InvitationsController
   before_action :update_sanitized_params, only: :update
 
   # PUT /resource/invitation
+  def create
+    super
+  end
+
   def update
     respond_to do |format|
       format.js do
@@ -21,12 +25,7 @@ class InvitationsController < Devise::InvitationsController
   protected
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [
-    :name, 
-    :password, 
-    :username,
-    :password_confirmation, 
-    :invitation_token
-  ])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :role, :username])
   end
+
 end

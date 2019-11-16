@@ -7,7 +7,8 @@ class User < ApplicationRecord
   has_many :package_comments, through: :packages
   has_many :documents, through: :packages
 
-  
+ # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
