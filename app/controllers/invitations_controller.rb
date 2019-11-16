@@ -4,8 +4,10 @@ class InvitationsController < Devise::InvitationsController
 
   # PUT /resource/invitation
   def create
-    # byebug
     super
+    #  byebug
+     #=> build out the user_companie relationships in the form here!!!
+    #@user.user_companies.build()
   end
 
   def update

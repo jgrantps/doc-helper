@@ -6,7 +6,8 @@ class User < ApplicationRecord
   has_many :packages, through: :accounts
   has_many :package_comments, through: :packages
   has_many :documents, through: :packages
-
+  
+  accepts_nested_attributes_for :users_companies
  # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
 
   # Include default devise modules. Others available are:
