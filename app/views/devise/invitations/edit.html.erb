@@ -3,6 +3,7 @@
 <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   <%= f.hidden_field :invitation_token, readonly: true %>
+  <%# byebug %>
 
   <% if f.object.class.require_password_on_accepting %>
     <div class="field">
@@ -14,9 +15,23 @@
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation %>
     </div>
+    
+    <div class="field">
+      <%= f.label :username %><br />
+      <%= f.text_field :username %>
+    </div>
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+
   <% end %>
 
+
+
   <div class="actions">
+  <% #byebug %>
     <%= f.submit t("devise.invitations.edit.submit_button") %>
   </div>
 <% end %>
