@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 2019_11_14_163422) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "positions", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id"
+    t.integer "company_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -88,13 +96,6 @@ ActiveRecord::Schema.define(version: 2019_11_14_163422) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "positions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "company_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

@@ -122,16 +122,40 @@ def main
   make_packages
 end
 
-def make_users
-  DATA[:users].each do |user|
-    new_user = User.new
-    user.each_with_index do |attribute, i|
-      new_user.send(DATA[:user_keys][i]+"=", attribute)
-    end
+# def make_users
+#   byebug
+#   DATA[:users].each do |user|
+#     new_user = User.new
+#     new_user.skip_invitation = true
+#     user.each_with_index do |attribute, i|
+#       new_user.send(DATA[:user_keys][i]+"=", attribute)
+#     end
+    
+#     new_user.save
+#   end
+# end
 
-    new_user.save
+
+
+
+def make_users
+    DATA[:users].each do |user|
+    @user = User.invite!(:name => user[0], :username => user[1], :email => user[2], :role => user[3], :password => user[4]) do |u|
+      u.skip_invitation = true
+    end
+    
+    token = Devise::VERSION >= "3.1.0" ? @user.instance_variable_get(:@raw_invitation_token) : @user.invitation_token
+    User.accept_invitation!(:invitation_token => token, :password => user[4], :password_confirmation => user[4])
+
+    puts "Created User #{user[0]} with password #{user[4]}"
+    @user
   end
 end
+
+
+
+
+
 
 def make_companies
   DATA[:companies].each do |company|
