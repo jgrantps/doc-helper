@@ -6,7 +6,7 @@ class InvitationsController < Devise::InvitationsController
   def create
     super
     #  byebug
-     #=> build out the user_company relationships in the form here!!!
+     #=> build out the position relationships in the form here!!!
     #@user.user_companies.build()
   end
 

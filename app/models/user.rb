@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :users_companies
+  has_many :positions
   has_many :companies, through: :users_companies
   has_many :accounts, through: :companies
   has_many :account_comments, through: :accounts

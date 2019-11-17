@@ -39,9 +39,9 @@ DATA = {
     "Boris Developments", #=> 8
     
   ],
-  :users_company_keys =>
+  :position_keys =>
   ["user_id", "company_id"],
-  :users_companies =>[
+  :positions =>[
     [2,1],
     [3,1],
     [4,1],
@@ -116,7 +116,7 @@ DATA = {
 
 def main
   make_users
-  make_users_companies
+  make_positions
   make_companies
   make_accounts
   make_packages
@@ -140,9 +140,9 @@ def make_companies
   end
 end
 
-def make_users_companies
-  DATA[:users_companies].each do |user_company|
-    relation = UsersCompany.new(user_id: user_company[0], company_id: user_company[1])
+def make_positions
+  DATA[:positions].each do |position|
+    relation = Position.new(user_id: position[0], company_id: position[1])
     relation.save
   end
 end
