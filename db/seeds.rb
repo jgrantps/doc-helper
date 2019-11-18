@@ -42,27 +42,27 @@ DATA = {
   :position_keys =>
   ["user_id", "company_id"],
   :positions =>[
-    [2,1],
-    [3,1],
-    [4,1],
-    [5,3],
-    [6,5],
-    [7,6],
-    [8,4],
-    [14,7],
-    [15,8],
-    [16,2],
+    [2,1, "Owner"],
+    [3,1, "Administration"],
+    [4,1, "Administration"],
+    [5,3, "Owner"],
+    [6,5, "Owner"],
+    [7,6, "Owner"],
+    [8,4, "Owner"],
+    [14,7, "Owner"],
+    [15,8, "President"],
+    [16,2, "Owner"],
 
-    [9,1],
-    [9,2],
-    [9,7],
-    [10,8],
-    [11,1],
-    [11,3],
-    [12,4],
-    [12,5],
-    [13,6],
-    [13,8],
+    [9,1, "Lead Controller"],
+    [9,2, "Accountant"],
+    [9,7, "Lead Controller"],
+    [10,8, "Bookkeeper"],
+    [11,1, "Accountant"],
+    [11,3, "Lead Controller"],
+    [12,4, "Bookkeeper"],
+    [12,5, "CFO"],
+    [13,6, "Bookkeeper"],
+    [13,8, "Lead Controller"],
   ],
   :account_keys =>
   ["name", "company_id"],
@@ -116,27 +116,11 @@ DATA = {
 
 def main
   make_users
-  make_positions
   make_companies
+  make_positions
   make_accounts
   make_packages
 end
-
-# def make_users
-#   byebug
-#   DATA[:users].each do |user|
-#     new_user = User.new
-#     new_user.skip_invitation = true
-#     user.each_with_index do |attribute, i|
-#       new_user.send(DATA[:user_keys][i]+"=", attribute)
-#     end
-    
-#     new_user.save
-#   end
-# end
-
-
-
 
 def make_users
     DATA[:users].each do |user|
@@ -166,7 +150,7 @@ end
 
 def make_positions
   DATA[:positions].each do |position|
-    relation = Position.new(user_id: position[0], company_id: position[1])
+    relation = Position.new(user_id: position[0], company_id: position[1], title: position[2])
     relation.save
   end
 end
