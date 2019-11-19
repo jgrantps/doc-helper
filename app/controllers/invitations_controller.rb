@@ -7,7 +7,7 @@ class InvitationsController < Devise::InvitationsController
     super
     #  byebug
      #=> build out the position relationships in the form here!!!
-    #@user.user_companies.build()
+    #@user.positions.build()
   end
 
   def update

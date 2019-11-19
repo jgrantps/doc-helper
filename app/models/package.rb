@@ -7,6 +7,31 @@ class Package < ApplicationRecord
 
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   
+  def company 
+    self.account.company 
+  end
+
+  def users 
+    company.users 
+  end
+  
+  
+  def backlog
+    self.select {|package| package.status == "backlog"}
+  end
+  
+  def in_progress
+    self.select {|package| package.status == "in_progress"}
+  end
+  
+  def ready_for_review
+    self.select {|package| package.status == "ready_for_review"}
+  end
+  
+  def complete
+    self.select {|package| package.status == "complete"}
+  end
+  
 
 
 end

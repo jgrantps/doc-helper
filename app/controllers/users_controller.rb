@@ -5,11 +5,11 @@ class UsersController < ApplicationController
 
   
   def show
-    if current_user.admin?
-      @test = "Hello world!, I'm admin?" 
-    else
-      @test = "not admin!"
-    end
+    
+    @account=Account.last
+    @account_name = @account.name
+    @company = @account.name
+   
   end
   
   def update
