@@ -24,4 +24,9 @@ user flow:
 
 
 
+To update the tailwind custom utilities config file:
 
+1. run "bundle exec rails webpacker:clobber" in the command terminal
+  #=> this will purge the "./public/packs" folders, which contain the updated info.
+2. restart the server.
+  #=> this will force webpacker to compile it's packs, including the updated config file.
