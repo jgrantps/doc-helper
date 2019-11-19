@@ -7,14 +7,14 @@ class Account < ApplicationRecord
   has_many :users, through: :positions
   
   def name
-    self.name
+    # self.name
   end
 
   def users
     self.company.users
   end
 
-  
+
 
 
 end

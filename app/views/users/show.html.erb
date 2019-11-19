@@ -4,8 +4,8 @@
     <%= render partial: "invite_user", locals: {user: @test} %>
   <% elsif current_user.manager? %>
 
-    <%#= render partial: "manager_home", locals: {user: current_user} %>
-    <%= render partial: "base_tile", locals: {name: @account_name} %>
+    <%= render partial: "manager_home", locals: {user: current_user} %>
+    <%#= render partial: "base_tile", locals: {name: @account_name} %>
 
     
   <% else %>

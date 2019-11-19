@@ -8,7 +8,12 @@ class Package < ApplicationRecord
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   
   def company 
-    self.account.company 
+   self.account.company 
+  end
+  
+  def title 
+    titles = company.positions.map {|position| position.title }
+    titles.uniq
   end
 
   def users 
@@ -32,6 +37,4 @@ class Package < ApplicationRecord
     self.select {|package| package.status == "complete"}
   end
   
-
-
 end
