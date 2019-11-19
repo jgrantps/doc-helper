@@ -83,33 +83,33 @@ DATA = {
     ["Residential Development", 8], #=> 14
   ],
   :package_keys =>
-  ["name", "account_id", "importance", "complete", "due_date"],
+  ["name", "account_id", "status", "due_date"],
   :packages =>[
-    ["2018 year-end", 1, 4, false, ""], #=>
-    ["2019 Q1", 1, 2, false, ""], #=>
-    ["2018 Payroll breakdown", 1, 1, false, ""], #=>
-    ["2018 Cost Sheet", 2, 4, false, ""], #=>
-    ["2019 Q1", 3, 1, false, ""], #=>
-    ["2018 Q4 Labor costs", 4, 4, false, ""], #=>
-    ["2019 Q1 Material costs", 5, 4, false, ""], #=>
-    ["2019 Q2 Supplier Pricing", 6, 1, false, ""], #=>
-    ["2019 Q2 Time Sheets", 6, 2, false, ""], #=>
-    ["2019 Payroll Breakdown YTD", 7, 5, false, ""], #=>
-    ["2019 Material Costs YTD", 8, 1, false, ""], #=>
-    ["2019 Payroll Breakdown YTD", 8, 3, false, ""], #=>
-    ["2018 Material Costs", 9, 4, false, ""], #=>
-    ["2018 Material Costs", 9, 4, false, ""], #=>
-    ["2018 Material Costs", 10, 3, false, ""], #=>
-    ["2018 Sales Report", 10, 4, false, ""], #=>
-    ["2018 Sales Report", 11, 5, false, ""], #=>
-    ["2018 Tax Report", 11, 1, false, ""], #=>
-    ["2018 Payroll Breakdown", 11, 5, false, ""], #=>
-    ["2019 Tax Report (estimated)", 12, 5, false, ""], #=>
-    ["2019 Lease Report - YTD", 13, 4, false, ""], #=>
-    ["2019 Overhead - YTD", 13, 2, false, ""], #=>
-    ["2019 Overhead - YTD", 13, 2, false, ""], #=>
-    ["2018 Rental Revenue", 14, 4, false, ""], #=>
-    ["2018 Overhead", 14, 2, false, ""], #=>
+    ["2018 year-end", 1, 0, ""], #=>
+    ["2019 Q1", 1, 1, ""], #=>
+    ["2018 Payroll breakdown", 1, 2, ""], #=>
+    ["2018 Cost Sheet", 2, 0, ""], #=>
+    ["2019 Q1", 3, 1, ""], #=>
+    ["2018 Q4 Labor costs", 4, 1, ""], #=>
+    ["2019 Q1 Material costs", 5, 0, ""], #=>
+    ["2019 Q2 Supplier Pricing", 6, 2, ""], #=>
+    ["2019 Q2 Time Sheets", 6, 0, ""], #=>
+    ["2019 Payroll Breakdown YTD", 7, 2, ""], #=>
+    ["2019 Material Costs YTD", 8, 0, ""], #=>
+    ["2019 Payroll Breakdown YTD", 8, 0, ""], #=>
+    ["2018 Material Costs", 9, 0, ""], #=>
+    ["2018 Material Costs", 9, 3, ""], #=>
+    ["2018 Material Costs", 10, 0, ""], #=>
+    ["2018 Sales Report", 10, 1, ""], #=>
+    ["2018 Sales Report", 11, 3, ""], #=>
+    ["2018 Tax Report", 11, 0, ""], #=>
+    ["2018 Payroll Breakdown", 11, 3, ""], #=>
+    ["2019 Tax Report (estimated)", 12, 1, ""], #=>
+    ["2019 Lease Report - YTD", 13, 1, ""], #=>
+    ["2019 Overhead - YTD", 13, 0, ""], #=>
+    ["2019 Overhead - YTD", 13, 3, ""], #=>
+    ["2018 Rental Revenue", 14, 2, ""], #=>
+    ["2018 Overhead", 14, 0, ""], #=>
         
   ]
 }
@@ -167,7 +167,7 @@ end
 
 def make_packages
   DATA[:packages].each do |package|
-   bob = Package.new(name: package[0], account_id: package[1], importance: package[2], complete: package[3], due_date: package[4])
+   bob = Package.new(name: package[0], account_id: package[1], status: package[2], due_date: package[3])
     bob.save 
   end
 end

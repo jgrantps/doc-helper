@@ -53,8 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_14_163422) do
   create_table "packages", force: :cascade do |t|
     t.string "name"
     t.integer "account_id"
-    t.integer "importance"
-    t.boolean "complete"
+    t.integer "status"
     t.datetime "due_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
