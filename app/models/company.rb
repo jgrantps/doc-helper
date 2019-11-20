@@ -11,4 +11,8 @@ class Company < ApplicationRecord
     titles = self.positions.map {|position| position.title }
     titles.uniq
   end
+
+  def involved_users
+    self.users  
+  end
 end

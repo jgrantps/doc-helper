@@ -22,24 +22,22 @@ class User < ApplicationRecord
     self.role ||= :contact
   end
   
-  def invite_key_fields
-    [:username, :role]
+  
+
+  def associated_users(role)
+    case role
+      when "all"
+        self.companies.map {|company| company.users}.flatten.uniq
+      when "contact"
+        self.companies.map {|company| company.users}.flatten.uniq.count{|u| u.role=="contact"}
+      when "manager"
+        self.companies.map {|company| company.users}.flatten.uniq.count{|u| u.role=="manager"}
+    end
   end
 
-  def self.admins_count
-    self.count{|u| u.role=="admin"}
-  end
-  
-  def self.managers_count
-    self.count{|u| u.role=="manager"}
-  end
-  
-  def self.contacts_count
+
+  def contacts_count
     self.count{|u| u.role=="contact"}
   end
 
-  def self.all_count
-    self.all.count 
-  end
-  
 end
