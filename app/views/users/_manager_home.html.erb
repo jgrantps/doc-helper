@@ -105,7 +105,7 @@
           <div class="flex items-center">
             <h2 class="text-2xl font-semibold text-gray-900 leading-tight">All Packages</h2>
             <div class="ml-6 flex items-center">
-              <span class="rounded-full border-2 border-white">
+              <span class="-ml-2 rounded-full border-2 border-white">
                 <img class="h-6 w-6 rounded-full object-cover"
                 src="https://avatars.githubusercontent.com/u/10413171" 
                 alt="profile photo"
@@ -160,112 +160,9 @@
         <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
           <h3 clas="text-sm font-medium text-gray-900">Backlog</h3>
           <ul class="mt-2">
-
             <li class="mt-3">
-              <a href="#"class="block p-5 bg-white rounded-lg shadow">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium text-gray-900 leading-snug"> Package Name</p>
-                  <span class="rounded-full border-2 border-white">
-                    <img class="h-6 w-6 rounded-full"
-                    src="https://avatars.githubusercontent.com/u/16282320" 
-                    alt="profile photo"
-                    />
-                  </span>
-                </div>
-                <div class="flex mt-2 justify-between items-baseline">
-                  <div class="text-sm text-gray-600">
-                    <time datetime="2019-09-14">Due Date</time>
-                  </div>
-                  <div>
-                    <span class="px-2 inline-flex items-center bg-teal-100 rounded">
-                      <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                      <circle cx="4" cy="4" r="3" />
-                      </svg>
-                      <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900">Account Name</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </li>
-            
-             <li class="mt-3">
-              <a href="#"class="block p-5 bg-white rounded-lg shadow">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium text-gray-900 leading-snug"> Add discount code to checkout page.</p>
-                  <span class="rounded-full border-2 border-white">
-                    <img class="h-6 w-6 rounded-full"
-                    src="https://avatars.githubusercontent.com/u/16282320" 
-                    alt="profile photo"
-                    />
-                  </span>
-                </div>
-                <div class="flex mt-2 justify-between items-baseline">
-                  <div class="text-sm text-gray-600">
-                    <time datetime="2019-09-14">Sep 14</time>
-                  </div>
-                  <div>
-                    <span class="px-2 inline-flex items-center bg-teal-100 rounded">
-                      <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                      <circle cx="4" cy="4" r="3" />
-                      </svg>
-                      <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900">Feature Request</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </li>
-             <li class="mt-3">
-              <a href="#"class="block p-5 bg-white rounded-lg shadow">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium text-gray-900 leading-snug"> Add discount code to checkout page.</p>
-                  <span class="rounded-full border-2 border-white">
-                    <img class="h-6 w-6 rounded-full"
-                    src="https://avatars.githubusercontent.com/u/16282320" 
-                    alt="profile photo"
-                    />
-                  </span>
-                </div>
-                <div class="flex mt-2 justify-between items-baseline">
-                  <div class="text-sm text-gray-600">
-                    <time datetime="2019-09-14">Sep 14</time>
-                  </div>
-                  <div>
-                    <span class="px-2 inline-flex items-center bg-teal-100 rounded">
-                      <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                      <circle cx="4" cy="4" r="3" />
-                      </svg>
-                      <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900">Feature Request</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </li>
-             <li class="mt-3">
-              <a href="#"class="block p-5 bg-white rounded-lg shadow">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium text-gray-900 leading-snug"> Add discount code to checkout page.</p>
-                  <span class="rounded-full border-2 border-white">
-                    <img class="h-6 w-6 rounded-full"
-                    src="https://avatars.githubusercontent.com/u/16282320" 
-                    alt="profile photo"
-                    />
-                  </span>
-                </div>
-                <div class="flex mt-2 justify-between items-baseline">
-                  <div class="text-sm text-gray-600">
-                    <time datetime="2019-09-14">Sep 14</time>
-                  </div>
-                  <div>
-                    <span class="px-2 inline-flex items-center bg-teal-100 rounded">
-                      <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
-                      <circle cx="4" cy="4" r="3" />
-                      </svg>
-                      <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900">Feature Request</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </li>
+              <%= render partial: 'package', :collection => packages, locals: {:avatars => avatars} %>              
+            </li>            
           </ul>
         </div>
         <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
