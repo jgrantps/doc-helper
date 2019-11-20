@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   
   def show
-    
+    @users = User.all
     @account=Account.last
     @account_name = @account.name
     @company = @account.name

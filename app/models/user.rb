@@ -25,5 +25,21 @@ class User < ApplicationRecord
   def invite_key_fields
     [:username, :role]
   end
+
+  def self.admins_count
+    self.count{|u| u.role=="admin"}
+  end
+  
+  def self.managers_count
+    self.count{|u| u.role=="manager"}
+  end
+  
+  def self.contacts_count
+    self.count{|u| u.role=="contact"}
+  end
+
+  def self.all_count
+    self.all.count 
+  end
   
 end
