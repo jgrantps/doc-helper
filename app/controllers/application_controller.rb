@@ -1,6 +1,23 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :invitee_fields, :resource_name, :resource, :devise_mapping, :resource_class
+  helper_method :companies, :propername, :invitee_fields, :resource_name, :resource, :devise_mapping, :resource_class
+  
+  def propername(input)
+    ary = input.split("_" || " ")
+    upcase = ary.map {|i| i.capitalize }
+    title = upcase.join(" ")
+    title
+  end
+
+  def companies
+    if current_user.admin?
+      Company.all
+    else
+      current_user.companies
+    end
+  end
+  
+  
   def resource_name
     :user
   end

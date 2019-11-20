@@ -8,9 +8,11 @@ class UsersController < ApplicationController
     @users = User.all
     @account=Account.last
     @account_name = @account.name
+    
     @company = @account.name
     @packages = Package.all
     @contributors = @account.users
+    @status_keys = Package.status
   end
   
   def update

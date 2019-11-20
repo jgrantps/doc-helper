@@ -19,7 +19,10 @@ class Package < ApplicationRecord
   def users 
     company.users 
   end
-  
+
+  def self.status
+    self.statuses.keys 
+  end  
   
   def backlog
     self.select {|package| package.status == "backlog"}
