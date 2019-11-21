@@ -13,14 +13,14 @@
     </div>
     <div class="flex-1">
       <nav class="mt-8 flex-col">
-        <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Users</h2>
+        <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Collaborators</h2>
         <div class="mt-2">
           <a 
           href="#"
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-900 bg-gray-200 rounded-lg "
           >
             <span>All</span>
-            <span class="text-xs font-semibold text-gray-700"><%=users %></span>
+            <span class="text-xs font-semibold text-gray-700"><%=current_user.all_count %></span>
           </a>
 
           <a 
@@ -28,7 +28,7 @@
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg "
           >
             <span class="text-sm font-medium text-gray-700">Managers</span>
-            <span class="text-xs font-semibold text-gray-700"><%=associated_users(current_user.role) %></span>
+            <span class="text-xs font-semibold text-gray-700"><%= current_user.managers_count %></span>
           </a>
 
           <a 
@@ -36,7 +36,7 @@
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg "
           >
             <span class="text-sm font-medium text-gray-700">Contacts</span>
-            <span class="text-xs font-semibold text-gray-700"><%=users.contacts_count %></span>
+            <span class="text-xs font-semibold text-gray-700"><%= current_user.contacts_count %></span>
           </a>
 
           <a 
@@ -44,7 +44,7 @@
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg "
           >
             <span class="text-sm font-medium text-gray-700">Admins</span>
-            <span class="text-xs font-semibold text-gray-700"><%=users.admins_count %></span>
+            <span class="text-xs font-semibold text-gray-700"><%=current_user.admins_count %></span>
           </a>
 
         </div>
