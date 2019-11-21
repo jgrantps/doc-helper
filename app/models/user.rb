@@ -39,7 +39,7 @@ class User < ApplicationRecord
     self.companies.map {|company| company.users}.flatten.uniq.count{|u| u.role=="contact"}
   end
 
-  def contacts_count
+  def contact_count
     if self.admin?
       User.where(role: "contact").count
     else
@@ -49,7 +49,7 @@ class User < ApplicationRecord
     end
   end
 
-  def managers_count
+  def manager_count
     if self.admin?
       User.where(role: "manager").count
     else
@@ -59,7 +59,7 @@ class User < ApplicationRecord
     end
   end
 
-  def admins_count
+  def admin_count
     if self.admin?
       User.where(role: "admin").count
     else
@@ -74,14 +74,16 @@ class User < ApplicationRecord
     if self.admin?
       User.count
     else
-      managers_count + contacts_count
+      manager_count + contact_count
     end
   end
+
+  def owned_packages
+    ary = Array.new
+    self.companies.all.each do |company|
+     ary << company.packages 
+    end
+    ary.flatten.each {|package| Package.find(package.id)}
+  
+  end
 end
-
-# Or, in English: "return all categories that have articles, where those articles have a comment made by a guest, and where those articles also have a tag."
-# Or, in English: "return all users that have positions, where those positions have a companies belonging to traci, and where those positions also have a role."
-
-# {Category: User, articles: positions, comment: companies, guest: "traci", tag: role
-# Category.joins(articles: [{ comments: :guest }, :tags])
-# User.joins(positions: [{ companies: :self }, :role])

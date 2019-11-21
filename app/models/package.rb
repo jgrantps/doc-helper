@@ -39,5 +39,8 @@ class Package < ApplicationRecord
   def complete
     self.select {|package| package.status == "complete"}
   end
+
+  
+
   
 end

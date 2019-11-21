@@ -4,7 +4,7 @@
     <%= render partial: "invite_user", locals: {user: @test} %>
   <% elsif current_user.manager? %>
 
-    <%= render partial: "manager_home", locals: {user: current_user, users: @user, :packages => @packages,:avatars => @contributors} %>
+    <%= render partial: "manager_home", locals: {user: current_user, users: @user, :packages => @packages, :avatars => @contributors} %>
     
     
   <% else %>
