@@ -1,10 +1,9 @@
 <div>
   <% if current_user.admin? %>
-<h2>Welcome <%= current_user.name%></h2>
-    <%= render partial: "invite_user", locals: {user: @test} %>
+    <%= render partial: 'users/dashboard/main_display', locals: {:packages => Package.all} %>
   <% elsif current_user.manager? %>
 
-    <%= render partial: 'users/dashboard/main_display', locals: {:packages => @packages, :avatars => @contributors} %>
+    <%= render partial: 'users/dashboard/main_display', locals: {:packages => @packages} %>
     
     
   <% else %>

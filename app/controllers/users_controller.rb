@@ -6,12 +6,8 @@ class UsersController < ApplicationController
 
   
   def show
-    if signed_in?
-      @account=Account.last
-      @account_name = @account.name
-      @company = @account.name
+    if signed_in?   
       @packages = current_user.packages
-      @contributors = @account.users
       @status_keys = Package.status
     else
       redirect_to root_path  

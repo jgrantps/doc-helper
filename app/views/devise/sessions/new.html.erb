@@ -1,33 +1,33 @@
 <div class="w-full max-w-md mx-auto my-8">
-  <div class="bg-white border border-gray-300 rounded-lg px-8 pt-6 pb-8">
-    <h2 class="text-xl font-medium  text-gray-900 uppercase">Doc-Helper</h2>
+  <div class="bg-white border border-gray-300 rounded-lg px-8 pt-2 pb-8">
+    <h2 class="text-2xl font-medium  text-gray-900 mb-4 uppercase">Doc-Helper</h2>
     <h2 class="text-med font-medium mt-2 text-gray-900 uppercase leading-tight">Log in</h2>
     <div class="width-full border-b border-gray-200 mb-2"></div>
-   
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "rounded py-2 pl-2 pr-20 bg-gray-200"}) do |f| %>
       <div class="field">
         <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, class: "border rounded w-3/4 border-gray-500 my-1", autocomplete: "email" %>
       </div>
 
       <div class="field">
         <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "current-password" %>
+        <%= f.password_field :password, class: "border rounded w-3/4 border-gray-500 my-1", autocomplete: "current-password" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
-        <div class="field">
+        <div class="field py-3 item-center">
           <%= f.check_box :remember_me %>
           <%= f.label :remember_me %>
         </div>
       <% end %>
 
       <div class="actions">
-        <%= f.submit "Log in" %>
+        <%= f.submit "Log in", class: " flex items-center py-1 px-3 bg-gray-250 border border-gray-500 rounded cursor-pointer"  %>
       </div>
+
     <% end %>
 
-<%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
   </div>
 </div>

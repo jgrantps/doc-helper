@@ -7,8 +7,14 @@ Rails.application.routes.draw do
     confirmations: 'confirmations', 
     invitations: 'invitations'
   } 
-  resources :users
   resources :dashboard, only: [:index]
   resources :home, only: [:index]
   root to: "home#index"
+  
+  resources :users do 
+    resources :accounts
+    resources :companies
+    resources :packages
+    resources :documents
+  end
 end

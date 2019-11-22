@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if signed_in?
       redirect_to user_path(current_user)
     else
-      redirect_to new_user_session_path
-    end    
+      render "devise/sessions/new.html.erb"
+    end   
   end
 end
