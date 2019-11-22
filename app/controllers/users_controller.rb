@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     if signed_in?   
       @packages = current_user.packages
-      @status_keys = Package.status
+      
     else
       redirect_to root_path  
     end

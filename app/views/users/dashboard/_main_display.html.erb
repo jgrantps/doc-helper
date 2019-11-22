@@ -128,18 +128,18 @@
       </header>
     </div>
     <div class="flex-1 overflow-auto">
+    <% if params[:controller] == "users" && params[:action] == "show" %>
+    
+      <!-- option 1 - GENERAL INDEX -->
+       <%= render partial: 'users/dashboard/indexes' %> 
+      
+      <!-- option 2 - ACCOUNT FORM -->
+    <% else params[:controller] == "accounts" && params[:action] == "new" %>
       <main class="p-3 inline-flex">
-      <% @status_keys.each do |status| %>
-        <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
-          <h3 clas="text-sm font-medium text-gray-900"><%= status.titleize %></h3>
-          <ul class="mt-2">
-            <li class="mt-3">                  
-              <%= render partial: 'users/dashboard/package', :collection => packages.send(status) %>   
-            </li>            
-          </ul>
-        </div>
-        <% end %>       
+        <%= render partial: 'forms/new_account_via_manager', locals: {:account => @account} %>
       </main>
+    <% end %>
+      <!-- done -->
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :associated_users, :companies, :invitee_fields, :resource_name, :resource, :devise_mapping, :resource_class, :admins_count, :managers_count, :contacts_count, :all_count
+  helper_method :current_packages,:package_status, :associated_users, :companies, :invitee_fields, :resource_name, :resource, :devise_mapping, :resource_class, :admins_count, :managers_count, :contacts_count, :all_count
   
   
   def companies
@@ -10,7 +10,14 @@ class ApplicationController < ActionController::Base
       current_user.companies
     end
   end
-  
+
+  def package_status
+   return Package.status
+  end
+
+  def current_packages
+    current_user.packages
+  end
   
   def resource_name
     :user
@@ -36,42 +43,8 @@ class ApplicationController < ActionController::Base
     users_path
   end
 
-   #=> filtering methods for views and partials
-   def associated_users
-     if self.admin?
-       User.all
-     else
-       self.companies.map {|company| company.users}.flatten.uniq
-     end
-   end
-
-   def admins_count(users)
-    # users.count{|u| u.role=="admin"}
-    puts users
-  end
+   
   
-  def managers_count(users)
-    users.count{|u| u.role=="manager"}
-  end
-  
-  def contacts_count(users)
-    users.count{|u| u.role=="contact"}
-  end
-
-  def all_count(users)
-    users.all.count 
-  end
- 
-  def associated_users
-    case current_user.role
-      when "admin"
-        self.companies.map {|company| company.users}.flatten.uniq
-      when "contact"
-        self.companies.map {|company| company.users}.flatten.uniq.count{|u| u.role=="contact"}
-      when "manager"
-        self.companies.map {|company| company.users}.flatten.uniq.count{|u| u.role=="manager"}
-    end
-  end
  
   protected
 
