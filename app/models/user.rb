@@ -80,7 +80,7 @@ class User < ApplicationRecord
 
   def owned_packages
     ary = Array.new
-    self.companies.all.each do |company|
+    self.companies.each do |company|
      ary << company.packages 
     end
     ary.flatten.each {|package| Package.find(package.id)}

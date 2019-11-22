@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @account_name = @account.name
     
     @company = @account.name
-    @packages = current_user.owned_packages
+    @packages = current_user.packages
     @contributors = @account.users
     @status_keys = Package.status
     
