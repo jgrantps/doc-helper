@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
   root to: "home#index"
   
-  resources :users do 
+  resources :users
     resources :accounts
     resources :companies
     resources :packages
     resources :documents
-  end
+  
 end

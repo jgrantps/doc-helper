@@ -1,0 +1,24 @@
+<%= form_for(@account) do |account| %>
+  <%= account.label :name %>
+  <%= account.text_area :name %>
+
+  <br>
+  <br>
+
+  <%=account.label :company_id, "Company" %>
+  <%=account.collection_select :company_id, Company.all, :id, :name, prompt: true%>
+
+  <br>
+  <br>
+
+  <p>Create a New Company</p>
+    <%= account.fields_for :company, @account.build_company do |company_fields| %>
+      <%= company_fields.label :name%>
+      <%= company_fields.text_field :name%>
+
+        <br>
+        <br>
+
+    <% end %>
+<%=account.submit%>
+<% end %>

@@ -49,3 +49,9 @@ TO DO LIST:
 3. Complete the add/edit forms.
 4. Complete the User permissions
 5. complete the OmniAuth sign-in abilities.
+
+
+
+
+forms notes:
+
