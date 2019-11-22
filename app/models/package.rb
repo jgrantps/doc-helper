@@ -19,28 +19,8 @@ class Package < ApplicationRecord
     company.users 
   end
 
-  def self.status
-    
+  def self.status    
     self.statuses.keys 
   end  
-  
-  # def backlog
-  #   self.select {|package| package.status == "backlog"}
-  # end
-  
-  # def in_progress
-  #   self.select {|package| package.status == "in_progress"}
-  # end
-  
-  # def ready_for_review
-  #   self.select {|package| package.status == "ready_for_review"}
-  # end
-  
-  # def complete
-  #   self.select {|package| package.status == "complete"}
-  # end
-
-  
-
-  
+ 
 end

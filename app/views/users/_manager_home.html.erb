@@ -21,7 +21,7 @@
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-900 bg-gray-200 rounded-lg "
           >
             <span>All</span>
-            <span class="text-xs font-semibold text-gray-700"><%=current_user.all_count %></span>
+            <span class="text-xs font-semibold text-gray-700"><%=current_user.all_associated_users.uniq.count %></span>
           </a>
 
         <% current_user.class.roles.keys.each do |role| %>
@@ -83,7 +83,7 @@
         </div>
         <div class="flex items-center justify-between py-2">
           <div class="flex items-center">
-            <h2 class="text-2xl font-semibold text-gray-900 leading-tight">All Packages</h2>
+            <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= current_user.name %>'s Packages</h2>
             <div class="ml-6 flex items-center">
               <span class="-ml-2 rounded-full border-2 border-white">
                 <img class="h-6 w-6 rounded-full object-cover"
