@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
   root to: "home#index"
   
+  post "accounts/new", to: "accounts#create"
+
   resources :users
-    resources :accounts
-    resources :companies
-    resources :packages
-    resources :documents
+  resources :accounts
+  resources :companies
+  resources :packages
+  resources :documents
   
 end

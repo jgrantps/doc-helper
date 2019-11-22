@@ -12,7 +12,7 @@
   <br>
 
   <p>Create a New Company</p>
-    <%= account.fields_for :company, @account.build_company do |company_fields| %>
+    <%= account.fields_for :company do |company_fields| %>
       <%= company_fields.label :name%>
       <%= company_fields.text_field :name%>
 
@@ -20,5 +20,5 @@
         <br>
 
     <% end %>
-<%=account.submit%>
+<%=account.submit %>
 <% end %>
