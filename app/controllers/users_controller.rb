@@ -5,10 +5,8 @@ class UsersController < ApplicationController
 
   
   def show
-    @user = current_user
     @account=Account.last
     @account_name = @account.name
-    
     @company = @account.name
     @packages = current_user.packages
     @contributors = @account.users

@@ -30,3 +30,13 @@ To update the tailwind custom utilities config file:
   #=> this will purge the "./public/packs" folders, which contain the updated info.
 2. restart the server.
   #=> this will force webpacker to compile it's packs, including the updated config file.
+
+
+TO DO LIST:
+
+1. Complete the sign-in/signout pages with routing.
+2. complete company, account, package pages
+  2.1 link the buttons for browsing functionality and associated routing
+3. Complete the add/edit forms.
+4. Complete the User permissions
+5. complete the OmniAuth sign-in abilities.
