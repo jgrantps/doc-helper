@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   
   def show
-    if !signed_in?
+    if signed_in?
       @account=Account.last
       @account_name = @account.name
       @company = @account.name
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       @contributors = @account.users
       @status_keys = Package.status
     else
-      redirect_to new_user_sessions_path  
+      redirect_to root_path  
     end
       
   end
