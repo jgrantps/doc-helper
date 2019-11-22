@@ -7,7 +7,7 @@
     <div class="flex justify-between">
       <p class="text-sm font-medium text-gray-900 leading-snug"> <%= package.name %></p>
       <div class="ml-6 flex items-center">
-        <%= render partial: 'avatar', :collection => package.users, as: :avatar %>
+        <%= render partial: 'users/dashboard/avatar', :collection => package.users, as: :avatar %>
       </div>
     </div>
     <div class="flex mt-2 justify-between items-baseline">

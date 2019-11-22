@@ -1,1 +1,35 @@
-<h1 class="mt-6 font-bold text-red-600 mb-10 text-xl font-bold text-gray-900 leading-tight"> Home Page For All. </h1>
+<% content_for :devise_form do %>
+  <h2 class="heading text-2xl font-bold py-2 ">Welcome To The Doc-Helper</h2>
+  <h2 class="heading text-xl font-bold pt-2 mb-4 uppercase">Please Log in</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <div class="mb-6">
+    <%= f.label :email, class:"label" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= f.label :password, class:"label" %>
+    <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
+  </div>
+
+  <div class="mb-6 flex items-center">
+    <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me, class:"mr-2 leading-tight align-middle" %>
+      <%= f.label :remember_me, class:"block text-grey-darker align-middle" %>
+    <% end -%>
+  </div>
+
+  <div class="md-6">
+    <%= f.submit "Log in", class: "btn btn-default" %>
+  </div>
+
+<% end %>
+
+<hr class="border mt-4" />
+<!-- partial shows the alternative links for forgetting passwords, resend email confirmation, etc... -->
+<%= render "devise/shared/links" %>
+<% end %>
+
+<%= render "devise/shared/form_wrap" %>
