@@ -1,4 +1,7 @@
+
+
 <div class="h-screen w-screen flex fixed">
+<!-- RIGHT HAND COLUMN -->
   <div class="w-64 px-8 bg-gray-100 border-r">
         <h2 class="text-lg font-medium py-3 mb-2 text-gray-900">DOC HELPER</h2>
     <div class="inline-flex justify-between items-center">
@@ -11,6 +14,9 @@
           <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "text-xs font-semibold text-gray-600 uppercase tracking-wide"%>
       </div>
     </div>
+
+
+    <!-- DYNAMIC SIDE MENU -->
     <div class="flex-1">
       <nav class="mt-8 flex-col">
         <% if current_user.admin?%>
@@ -18,44 +24,30 @@
         <% else %>
         <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Collaborators</h2>
         <% end %>
-        
-        <div class="mt-2">
 
+
+    <!-- USERS COUNT & MENU -->
+        <div class="mt-2"> 
+
+    <!-- counts all users in system if current_user is admin, counts all associates if current_user is contact or manager -->
           <a 
           href="#"
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-200"
           >
             <span>All</span>
-            <span class="text-xs font-semibold text-gray-700"><%=current_user.all_associated_users.uniq.count %></span>
+            <% if current_user.admin?%>
+              <span class="text-xs font-semibold text-gray-700"><%= all_users.count %></span>
+            <% else %>
+              <span class="text-xs font-semibold text-gray-700"><%=current_user.all_associated_users.uniq.count %></span>
+            <% end %>
           </a>
 
+    <!-- Tally of Associated Users Sorted By Roles. -->
         <% current_user.class.roles.keys.each do |role| %>
           <%= render partial: 'users/dashboard/user_list', locals: {:role => role}  %>
         <% end %>
-
         </div>
-
-        <h2 class="mt-8 text-xs font-semibold text-gray-600 uppercase tracking-wide">Companies</h2>
-        <div class="mt-2 -mx-3">
-          <%= render partial: 'users/dashboard/company', :collection => companies %>
-        </div>
-        <% if current_user.admin?%>
-          <button class="mt-3 py-2 px-3 flex items-center text-sm font-medium text-gray-600 border border-gray-300 rounded hover:bg-gray-200">
-            <svg class="h-5 w-5 text-gray-500" height="568.89" viewBox="0 0 426.67 426.67" width="568.89">
-              <path d="M410.67 229.33H16a16 16 0 010-32h394.67a16 16 0 010 32zm0 0" fill="#8C8C8C"/>
-              <path d="M213.33 426.67a16 16 0 01-16-16V16a16 16 0 0132 0v394.67a16 16 0 01-16 16zm0 0" fill="#8C8C8C"/>
-            </svg>
-          <span class="ml-2">New Company</span>
-          </button>
-        <% else %>
-          <button class="mt-3 py-2 px-3 flex items-center text-sm font-medium text-gray-600 border border-gray-300 rounded hover:bg-gray-200">
-            <svg class="h-5 w-5 text-gray-500" height="568.89" viewBox="0 0 426.67 426.67" width="568.89">
-              <path d="M410.67 229.33H16a16 16 0 010-32h394.67a16 16 0 010 32zm0 0" fill="#8C8C8C"/>
-              <path d="M213.33 426.67a16 16 0 01-16-16V16a16 16 0 0132 0v394.67a16 16 0 01-16 16zm0 0" fill="#8C8C8C"/>
-            </svg>
-          <span class="ml-2"><%= link_to 'New Account', new_account_path %></span>
-        </button>
-        <% end %>
+       <%= yield :data_sidebar %>
       </nav>
     </div>
   </div>
@@ -97,7 +89,9 @@
         <div class="flex items-center justify-between py-2">
           <div class="flex items-center">
             <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= title %></h2>
+
             <div class="ml-6 flex items-center">
+    <!-- main dashboard area - kanban cards, etc... -->
               <% current_user.associates.distinct.each do |associate| %>
                 <%= render partial: 'users/dashboard/avatar', locals: {:avatar => associate} %>
               <% end %>
@@ -128,18 +122,10 @@
       </header>
     </div>
     <div class="flex-1 overflow-auto">
-    <% if params[:controller] == "users" && params[:action] == "show" %>
+
+    <!-- main dashboard area - kanban cards, etc... -->
+    <%= yield :main_dataset %>
     
-      <!-- option 1 - GENERAL DASHBOARD INDEX -->
-       <%= render partial: 'users/dashboard/indexes' %> 
-      
-      <!-- option 2 - NEW ACCOUNT FORM -->
-    <% else params[:controller] == "accounts" && params[:action] == "new" %>
-     
-        <%= render partial: 'forms/new_account_via_manager'%>
-      
-    <% end %>
-      <!-- done -->
     </div>
   </div>
 </div>

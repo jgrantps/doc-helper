@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, except: [:index, :show]
   def index
-      redirect_to new_user_session_path  
+      @users = current_user.all_associated_users
   end
 
   

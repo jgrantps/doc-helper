@@ -1,3 +1,5 @@
-<%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>
-<
+<%= content_for :main_dataset do %>
+   <%= render partial: 'forms/new_account_via_manager'%>
+<% end %>
 
+<%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>

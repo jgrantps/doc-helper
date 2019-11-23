@@ -24,10 +24,48 @@ class User < ApplicationRecord
   end
 
   def all_associated_users
-    self.associates.where.not(name: "#{self.name}")
+    if self.admin?
+      User.where.not(name: "#{self.name}")
+    else
+      self.associates.where.not(name: "#{self.name}")
+    end
   end
   
   def associated_users(var)
     self.associates.where(role: var).where.not(name: "#{self.name}")
   end
+
+  def domain
+    case self.role
+      when "admin"
+        return "Companies"
+      when "manager"
+        return "Companies"
+      when "contact"
+        return "Accounts"
+    end
+  end
+  
+  def author
+    case self.role
+      when "admin"
+        return "company"
+      when "manager"
+        return "account"
+      when "contact"
+        return ""
+    end
+  end
+
+  def domains
+    case self.role
+      when "admin"
+       return Company.all
+      when "manager"
+       return self.companies
+      when "contact"
+       return self.accounts
+    end
+  end
+
 end

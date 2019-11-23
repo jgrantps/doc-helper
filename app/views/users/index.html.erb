@@ -1,2 +1,7 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+
+<%= content_for :main_dataset do %>
+  <%= render partial: 'users/dashboard/user_profiles', locals: {users: @users} %> 
+<% end %>
+
+
+<%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>
