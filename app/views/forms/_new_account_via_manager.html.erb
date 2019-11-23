@@ -1,4 +1,4 @@
-<%= form_for(@account) do |account| %>
+<%= form_for(@account), html: {class: 'bolds'} do |account| %>
   <%= account.label :name %>
   <%= account.text_area :name %>
 
@@ -10,7 +10,7 @@
 
   <br>
   <br>
-
+<!-- NESTED FORM FOR NEW COMPANY -->
   <p>Create a News Company</p>
     <%= account.fields_for :company do |company_fields| %>
       <%= company_fields.label :name%>
@@ -20,5 +20,17 @@
         <br>
 
     <% end %>
+<!-- NESTED FORM FOR NEW PACKAGE -->
+    <p>Add new packages</p>
+    <%= account.fields_for :packages do |package_fields| %>
+      <%= package_fields.label :name %>
+      <%= package_fields.text_area :name %>
+      <br>
+      <br>
+      <%= package_fields.label :due_date %>
+      <%= package_fields.text_area :due_date %>
+
+    <% end %>
+
 <%=account.submit %>
 <% end %>

@@ -5,13 +5,18 @@ class Account < ApplicationRecord
   has_many :documents, through: :packages
   has_many :positions, through: :company
   has_many :users, through: :positions
-  accepts_nested_attributes_for :company
-  
+  accepts_nested_attributes_for :company, reject_if: proc {|attributes| attributes['name'].blank?}
+  accepts_nested_attributes_for :packages
+
   def users
     self.company.users
   end
 
-
+  def package_attributes=(attributes)
+    attributes.values.each do |v|
+      self.packages << Package.find_or_create_by(v)
+    end
+  end
 
 
 end

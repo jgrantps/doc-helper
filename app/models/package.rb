@@ -3,9 +3,11 @@ class Package < ApplicationRecord
   has_many :package_comments
   belongs_to :account 
   
-
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
+  validates :name, presence: true
   
+
+
   def company 
    self.account.company 
   end
