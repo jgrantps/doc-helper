@@ -1,36 +1,43 @@
-<%= form_for(@account), html: {class: 'bolds'} do |account| %>
-  <%= account.label :name %>
-  <%= account.text_area :name %>
+<main class="py-5  w-full item-center inline-flex">
+  <div class="w-full h-auto item-center">
 
-  <br>
-  <br>
-
-  <%=account.label :company_id, "Company" %>
-  <%=account.collection_select :company_id, Company.all, :id, :name, prompt: true%>
-
-  <br>
-  <br>
-<!-- NESTED FORM FOR NEW COMPANY -->
-  <p>Create a News Company</p>
-    <%= account.fields_for :company do |company_fields| %>
-      <%= company_fields.label :name%>
-      <%= company_fields.text_field :name%>
-
-        <br>
-        <br>
-
-    <% end %>
-<!-- NESTED FORM FOR NEW PACKAGE -->
-    <p>Add new packages</p>
-    <%= account.fields_for :packages do |package_fields| %>
-      <%= package_fields.label :name %>
-      <%= package_fields.text_area :name %>
+    <%= form_for(@account, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |account| %>
+      <div class="flex item-center">
+        <%= account.label :name, "Account Name:",class: 'text-xl item-center text-gray-900 mr-4 leading-tight' %>
+        <%= account.text_field :name, class:'border border-gray-250 rounded' %>
+      </div>
       <br>
       <br>
-      <%= package_fields.label :due_date %>
-      <%= package_fields.text_area :due_date %>
 
+      <%=account.label :company_id, "Associated Company" %>
+      <%=account.collection_select :company_id, Company.all, :id, :name, prompt: true%>
+
+      <br>
+      <br>
+    <!-- NESTED FORM FOR NEW COMPANY -->
+      <p class="company field title">Create a News Company</p>
+        <%= account.fields_for :company do |company_fields| %>
+        <div class="nested_fields">
+          <%= company_fields.label :name%>
+          <%= company_fields.text_field :name, class: 'fields'%>
+        </div>
+            <br>
+            <br>
+
+        <% end %>
+    <!-- NESTED FORM FOR NEW PACKAGE -->
+        <p>Add new packages</p>
+        <%= account.fields_for :packages do |package_fields| %>
+          <%= package_fields.label :name %>
+          <%= package_fields.text_area :name %>
+          <br>
+          <br>
+          <%= package_fields.label :due_date %>
+          <%= package_fields.text_area :due_date %>
+
+        <% end %>
+
+    <%=account.submit %>
     <% end %>
-
-<%=account.submit %>
-<% end %>
+  </div>
+</main>

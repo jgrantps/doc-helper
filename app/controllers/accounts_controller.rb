@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   def new
+    @title = "Add New Account:"
     @account = Account.new
     @account.build_company
     3.times {@account.packages.build}

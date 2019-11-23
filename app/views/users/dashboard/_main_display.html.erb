@@ -96,7 +96,7 @@
         </div>
         <div class="flex items-center justify-between py-2">
           <div class="flex items-center">
-            <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= current_user.name.titleize %>'s Packages</h2>
+            <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= title %></h2>
             <div class="ml-6 flex items-center">
               <% current_user.associates.distinct.each do |associate| %>
                 <%= render partial: 'users/dashboard/avatar', locals: {:avatar => associate} %>
@@ -130,14 +130,14 @@
     <div class="flex-1 overflow-auto">
     <% if params[:controller] == "users" && params[:action] == "show" %>
     
-      <!-- option 1 - GENERAL INDEX -->
+      <!-- option 1 - GENERAL DASHBOARD INDEX -->
        <%= render partial: 'users/dashboard/indexes' %> 
       
-      <!-- option 2 - ACCOUNT FORM -->
+      <!-- option 2 - NEW ACCOUNT FORM -->
     <% else params[:controller] == "accounts" && params[:action] == "new" %>
-      <main class="p-3 inline-flex">
+     
         <%= render partial: 'forms/new_account_via_manager'%>
-      </main>
+      
     <% end %>
       <!-- done -->
     </div>
