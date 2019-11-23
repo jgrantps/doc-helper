@@ -3,5 +3,18 @@
   <%= render partial: 'users/dashboard/user_profiles', locals: {users: @users} %> 
 <% end %>
 
+<%= content_for :upper_block do %>
+  <%= render partial: 'users/dashboard/upper_block' %>
+<% end %>
+
+<%= content_for :data_sidebar do %>
+  <%= render partial: 'users/dashboard/data_sidebar', locals: {} %>
+<% end %>
+
+
+<!-- controls rendering of user sidebar -->
+<%= content_for :user_sidebar do %>
+  <%= render partial: 'users/dashboard/user_sidebar', locals: {} %>
+<% end %>
 
 <%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>

@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_packages
-    current_user.packages
+    if current_user.admin?
+      Package.all
+    else
+      current_user.packages
+    end
   end
   
   def resource_name

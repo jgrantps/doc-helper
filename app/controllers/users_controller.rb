@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, except: [:index, :show]
+ 
   def index
+    
       @users = current_user.all_associated_users
+      @title = "#{current_user.name}'s Packages"
   end
 
   
@@ -11,8 +14,7 @@ class UsersController < ApplicationController
       @title = "#{current_user.name}'s Packages"
     else
       redirect_to root_path  
-    end
-      
+    end      
   end
   
   def update
