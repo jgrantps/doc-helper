@@ -1,4 +1,4 @@
-<%= form_for(:account) do |account| %>
+<%= form_for(@account) do |account| %>
   <%= account.label :name %>
   <%= account.text_area :name %>
 
@@ -11,7 +11,7 @@
   <br>
   <br>
 
-  <p>Create a New Company</p>
+  <p>Create a News Company</p>
     <%= account.fields_for :company do |company_fields| %>
       <%= company_fields.label :name%>
       <%= company_fields.text_field :name%>

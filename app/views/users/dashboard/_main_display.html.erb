@@ -136,7 +136,7 @@
       <!-- option 2 - ACCOUNT FORM -->
     <% else params[:controller] == "accounts" && params[:action] == "new" %>
       <main class="p-3 inline-flex">
-        <%= render partial: 'forms/new_account_via_manager', locals: {:account => @account} %>
+        <%= render partial: 'forms/new_account_via_manager'%>
       </main>
     <% end %>
       <!-- done -->
