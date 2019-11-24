@@ -41,7 +41,7 @@
 
         <div class="ml-6 flex items-center">
 
-          <% current_user.associates.distinct.each do |associate| %>
+          <% current_user.all_associated_users.send(colleague_type).distinct.each do |associate| %>
             <%= render partial: 'users/dashboard/avatar', locals: {:avatar => associate} %>
           <% end %>
         </div>

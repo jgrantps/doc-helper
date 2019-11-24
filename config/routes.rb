@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   
   post "accounts/new", to: "accounts#create"
-  get  "users/all", to: "users#index"
-  get  "users/managers", to: "users#filtered"
-  get  "users/admins", to: "users#filtered"
-  get  "users/contacts", to: "users#filtered"
   
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
@@ -16,11 +12,10 @@ Rails.application.routes.draw do
   
   
   resources :users do
-    post "/:id", to: "users#index_request"
-    get  "/all", to: "users#index"
-    get  "/managers", to: "users#filtered"
-    get  "/admins", to: "users#filtered"
-    get  "/contacts", to: "users#filtered"
+    get  "/all", to: "users#all"
+    get  "/managers", to: "users#managers"
+    get  "/admins", to: "users#admins"
+    get  "/contacts", to: "users#contacts"
   end
   resources :accounts
   resources :companies

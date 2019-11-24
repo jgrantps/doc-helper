@@ -1,12 +1,12 @@
 <%# passed to "users/dashboard/main_display" to be rendered in users/index view %>
 
 <main class="p-3 inline-flex">
-  <% user_role_types.each do |user_roles| %>
+  <% ary.each do |ary_element| %>
     <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
-      <h3 clas="text-sm font-medium text-gray-900"><%= user_roles.titleize %></h3>
+      <h3 clas="text-sm font-medium text-gray-900"><%= ary_element.titleize %></h3>
       <ul class="mt-2">
         <li class="mt-3">  
-          <% current_user.associates.send(user_roles).distinct.each do |associate| %>
+          <% current_user.associates.send(ary_element).distinct.each do |associate| %>
             <%= render partial: 'users/dashboard/package', locals: {:user_profiles => "user_profiles", :package => associate, :status => "role", :name => "name", :users => "associates"}%>  
            <% end %>
         </li>            

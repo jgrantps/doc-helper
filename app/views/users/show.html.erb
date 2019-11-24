@@ -1,6 +1,6 @@
 <%# controls rendering of top ribbon %>
 <%= content_for :upper_block do %>
-  <%= render partial: 'users/dashboard/upper_block', locals: {} %>
+  <%= render partial: 'users/dashboard/upper_block', locals: {:colleague_type => "all"} %>
 <% end %>
 
 

@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: [:index, :show, :filtered]
+  before_action :authorize_admin, except: [:index, :show, :filtered, :managers, :contacts, :admins, :all]
  
   def index
-    
       @users = current_user.all_associated_users
       @title = "#{current_user.name}'s Packages"
   end
@@ -16,18 +15,33 @@ class UsersController < ApplicationController
       redirect_to root_path  
     end      
   end
-
-  def filtered
-    byebug
-  end
-
-  def index_request
-     byebug
-  end
   
   def update
   end
   
   def edit
   end
+
+  # ---- actions to filter sorted users based on current_user ----
+  def all 
+    @users = current_user.all_associated_users
+      @title = "All of #{current_user.name}'s Colleagues"
+  end
+  
+  def managers 
+    @users = current_user.all_associated_users
+      @title = "#{current_user.name}'s Manager Colleagues"
+  end
+
+  def admins
+    @users = current_user.all_associated_users
+      @title = "#{current_user.name}'s Admin Colleagues"
+  end
+
+  def contacts
+    @users = current_user.all_associated_users
+      @title = "#{current_user.name}'s Contacts"
+  end
+
+
 end
