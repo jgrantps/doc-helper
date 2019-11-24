@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :all_users, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  helper_method :user_role_types, :all_users, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   
   def all_users
     User.all
   end
 
+  def user_role_types
+    return User.roles.keys
+  end
 
   def package_status
    return Package.status
