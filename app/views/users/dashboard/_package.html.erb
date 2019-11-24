@@ -15,8 +15,19 @@
     <div class="flex justify-between">
       <p class="text-sm font-medium text-gray-900 leading-snug"> <%= package.name %></p>
       <div class="ml-6 flex items-center">
-      
-             <%= render partial: 'users/dashboard/avatar', :collection => package.send(users), as: :avatar %>
+
+       <% if local_assigns.has_key? :user_profiles %>
+        
+        <% package.send(users).distinct.first(5).each do |user| %>
+          <%= render partial: 'users/dashboard/avatar', locals: {:avatar => user} %>
+        <% end %>
+
+      <% else %>
+
+        <%= render partial: 'users/dashboard/avatar', :collection => package.send(users), as: :avatar %>
+
+      <% end %>
+
       </div>
     </div>
     <div class="flex mt-2 justify-between items-baseline">
@@ -29,7 +40,7 @@
           <circle cx="4" cy="4" r="3" />
           </svg>
 
-          <% if local_assigns.has_key? :account%>
+          <% if local_assigns.has_key? :account %>
             <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.send(account).name %></span>
           <% else %>
             <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.name %></span>
