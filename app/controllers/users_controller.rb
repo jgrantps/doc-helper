@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: [:index, :show]
+  before_action :authorize_admin, except: [:index, :show, :filtered]
  
   def index
     
@@ -15,6 +15,14 @@ class UsersController < ApplicationController
     else
       redirect_to root_path  
     end      
+  end
+
+  def filtered
+    byebug
+  end
+
+  def index_request
+     byebug
   end
   
   def update

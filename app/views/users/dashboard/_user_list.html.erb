@@ -3,14 +3,18 @@
 
 <% if current_user.admin?%>
 
-  <a href="/users/<%= current_user.id %>/<%= role %>" class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200">
-      <span id="test" class="text-sm font-medium text-gray-700"><%= role.titleize+"s"%></span>
+  <a href="/users/<%= current_user.id %>/<%= role %>s", method="post", action="selected_status" class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200">
+      <span class="text-sm font-medium text-gray-700"><%= role.titleize+"s"%></span>
       <span class="text-xs font-semibold text-gray-700"><%= User.where(role: role).distinct.count %></span>
   </a>
 
+<%= form_for:role, :html => {:class=> "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200"}, do |f| %>
+  
+<% end %>
+
 <% else%>
  
-  <a href="/users/<%= current_user.id %>/<%= role %>" class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200">
+  <a href="/users/<%= current_user.id %>/<%= role %>s" method="post" action="selected_status" class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200">
       <span id="test" class="text-sm font-medium text-gray-700"><%= role.titleize+"s"%></span>
       <span class="text-xs font-semibold text-gray-700"><%= current_user.associated_users(role).distinct.count %></span>
   </a>
