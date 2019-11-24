@@ -1,11 +1,11 @@
-<!-- passed to "users/dashboard/main_display" via yielded "content_for :user_sidebar" block in view files-->
-<!-- passes a further partial if current_user.admin? == false -->
+<%# passed to "users/dashboard/main_display" via yielded "content_for :user_sidebar" block in view files%>
+<%# passes a further partial if current_user.admin? == false %>
 
 
 
 <div class="mt-2"> 
 
-    <!-- Counts ALL USERS!!! -->
+    <%# Counts ALL USERS!!! %>
           <a 
           href="/users"
           class="flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-900 rounded-lg hover:bg-gray-200"
@@ -18,7 +18,7 @@
             <% end %>
           </a>
 
-    <!-- lower level tally of Associated Users sorted By roles. -->
+    <%# lower level tally of Associated Users sorted By roles. %>
         <% current_user.class.roles.keys.each do |role| %>
           <%= render partial: 'users/dashboard/user_list', locals: {:role => role}  %>
         <% end %>
