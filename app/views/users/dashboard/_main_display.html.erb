@@ -1,4 +1,5 @@
-
+<!-- passed to view files as primary renderLayer -->
+<!-- accepts all "content_for..." blocks and partials -->
 
 <div class="h-screen w-screen flex fixed">
 <!-- RIGHT HAND COLUMN -->
@@ -39,9 +40,10 @@
   <div class="flex-1 min-w-0 flex flex-col bg-white">
       <!-- search bar, title block, "new package button"... -->
     <%= yield :upper_block %>    
+    
     <div class="flex-1 overflow-auto">
       <!-- main dashboard area - kanban cards, etc... -->
-      <%= yield :main_dataset %>    
+      <%= yield :main_panel %>    
     </div>
   </div>
 </div>

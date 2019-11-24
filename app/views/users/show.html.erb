@@ -1,9 +1,11 @@
+<!-- controls rendering of top ribbon -->
 <%= content_for :upper_block do %>
-  <%= render partial: 'users/dashboard/upper_block' %>
+  <%= render partial: 'users/dashboard/upper_block', locals: {} %>
 <% end %>
 
-<%= content_for :main_dataset do %>
-  <%= render partial: 'users/dashboard/indexes' %> 
+<!-- controls rendering of main interactive section -->
+<%= content_for :main_panel do %>
+  <%= render partial: 'users/dashboard/indexes', locals: {} %> 
 <% end %>
 
 <!-- controls rendering of data sidebar -->

@@ -1,9 +1,9 @@
-<%= content_for :main_dataset do %>
-   <%= render partial: 'forms/new_account_via_manager'%>
+<%= content_for :main_panel do %>
+   <%= render partial: 'forms/new_account_via_manager', locals: {}%>
 <% end %>
 
 <%= content_for :upper_block do %>
-  <%= render partial: 'users/dashboard/upper_block' %>
+  <%= render partial: 'users/dashboard/upper_block', locals: {} %>
 <% end %>
 
 <%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>
