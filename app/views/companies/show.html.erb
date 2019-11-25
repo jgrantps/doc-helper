@@ -18,7 +18,7 @@
 
 <%# controls rendering of user sidebar %>
 <%= content_for :user_sidebar do %>
-  <%= render partial: 'companies/dashboard/user_sidebar', locals: {} %>
+  <%= render partial: 'companies/dashboard/user_sidebar', locals: {:users => @company.users, :company => @company} %>
 <% end %>
     
 
