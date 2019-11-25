@@ -3,8 +3,6 @@
   <%= render partial: 'users/dashboard/upper_block', locals: {:colleague_type => "all"} %>
 <% end %>
 
-
-
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
   <%= render partial: 'users/dashboard_index/user_profiles', locals: {:ary => ["manager", "contact", "admin"]} %> 

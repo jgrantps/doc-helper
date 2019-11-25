@@ -1,0 +1,54 @@
+<%# passed through "users/dashboard/indexes" to "users/dashboard/main_display" via yielded "content_for" block in view files%>
+<%# displays all attribute data for current_user.packages %>
+
+<li class="mt-3">
+  <a href="#"class="block p-5 bg-white rounded-lg shadow">
+    <div class="flex justify-left py-2 mb-4">
+
+     <% if local_assigns.has_key? :company%>
+      <h2 class="text-sm font-medium font-bold text-gray-900"><%= package.send(company).send(name).upcase %></h2>
+    <% else %>
+      <h2 class="text-sm font-medium font-bold text-gray-900"><%= package.send(name).upcase %></h2>
+    <% end %>
+
+    </div>
+    <div class="flex justify-between">
+      <p class="text-sm font-medium text-gray-900 leading-snug"> Insert Documents here!<%# package.name %></p>
+      <div class="ml-6 flex items-center">
+
+       <% if local_assigns.has_key? :user_profiles %>
+        
+        <% package.send(users).distinct.first(5).each do |user| %>
+          <%= render partial: 'users/dashboard/avatar', locals: {:avatar => user} %>
+        <% end %>
+
+      <% else %>
+
+        <%= render partial: 'users/dashboard/avatar', :collection => package.send(users), as: :avatar %>
+
+      <% end %>
+
+      </div>
+    </div>
+    <div class="flex mt-5 justify-between items-center">
+      <div class="text-sm text-gray-600">
+      
+      <div class="flex items-center">
+      <svg class="h-3 w-3 text-gray-500 mr-2" height="568.89" viewBox="0 0 426.67 426.67" width="568.89">
+          <path d="M410.67 229.33H16a16 16 0 010-32h394.67a16 16 0 010 32zm0 0" fill="#8C8C8C"></path>
+          <path d="M213.33 426.67a16 16 0 01-16-16V16a16 16 0 0132 0v394.67a16 16 0 01-16 16zm0 0" fill="#8C8C8C"></path>
+        </svg>
+        <h1 class="text-xs font-medium font-bold text-gray-500 uppercase">add a new document</h1>
+        </div>
+      </div>
+      <div>
+        <span class="px-2 inline-flex items-center bg-teal-100 rounded">
+          <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+          <circle cx="4" cy="4" r="3" />
+          </svg>
+            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.status.titleize %></span>
+        </span>
+      </div>
+    </div>
+  </a>
+</li>

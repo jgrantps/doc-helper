@@ -38,11 +38,11 @@ class User < ApplicationRecord
   def domain
     case self.role
       when "admin"
-        return "Companies"
+        return "company"
       when "manager"
-        return "Companies"
+        return "company"
       when "contact"
-        return "Accounts"
+        return "account"
     end
   end
   

@@ -16,9 +16,9 @@ Rails.application.routes.draw do
     get  "/managers", to: "users#managers"
     get  "/admins", to: "users#admins"
     get  "/contacts", to: "users#contacts"
+    resources :companies
   end
   resources :accounts
-  resources :companies
   resources :packages
   resources :documents
   
