@@ -15,4 +15,14 @@ class Company < ApplicationRecord
   def involved_users
     self.users  
   end
+  
+  def involved_positions
+    data = {}
+    self.positions.each do |position|
+      data.merge!("#{position.user.name}" => "#{position.title}")
+    end
+    data
+  end
+
+
 end

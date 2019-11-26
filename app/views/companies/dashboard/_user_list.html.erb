@@ -1,7 +1,6 @@
 <%# passed to "_user_sidebar.html.erb through "main_display.html.erb" via yielded "content_for :user_sidebar" block in view files %>
 <%# renders clickable tallies of different user types associated with current_user %>
 
-
 <%= link_to [@company, "users", role.pluralize], :class => "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200" do %>
   <span id="test" class="text-sm font-medium text-gray-700"><%= role.titleize+"s"%></span>
   <span class="text-xs font-semibold text-gray-700"><%= @company.users.where(:role => role).distinct.count %></span>

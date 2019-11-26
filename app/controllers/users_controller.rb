@@ -30,7 +30,13 @@ class UsersController < ApplicationController
   
   def managers 
     @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Manager Colleagues"
+    @title = "#{current_user.name}'s Manager Colleagues"
+    if params[:company_id]
+      @company = Company.find(params[:company_id])
+    end  
+    byebug
+    
+
   end
 
   def admins

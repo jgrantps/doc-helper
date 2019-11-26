@@ -23,10 +23,10 @@ Rails.application.routes.draw do
   end
   
   resources :companies do
-    get  "users/all", to: "users#all"
-    get  "users/managers", to: "users#managers"
-    get  "users/admins", to: "users#admins"
-    get  "users/contacts", to: "users#contacts"
+    get  "users/all", to: "companies#all"
+    get  "users/managers", to: "companies#managers"
+    get  "users/admins", to: "companies#admins"
+    get  "users/contacts", to: "companies#contacts"
   end
 
 
