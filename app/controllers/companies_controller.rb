@@ -36,9 +36,6 @@ class CompaniesController < ApplicationController
     @company = Company.find(company_params[:company_id])
     @title = "#{@company.name}'s Managers"
   
-    
-    
-
   end
 
   def admins

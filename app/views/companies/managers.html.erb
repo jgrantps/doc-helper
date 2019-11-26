@@ -1,6 +1,9 @@
 <%# controls rendering of top ribbon %>
+
+
 <%= content_for :upper_block do %>
   <%= render partial: 'companies/dashboard/upper_block', locals: {:user_role => "manager"} %>
+
 <% end %>
 
 
