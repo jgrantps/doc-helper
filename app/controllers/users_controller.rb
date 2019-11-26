@@ -34,7 +34,6 @@ class UsersController < ApplicationController
     if params[:company_id]
       @company = Company.find(params[:company_id])
     end  
-    byebug
     
 
   end

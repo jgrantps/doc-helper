@@ -28,28 +28,27 @@ class CompaniesController < ApplicationController
   # ---- actions to filter sorted users based on current_user ----
   def all 
     @users = current_user.all_associated_users
-      @title = "All of #{current_user.name}'s Colleagues"
+      @title = "All of #{@company.name}'s Colleagues"
   end
   
   def managers 
     
-    @title = "#{current_user.name}'s Manager Colleagues"
-    if params[:company_id]
-      @company = Company.find(company_params[:company_id])
-    end  
-    byebug
+    @company = Company.find(company_params[:company_id])
+    @title = "#{@company.name}'s Managers"
+  
+    
     
 
   end
 
   def admins
     @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Admin Colleagues"
+      @title = "#{@company.name}'s Admin Colleagues"
   end
 
   def contacts
     @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Contacts"
+      @title = "#{@company.name}'s Contacts"
   end
 
 private
