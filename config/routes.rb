@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
   post "accounts/new", to: "accounts#create"
+
+  #garbage routes for testing
   
+
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
     invitations: 'invitations'
