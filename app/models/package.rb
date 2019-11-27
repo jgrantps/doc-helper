@@ -9,8 +9,10 @@ class Package < ApplicationRecord
 
 
   def company 
-   self.account.company 
+   account.company 
   end
+  
+  
   
   def title 
     titles = company.positions.map {|position| position.title }

@@ -2,6 +2,9 @@
 <%# displays all attribute data for current_user.packages %>
 
 <li class="mt-3">
+  <!-- link_to user_package_path for url: IE "users/9/packages/21"-->
+  <%= link_to [current_user, package], :class => "block p-5 bg-white rounded-lg shadow" do %>
+
   <a href="#"class="block p-5 bg-white rounded-lg shadow">
     <div class="flex justify-left py-2 mb-4">
 
@@ -50,4 +53,5 @@
       </div>
     </div>
   </a>
+  <% end %>
 </li>

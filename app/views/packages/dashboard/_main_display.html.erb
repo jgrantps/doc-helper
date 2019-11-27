@@ -1,0 +1,49 @@
+<%# passed to view files as primary renderLayer %>
+<%# accepts all "content_for..." blocks and partials %>
+
+<div class="h-screen w-screen flex fixed">
+<%# RIGHT HAND COLUMN %>
+  <div class="w-64 px-8 bg-gray-100 border-r">
+        <h2 class="text-lg font-medium py-3 mb-2 text-gray-900"><%= link_to 'DOC HELPER', root_path %></h2>
+    <div class="inline-flex justify-between items-center">
+        <img class="object-contain h-1/3 w-1/3 " src="https://course_report_production.s3.amazonaws.com/rich/rich_files/rich_files/999/s300/flatironschool.png" alt="Logo" >
+      <div class="flex-col text-right content-between">
+        <div class="flex-col">
+          <h2 class="text-sm font-medium text-gray-700 ">Signed In As:</h2>
+           <h2 class="text-sm font-medium text-gray-700 leading-tight"><%= current_user.name.titleize %></h2>
+        </div>
+          <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "text-xs font-semibold text-gray-600 uppercase tracking-wide"%>
+      </div>
+    </div>
+
+
+    <%# DYNAMIC SIDE MENU %>
+    <div class="flex-1">
+      <nav class="mt-8 flex-col">
+        <% if current_user.admin?%>
+        <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Users</h2>
+        <% else %>
+        <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Collaborators</h2>
+        <% end %>
+
+
+    <%# Menu Tally of all Users associated with current_user %>
+      <%= yield :user_sidebar %>
+        
+    <%# Menu Tally of all Companies OR Accounts associated with current_user %>
+       <%= yield :data_sidebar %>
+      </nav>
+    </div>
+  </div>
+
+
+  <div class="flex-1 min-w-0 flex flex-col bg-white">
+      <%# search bar, title block, "new package button"... %>
+    <%= yield :upper_block %>    
+    
+    <div class="flex-1 overflow-auto">
+      <%# main dashboard area - kanban cards, etc... %>
+      <%= yield :main_panel %>    
+    </div>
+  </div>
+</div>
