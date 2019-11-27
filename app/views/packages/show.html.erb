@@ -7,7 +7,7 @@
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'packages/dashboard/company_profiles', locals: {:ary => @package.users} %> 
+  <%= render partial: 'packages/dashboard/company_profiles', locals: {:ary => ["manager"] %> 
 <% end %>
 
 <%# controls rendering of data sidebar %>
