@@ -1,2 +1,32 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%# controls rendering of top ribbon %>
+<%= content_for :upper_block do %>
+  <%= render partial: 'users/dashboard/upper_block', locals: {:colleague_type => "all"} %>
+<% end %>
+
+
+
+<%# controls rendering of main interactive section %>
+<%= content_for :main_panel do %>
+  <%= render partial: 'users/dashboard/indexes', locals: {} %> 
+<% end %>
+
+<%# controls rendering of data sidebar %>
+<%= content_for :data_sidebar do %>
+  <%= render partial: 'users/dashboard/data_sidebar', locals: {} %>
+<% end %>
+
+
+<%# controls rendering of user sidebar %>
+<%= content_for :user_sidebar do %>
+  <%= render partial: 'users/dashboard/user_sidebar', locals: {} %>
+<% end %>
+    
+
+<%# Primary RenderLayer for the page (_main_display.html.erb) %>
+<div>
+  <% if current_user.admin? %>
+    <%= render partial: 'users/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
+  <% else%>
+    <%= render partial: 'users/dashboard/main_display', locals: {:packages => @packages, :title => @title} %> 
+  <% end %>
+</div>

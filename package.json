@@ -1,6 +1,9 @@
 {
   "name": "doc_helper",
   "private": true,
+  "scripts": {
+    "build:css": "tailwind build ./app/javascript/stylesheets/application.scss -o ./app/assets/stylesheets/application.css"
+  },
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",

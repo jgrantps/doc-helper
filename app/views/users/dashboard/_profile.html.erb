@@ -1,0 +1,30 @@
+<%# passed to "users/dashboard/main_display" via yielded "content_for :user_" %>
+
+
+<li class="mt-3">
+  <a href="#"class="block p-5 bg-white rounded-lg shadow">
+    <div class="flex justify-left py-2 mb-4">
+     
+    <h2 class="text-sm font-medium font-bold text-gray-900"><%= package.company.name.upcase %></h2>
+    </div>
+    <div class="flex justify-between">
+      <p class="text-sm font-medium text-gray-900 leading-snug"> <%= package.name %></p>
+      <div class="ml-6 flex items-center">
+        <%= render partial: 'users/dashboard/avatar', :collection => package.users, as: :avatar %>
+      </div>
+    </div>
+    <div class="flex mt-2 justify-between items-baseline">
+      <div class="text-sm text-gray-600">
+        <time datetime="2019-09-14"><%= package.status.titleize %></time>
+      </div>
+      <div>
+        <span class="px-2 inline-flex items-center bg-teal-100 rounded">
+          <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
+          <circle cx="4" cy="4" r="3" />
+          </svg>
+          <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.account.name %></span>
+        </span>
+      </div>
+    </div>
+  </a>
+</li>

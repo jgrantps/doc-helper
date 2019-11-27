@@ -1,2 +1,20 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+
+<%= content_for :main_panel do %>
+  <%= render partial: 'users/dashboard_index/user_profiles', locals: {users: @users} %> 
+<% end %>
+
+<%= content_for :upper_block do %>
+  <%= render partial: 'users/dashboard/upper_block', locals: {} %>
+<% end %>
+
+<%= content_for :data_sidebar do %>
+  <%= render partial: 'users/dashboard/data_sidebar', locals: {} %>
+<% end %>
+
+
+<!-- controls rendering of user sidebar -->
+<%= content_for :user_sidebar do %>
+  <%= render partial: 'users/dashboard/user_sidebar', locals: {} %>
+<% end %>
+
+<%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>

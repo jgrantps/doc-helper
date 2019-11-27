@@ -1,0 +1,72 @@
+<%# passed to "users/dashboard/main_display" via yielded "content_for :upper_block" block in view file %>
+<%# displays upper ribbon in browser, includeing search bar, "new package" button, etc... %>
+<%# Iterates on "users/dashboard/avatar" partial for avatar imaging %>
+
+
+<div class="flex-shrink-0 border-b-2 border-gray-200">
+  <header class="px-6 ">
+    <div class="flex justify-between items-center py-3 border-b border-gray-200">
+      <div class="">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-1 flex items-center">
+            <svg class="pl-2 h-6 w-6 text-gray-600" viewBox="0 0 53 53">
+              <path d="M51.7 51.3L36.8 35.8A21 21 0 0022 0a21 21 0 1013.4 37.2l14.9 15.5a1 1 0 001.4 0c.4-.4.4-1 0-1.4zM22 40a19 19 0 110-38 19 19 0 010 38z"/>
+            </svg>
+          </span>
+          <input class="block w-full max-w-xs rounded-lg border border-gray-400 pl-10 pr-4 py-1 text-sm text-gray-900 placeholder-gray-600" type="text" 
+          placeholder="search">
+        </div>
+      </div>
+      <div class="flex items-center">
+        <button>
+          <svg class="h-5 w-5 text-gray-900" viewBox="0 0 380.1 380.1">
+            <path d="M319.5 278.5h-2.8V160a127.2 127.2 0 00-86.8-120h.2a40 40 0 00-80 0 127.2 127.2 0 00-86.7 120.2v118.4h-2.7c-8.2 0-16 3.3-21.8 9l-.3.4a30.6 
+            30.6 0 0022 52.2h98.6v9c0 8.2 3.2 16 9 21.8l.4.4a30.8 30.8 0 0052.4-22.2v-9h98.5a30.7 30.7 0 0030.8-31c0-17-13.8-30.7-30.8-30.7zM184 15c15-3.2 29.8 
+            6.3 33.1 21.3-7.2-1.6-14.5-2.6-21.8-2.9H185.5c-7.6.3-15.2 1.2-22.6 2.9A27.8 27.8 0 01184 15zm-108.5 145a114.8 114.8 0 01110-114.4h4.5v.1h4.4c61.3 
+            2.5 109.8 53 110 114.4v118.3h-229V160zm127.7 202.1a18.7 18.7 0 01-26.2.3l-.3-.3a18.7 18.7 0 01-5.5-13.2v-9h37.5v9c0 5-2 9.7-5.5 13.2zm129.4-39.8a18.6
+              18.6 0 01-13.2 5.4H60.7a18.6 18.6 0 01-13.5-31.4l.3-.3c3.5-3.5 8.2-5.4 13.1-5.5h258.9a18.7 18.7 0 0113.2 31.8z"/>
+          </svg>
+        </button>
+        <button class="ml-6">
+        <img 
+        class="h-6 w-6 rounded-full object-cover"
+        src="<%= current_user.url %>"
+        alt="your profile photo">
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between py-2">
+      <div class="flex items-center">
+        <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @title %></h2>
+
+        <div class="ml-6 flex items-center">
+
+          <% @company.users.where(:role => user_role).each do |user| %>
+            <%= render partial: 'users/dashboard/avatar', locals: {:avatar => user} %>
+          <% end %>
+        </div>
+      </div>
+      <div class="flex">
+        <span class="inline-flex p-1 bg-gray-200 border rounded-lg items-center">
+          <button class="px-2 py-1 rounded">
+            <svg class="h-5 w-5 text-gray-600 " viewBox="0 0 128 128" >
+              <path d="M112 6H12C5.4 6 0 11.4 0 18s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12zM112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12zM112 94H12c-6.6 0-12 5.4-12 12s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"/>
+            </svg>
+          </button>  
+          <button class="px-2 py-1  bg-white rounded shadow">
+            <svg class="h-5 w-5 text-gray-600 " viewBox="0 0 271.673 271.673">
+              <path d="M114.939 0H10.449C4.678 0 0 4.678 0 10.449v104.49c0 5.771 4.678 10.449 10.449 10.449h104.49c5.771 0 10.449-4.678 10.449-10.449V10.449C125.388 4.678 120.71 0 114.939 0zM261.224 0h-104.49c-5.771 0-10.449 4.678-10.449 10.449v104.49c0 5.771 4.678 10.449 10.449 10.449h104.49c5.771 0 10.449-4.678 10.449-10.449V10.449C271.673 4.678 266.995 0 261.224 0zM114.939 146.286H10.449C4.678 146.286 0 150.964 0 156.735v104.49c0 5.771 4.678 10.449 10.449 10.449h104.49c5.771 0 10.449-4.678 10.449-10.449v-104.49c0-5.771-4.678-10.449-10.449-10.449zM261.224 146.286h-104.49c-5.771 0-10.449 4.678-10.449 10.449v104.49c0 5.771 4.678 10.449 10.449 10.449h104.49c5.771 0 10.449-4.678 10.449-10.449v-104.49c0-5.771-4.678-10.449-10.449-10.449z"/>
+            </svg>
+          </button>  
+        </span>
+        <button class="ml-5 px-4 py-2 flex items-center text-sm font-medium text-white bg-gray-800 rounded-lg hover:bg-gray-700">
+          <svg class="h-3 w-3 " height="568.89" viewBox="0 0 426.67 426.67" width="568.89">
+            <path d="M410.67 229.33H16a16 16 0 010-32h394.67a16 16 0 010 32zm0 0" fill="white"/>
+            <path d="M213.33 426.67a16 16 0 01-16-16V16a16 16 0 0132 0v394.67a16 16 0 01-16 16zm0 0" fill="white"/>
+          </svg>
+        <span class="ml-2">New Package</span>
+        </button>
+      </div>
+    </div>
+  </header>
+</div>
