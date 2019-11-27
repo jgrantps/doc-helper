@@ -46,7 +46,12 @@
           <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
           <circle cx="4" cy="4" r="3" />
           </svg>
-            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.name.titleize %></span>
+          <% if package.class == User%>
+            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.positions.find_by(:company_id=>@company.id).title %></span>
+          <% else %>
+            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.status %></span>
+          <% end %>
+        
         </span>
       </div>
     </div>

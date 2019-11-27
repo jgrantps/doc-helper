@@ -5,7 +5,7 @@
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'users/dashboard_index/user_profiles', locals: {:ary => ["contact"]} %> 
+  <%= render partial: 'companies/dashboard/user_profiles', locals: {:ary => ["contact"]} %> 
 <% end %>
 
 
@@ -13,13 +13,13 @@
 
 <%# controls rendering of data sidebar %>
 <%= content_for :data_sidebar do %>
-  <%= render partial: 'users/dashboard/data_sidebar', locals: {} %>
+  <%= render partial: 'companies/dashboard/data_sidebar', locals: {} %>
 <% end %>
 
 
 <%# controls rendering of user sidebar %>
 <%= content_for :user_sidebar do %>
-  <%= render partial: 'users/dashboard/user_sidebar', locals: {} %>
+  <%= render partial: 'companies/dashboard/user_sidebar', locals: {} %>
 <% end %>
     
 

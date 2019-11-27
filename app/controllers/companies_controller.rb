@@ -1,7 +1,7 @@
 class CompaniesController < ApplicationController
 
   def index
-
+    redirect_to company_users_all_path(current_user)
   end
 
   def show
@@ -27,25 +27,27 @@ class CompaniesController < ApplicationController
 
   # ---- actions to filter sorted users based on current_user ----
   def all 
-    @users = current_user.all_associated_users
-      @title = "All of #{@company.name}'s Colleagues"
+    @company = Company.find(company_params[:company_id])
+    @users = @company.users
+      @title = "All of #{@company.name}'s Associates"
   end
   
   def managers 
     
     @company = Company.find(company_params[:company_id])
     @title = "#{@company.name}'s Managers"
+    
+  end
   
-  end
-
   def admins
+    @company = Company.find(company_params[:company_id])
     @users = current_user.all_associated_users
-      @title = "#{@company.name}'s Admin Colleagues"
+    @title = "#{@company.name}'s Admin Colleagues"
   end
-
+  
   def contacts
-    @users = current_user.all_associated_users
-      @title = "#{@company.name}'s Contacts"
+    @company = Company.find(company_params[:company_id])
+    @title = "#{@company.name}'s Contacts"
   end
 
 private
