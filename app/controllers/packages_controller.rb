@@ -1,6 +1,6 @@
 class PackagesController < ApplicationController
     def index
-        @package = Package.find_by(packages_params[:id])
+        @package = Package.find_by(:id => params[:id])
         @title = @package.name
     end
     
@@ -13,6 +13,6 @@ class PackagesController < ApplicationController
 private
 
     def packages_params
-        params.permit(:id, :user_id)    
+        params.permit(:id, :company_id)    
     end
 end

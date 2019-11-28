@@ -3,11 +3,9 @@
   <%= render partial: 'packages/dashboard/upper_block', locals: {:company_users => @package.users} %>
 <% end %>
 
-
-
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'packages/dashboard/package_profiles', locals: {:ary => Package.status} %> 
+  <%= render partial: 'packages/dashboard/package_profiles', locals: {:ary => [true, false], :packkage => @package} %> 
 <% end %>
 
 <%# controls rendering of data sidebar %>

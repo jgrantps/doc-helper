@@ -3,11 +3,12 @@
 <main class="p-3 inline-flex">
   <% ary.each do |ary_element| %>
     <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
-      <h3 clas="text-sm font-medium text-gray-900"><%= ary_element.titleize %></h3>
+    <%# byebug %>
+      <h3 clas="text-sm font-medium text-gray-900"><%= ary_element.to_s.titleize %></h3>
       <ul class="mt-2">
         <li class="mt-3">  
-          <% @package.package_comments.each do |comment| %>
-            <%= render partial: 'companies/dashboard/package', locals: {:user_profiles => "user_profiles", :package => comment, :status => "account.name", :name => "name", :users => "users"}%>  
+          <% Package.find(4).documents.where(:complete? => ary_element).each do |document| %>
+            <%= render partial: 'companies/dashboard/package', locals: {:user_profiles => "user_profiles", :package => document, :status => "account.name", :name => "name", :users => "users"}%>  
            <% end %>
         </li>            
       </ul>
