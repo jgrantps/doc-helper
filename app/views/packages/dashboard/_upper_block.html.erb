@@ -41,7 +41,7 @@
 
         <div class="ml-6 flex items-center">
 
-          <% @package.users.where(:role => user_role).each do |user| %>
+          <% @package.users.each do |user| %>
             <%= render partial: 'users/dashboard/avatar', locals: {:avatar => user} %>
           <% end %>
         </div>

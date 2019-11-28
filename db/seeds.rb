@@ -111,6 +111,14 @@ DATA = {
     ["2018 Rental Revenue", 14, 2, ""], #=>
     ["2018 Overhead", 14, 0, ""], #=>
         
+  ],
+  :document_keys =>
+  ["name", "package_id", "complete?", "due_date"],
+  :documents =>[
+    ["tranpsortation receipts", 4, true, ""],
+    ["rental receipts", 4, false, ""],
+    ["window repair receipts", 4, false, ""],
+    ["access receipts", 4, true, ""],
   ]
 }
 
@@ -120,6 +128,7 @@ def main
   make_positions
   make_accounts
   make_packages
+  make_documents
 end
 
 def make_users
@@ -168,6 +177,13 @@ end
 def make_packages
   DATA[:packages].each do |package|
    bob = Package.new(name: package[0], account_id: package[1], status: package[2], due_date: package[3])
+    bob.save 
+  end
+end
+
+def make_documents
+  DATA[:documents].each do |document|
+   bob = Document.new(name: document[0], package_id: document[1], complete?: document[2], due_date: document[3])
     bob.save 
   end
 end

@@ -1,13 +1,13 @@
 <%# controls rendering of top ribbon %>
 <%= content_for :upper_block do %>
-  <%= render partial: 'packages/dashboard/upper_block', locals: {:company_users => @package.users, :user_role => current_user.role } %>
+  <%= render partial: 'packages/dashboard/upper_block', locals: {:company_users => @package.users} %>
 <% end %>
 
 
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'packages/dashboard/company_profiles', locals: {:ary => ["manager"] %> 
+  <%= render partial: 'packages/dashboard/package_profiles', locals: {:ary => Package.status} %> 
 <% end %>
 
 <%# controls rendering of data sidebar %>

@@ -23,8 +23,8 @@
 <%# Primary RenderLayer for the page (_main_display.html.erb) %>
 <div>
   <% if current_user.admin? %>
-    <%= render partial: 'users/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
+    <%= render partial: 'companies/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
   <% else%>
-    <%= render partial: 'users/dashboard/main_display', locals: {:packages => @packages, :title => @title} %> 
+    <%= render partial: 'companies/dashboard/main_display', locals: {:packages => @packages, :title => @title} %> 
   <% end %>
 </div>

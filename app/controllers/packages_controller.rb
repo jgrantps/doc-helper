@@ -1,6 +1,7 @@
 class PackagesController < ApplicationController
     def index
         @package = Package.find_by(packages_params[:id])
+        @title = @package.name
     end
     
     def show
