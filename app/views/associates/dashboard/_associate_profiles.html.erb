@@ -1,5 +1,5 @@
 <%# passed to "associates/dashboard/main_display" to be rendered in associates/index view %>
 <% sorted_associates.each do |associate| %>
-    <%= render partial: 'associates/dashboard/tile', locals: {:user_profiles => "user_profiles", :package => associate, :status => "role", :name => "name", :users => "associates"}%>  
+    <%= render partial: 'associates/dashboard/tile', locals: {:associate => associate}%>  
   <% end %>
      
