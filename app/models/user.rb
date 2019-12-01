@@ -23,6 +23,15 @@ class User < ApplicationRecord
     self.role ||= :contact
   end
 
+  def associate_categories(var="all")
+    if var == "all"
+      self.associates.select(:role).distinct
+      #self.associates.select(:role).distinct.each { |category| category[:role] }
+    else
+      self.associates.select(:role).distinct.where(:role => var)
+    end
+  end
+
   def heading(var="all")
     if var == "all"
       "All Associates"
