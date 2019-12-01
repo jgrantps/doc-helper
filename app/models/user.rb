@@ -23,19 +23,27 @@ class User < ApplicationRecord
     self.role ||= :contact
   end
 
-  def all_associated_users
-    if self.admin?
-      User.where.not(name: "#{self.name}")
-    else
-      self.associates.where.not(name: "#{self.name}")
-    end
+  def heading(var="all")
+    if var == "all"
+      "All Associates"
+      else
+        "Associated "+var.titleize.pluralize
+      end
   end
   
-  def associated_users(var)
-    if var == "all"
-      self.associates.where.not(name: "#{self.name}")      
+  def associated_users(var="all")
+    if self.admin?
+      if var == "all"
+        User.where.not(name: "#{self.name}")      
+      else
+        User.where(role: var).where.not(name: "#{self.name}")
+      end
     else
-      self.associates.where(role: var).where.not(name: "#{self.name}")
+      if var == "all"
+        self.associates.where.not(name: "#{self.name}")      
+      else
+        self.associates.where(role: var).where.not(name: "#{self.name}")
+      end
     end
   end
 

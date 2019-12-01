@@ -37,11 +37,11 @@
     </div>
     <div class="flex items-center justify-between py-2">
       <div class="flex items-center">
-        <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @title %></h2>
+        <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @title.titleize.pluralize %></h2>
 
         <div class="ml-6 flex items-center">
 
-          <% current_user.all_associated_users.send(colleague_type).distinct.each do |associate| %>
+          <% current_user.associated_users.distinct.each do |associate| %>
             <%= render partial: 'users/dashboard/avatar', locals: {:avatar => associate} %>
           <% end %>
         </div>
