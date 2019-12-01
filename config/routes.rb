@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+ 
   post "accounts/new", to: "accounts#create"
 
   #garbage routes for testing
@@ -15,11 +16,8 @@ Rails.application.routes.draw do
   
   
   resources :users do
-    get  "/all", to: "users#all"
-    get  "/managers", to: "users#managers"
-    get  "/admins", to: "users#admins"
-    get  "/contacts", to: "users#contacts"
     resources :companies
+    resources :associates, only: [:index, :show]
   end
   
   resources :companies do

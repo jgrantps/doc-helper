@@ -68,4 +68,9 @@ class User < ApplicationRecord
     end
   end
 
+
+  ####### ASSOCIATES METHODS ######
+  def asssociates
+    self.associates.distinct
+  end
 end
