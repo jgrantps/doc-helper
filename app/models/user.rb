@@ -32,7 +32,15 @@ class User < ApplicationRecord
   end
   
   def associated_users(var)
-    self.associates.where(role: var).where.not(name: "#{self.name}")
+    if var == "all"
+      self.associates.where.not(name: "#{self.name}")      
+    else
+      self.associates.where(role: var).where.not(name: "#{self.name}")
+    end
+  end
+
+  def roles
+    ["all", "manager", "contact", "admin"]  
   end
 
   def domain
@@ -66,11 +74,5 @@ class User < ApplicationRecord
       when "contact"
        return self.accounts
     end
-  end
-
-
-  ####### ASSOCIATES METHODS ######
-  def asssociates
-    self.associates.distinct
   end
 end

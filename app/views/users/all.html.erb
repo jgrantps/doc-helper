@@ -5,7 +5,7 @@
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'users/dashboard_index/user_profiles', locals: {:ary => ["manager", "contact", "admin"]} %> 
+  <%= render partial: 'users/dashboard/user_profiles', locals: {:ary => ["manager", "contact", "admin"]} %> 
 <% end %>
 
 <%# controls rendering of data sidebar %>

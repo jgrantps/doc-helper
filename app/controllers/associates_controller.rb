@@ -1,7 +1,8 @@
 class AssociatesController < ApplicationController
   def index
+    @role = associates_params[:role]
     @user = User.find(associates_params[:user_id])
-    @associates = @user.asssociates.distinct
+    @associates = @user.associated_users(@role)
     
   end
 

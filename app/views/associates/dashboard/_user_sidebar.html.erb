@@ -1,0 +1,11 @@
+<%# passed to "users/dashboard/main_display" via yielded "content_for :user_sidebar" block in view files%>
+<%# passes a further partial if current_user.admin? == false %>
+
+
+
+<div class="mt-2"> 
+  <%# lower level tally of Associated Users sorted By roles. %>
+  <% current_user.roles.each do |role| %>
+    <%= render partial: 'associates/dashboard/user_list', locals: {:role => role}  %>
+  <% end %>
+</div>

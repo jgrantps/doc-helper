@@ -1,21 +1,24 @@
 
 
 <%= content_for :main_panel do %>
-  <%= render partial: 'users/dashboard/user_profiles', locals: {users: @users} %> 
+  <%= render partial: 'associates/dashboard/user_profiles', locals: {associates: @associates, role: @role} %> 
 <% end %>
 
 <%= content_for :upper_block do %>
-  <%= render partial: 'users/dashboard/upper_block', locals: {} %>
+  <%= render partial: 'associates/dashboard/upper_block', locals: {} %>
 <% end %>
 
 <%= content_for :data_sidebar do %>
-  <%= render partial: 'users/dashboard/data_sidebar', locals: {} %>
+  <%= render partial: 'associates/dashboard/data_sidebar', locals: {} %>
 <% end %>
 
 
 <!-- controls rendering of user sidebar -->
 <%= content_for :user_sidebar do %>
-  <%= render partial: 'users/dashboard/user_sidebar', locals: {} %>
+  <%= render partial: 'associates/dashboard/user_sidebar', locals: {role: current_user.roles} %>
 <% end %>
 
-<%= render partial: 'users/dashboard/main_display', locals: {title: @title} %>
+
+
+
+<%= render partial: 'associates/dashboard/main_display', locals: {title: @title} %>

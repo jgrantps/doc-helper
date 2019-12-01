@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   
   resources :companies do
+    resources :associates, only: [:index, :show]
     get  "users/all", to: "companies#all"
     get  "users/managers", to: "companies#managers"
     get  "users/admins", to: "companies#admins"
