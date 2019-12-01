@@ -32,6 +32,10 @@ class User < ApplicationRecord
     end
   end
 
+  
+
+
+
   def heading(var="all")
     if var == "all"
       "All Associates"

@@ -8,7 +8,9 @@ class AssociatesController < ApplicationController
       @role = associates_params[:role]
       @company = Company.find(associates_params[:company_id])
       @associates = @company.associated_users(@role)
+    
     end
+    
   end
 
   def show

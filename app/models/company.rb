@@ -15,6 +15,18 @@ class Company < ApplicationRecord
     end
   end
 
+  def associate_categories(var="all")
+    if var == "all"
+      self.associates.select(:role).distinct
+    else
+      self.associates.select(:role).distinct.where(:role => var)
+    end
+  end
+
+  def roles
+    ["all", "manager", "contact", "admin"]  
+  end
+
   def titles
     titles = self.positions.map {|position| position.title }
     titles.uniq
