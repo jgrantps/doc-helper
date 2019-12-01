@@ -4,8 +4,16 @@ class Company < ApplicationRecord
   has_many :documents, through: :packages
   has_many :positions
   has_many :users, through: :positions
+  has_many :associates, through: :positions, source: :user
 
-  
+
+  def associated_users(var="all")
+    if var == "all"
+      self.associates.where.not(name: "#{self.name}")      
+    else
+      self.associates.where(role: var).where.not(name: "#{self.name}")
+    end
+  end
 
   def titles
     titles = self.positions.map {|position| position.title }
