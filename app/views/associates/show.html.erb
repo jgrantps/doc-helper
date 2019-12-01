@@ -1,2 +1,22 @@
-<h1>Associates#show</h1>
-<p>Find me in app/views/associates/show.html.erb</p>
+<%= content_for :main_panel do %>
+  <%= render partial: 'associates/highlight/indexes', locals: {} %> 
+<% end %>
+
+<%= content_for :upper_block do %>
+  <%= render partial: 'associates/highlight/upper_block', locals: {} %>
+<% end %>
+
+<%= content_for :data_sidebar do %>
+  <%= render partial: 'associates/highlight/data_sidebar', locals: {} %>
+<% end %>
+
+
+<!-- controls rendering of user sidebar -->
+<%= content_for :user_sidebar do %>
+  <%= render partial: 'associates/highlight/user_sidebar', locals: {} %>
+<% end %>
+
+
+<h1 class="text-2xl">user_sidebar = associates#index</h1>
+
+<%= render partial: 'associates/highlight/main_display', locals: {title: @title} %>

@@ -39,9 +39,9 @@ class User < ApplicationRecord
   def heading(var="all")
     if var == "all"
       "All Associates"
-      else
-        "Associated "+var.titleize.pluralize
-      end
+    else
+      "Associated "+var.titleize.pluralize
+    end
   end
   
   def associated_users(var="all")

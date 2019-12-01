@@ -10,16 +10,17 @@ class AssociatesController < ApplicationController
       @associates = @company.associated_users(@role)
     
     end
-    
   end
 
   def show
+   @associate = User.find(associates_params[:id])
+   @company = Company.find(associates_params[:company_id])
   end
   
   private
 
   def associates_params
-    params.permit(:role, :user_id, :company_id)  
+    params.permit(:role,:id, :user_id, :company_id)  
   end
   
  
