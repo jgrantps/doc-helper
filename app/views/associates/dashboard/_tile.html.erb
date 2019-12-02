@@ -20,7 +20,7 @@
           <p class="text-sm font-medium text-gray-900 leading-snug"> <%= associate.companies.first.name %></p>
         <% else %>
           <ul>
-            <% associate.companies.each do |company| %>
+            <% associate.companies.specific(current_user).each do |company| %>
               <li>
                 <p class="text-sm font-medium text-gray-900 leading-snug"><%= company.name %></p>
               </li>
@@ -64,7 +64,7 @@
           <p class="text-sm font-medium text-gray-900 leading-snug"> <%= associate.companies.first.name %></p>
         <% else %>
         <ul>
-          <% associate.companies.each do |company|  %>
+          <% associate.companies.specific(current_user).each do |company|  %>
           <li>
             <p class="text-sm font-medium text-gray-900 leading-snug"><%= company.name %></p>
           </li>

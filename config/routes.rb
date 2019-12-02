@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :companies
     resources :associates, only: [:index, :show]
+    resources :accounts
   end
   
   resources :companies do
