@@ -1,4 +1,4 @@
-<h1 class="text-xl" id="iddd">associates/show</h1>
+<h1 class="text-xs" id="iddd">associates/show</h1>
 <%= content_for :main_panel do %>
   <%= render partial: 'associates/highlight/indexes', locals: {} %> 
 <% end %>
@@ -7,16 +7,9 @@
   <%= render partial: 'associates/highlight/upper_block', locals: {} %>
 <% end %>
 
-<%= content_for :data_sidebar do %>
-  <%= render partial: 'associates/highlight/data_sidebar', locals: {} %>
-<% end %>
-
-
 <!-- controls rendering of user sidebar -->
 <%= content_for :user_sidebar do %>
   <%= render partial: 'associates/highlight/user_sidebar', locals: {} %>
 <% end %>
-
-
 
 <%= render partial: 'associates/highlight/main_display', locals: {title: @title} %>

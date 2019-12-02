@@ -1,28 +1,15 @@
 <h1 class="text-xl" id="iddd">associates/highlight/indexes</h1>
-<% if @company %>
+
   <main class="p-3 inline-flex" id="company_reference_point">
-    <% @company.accounts.each do |account| %>
+    <% @associate.packages.status.each do |status| %>
+    
       <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
-        <h3 clas="text-sm font-medium text-gray-900"><%= account.name.titleize %></h3>
+        <h3 clas="text-sm font-medium text-gray-900"><%= status.titleize %></h3>
         <ul class="mt-2">
           <li class="mt-3">                  
-            <%= render partial: 'accounts/highlight/associate_profiles', locals: {:sorted_packages => account.packages} %>   
+            <%= render partial: 'accounts/highlight/associate_profiles', locals: {:sorted_packages => @associate.packages.specific(current_user).where(:status => status)} %>   
           </li>            
         </ul>
       </div>
     <% end %>  
   </main>
-<% else %>
-  <main class="p-3 inline-flex" id="user_reference_point">
-    <% current_user.associate_categories(@role).each do |category| %>
-      <div class="flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded">
-        <h3 clas="text-sm font-medium text-gray-900"><%= category[:role].titleize.pluralize %></h3>
-        <ul class="mt-2">
-          <li class="mt-3">                  
-            <%= render partial: 'associates/highlight/associate_profiles', locals: {:sorted_associates => current_user.associated_users(category[:role])} %>   
-          </li>            
-        </ul>
-      </div>
-    <% end %>  
-  </main>
-<% end %>

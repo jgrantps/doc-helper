@@ -12,12 +12,6 @@
   <%= render partial: 'companies/dashboard/company_profiles', locals: {:ary => @company.accounts} %> 
 <% end %>
 
-<%# controls rendering of data sidebar %>
-<%= content_for :data_sidebar do %>
-  <%= render partial: 'companies/dashboard/data_sidebar', locals: {} %>
-<% end %>
-
-
 <%# controls rendering of user sidebar %>
 <%= content_for :user_sidebar do %>
   <%= render partial: 'companies/dashboard/user_sidebar', locals: {:users => @company.users, :company => @company, :associates => @associates} %>
@@ -26,7 +20,6 @@
 
 <%# Primary RenderLayer for the page (_main_display.html.erb) %>
 <div>
-<h1 class="text-2xl">company show page!!!!</h1>
   <% if current_user.admin? %>
     <%= render partial: 'companies/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
   <% else%>

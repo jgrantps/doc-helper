@@ -23,9 +23,6 @@ class User < ApplicationRecord
     self.role ||= :contact
   end
 
-  def documents
-    Document.where(:package_id => self.packages)  
-  end
 
   def associate_categories(var="all")
     if var == "all"

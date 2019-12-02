@@ -1,12 +1,11 @@
 class Package < ApplicationRecord
-  has_many :documents
   has_many :package_comments
   belongs_to :account 
   
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   validates :name, presence: true
   
-
+  scope :specific, -> (name) {where(id: name.packages)}
 
   def company 
    self.account.company 

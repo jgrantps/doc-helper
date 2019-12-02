@@ -26,9 +26,12 @@ Rails.application.routes.draw do
     resources :accounts
   end
 
+  resources :accounts do
+    resources :packages, only: [:index, :show, :new]
+  end
 
   resources :accounts
   resources :packages
-  resources :documents
+ 
   
 end
