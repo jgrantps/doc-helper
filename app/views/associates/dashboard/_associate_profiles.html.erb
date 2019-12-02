@@ -1,6 +1,6 @@
 <h1 class="text-xs" id="iddd">associates/dashboard/associate_profiles</h1>
 
-<% sorted_associates.each do |associate| %>
+<% sorted_associates.distinct.each do |associate| %>
     <%= render partial: 'associates/dashboard/tile', locals: {:associate => associate}%>  
   <% end %>
      

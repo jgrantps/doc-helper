@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
  
+  get 'package_comments/index'
+  get 'package_comments/new'
+  get 'package_comments/edit'
   post "accounts/new", to: "accounts#create"
 
   #garbage routes for testing
@@ -31,7 +34,10 @@ Rails.application.routes.draw do
   end
 
   resources :accounts
-  resources :packages
+  
+  resources :packages do 
+    resources :package_comments
+  end
  
   
 end
