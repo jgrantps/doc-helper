@@ -3,14 +3,14 @@ class UsersController < ApplicationController
  
   def index
       @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Packages"
+      @title = "#{current_user.name}'s accounts"
   end
 
   
   def show
     if signed_in?   
      
-      @title = "#{current_user.name}'s Packages"
+      @title = "#{current_user.name}'s Accounts"
     else
       redirect_to root_path  
     end      
