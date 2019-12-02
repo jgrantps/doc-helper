@@ -32,9 +32,16 @@ class User < ApplicationRecord
     end
   end
 
-  
+  def current_user_companies
+    current_user.companies  
+  end
 
-
+  def mutual_companies(var)
+    current_user_companies = var.companies
+    queried_user_companies = self.companies
+    
+    return queried_user_companies.merge(current_user_companies)
+  end
 
   def heading(var="all")
     if var == "all"

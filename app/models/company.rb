@@ -7,6 +7,8 @@ class Company < ApplicationRecord
   has_many :associates, through: :positions, source: :user
 
 
+  scope :specific, -> (name) {where(id: name.companies)}
+
   def associated_users(var="all")
     if var == "all"
       self.associates.where.not(name: "#{self.name}")      
