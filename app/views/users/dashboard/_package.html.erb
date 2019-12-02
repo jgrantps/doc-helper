@@ -29,11 +29,6 @@
           <circle cx="4" cy="4" r="3" />
           </svg>
 
-          <% if local_assigns.has_key? :account %>
-            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.send(account).name %></span>
-          <% else %>
-            <span class="ml-1 py-1 text-sm font-medium leading-tight text-teal-900"><%= package.name %></span>
-          <% end %>
 
         </span>
       </div>

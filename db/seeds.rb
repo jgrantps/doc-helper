@@ -81,36 +81,6 @@ DATA = {
     ["Land Development", 7], #=> 12
     ["Commercial Development", 8], #=> 13
     ["Residential Development", 8], #=> 14
-  ],
-  :package_keys =>
-  ["name", "account_id", "status", "due_date"],
-  :packages =>[
-    ["2018 year-end", 1, 0, ""], #=>
-    ["2019 Q1", 1, 1, ""], #=>
-    ["2018 Payroll breakdown", 1, 2, ""], #=>
-    ["2018 Cost Sheet", 2, 0, ""], #=>
-    ["2019 Q1", 3, 1, ""], #=>
-    ["2018 Q4 Labor costs", 4, 1, ""], #=>
-    ["2019 Q1 Material costs", 5, 0, ""], #=>
-    ["2019 Q2 Supplier Pricing", 6, 2, ""], #=>
-    ["2019 Q2 Time Sheets", 6, 0, ""], #=>
-    ["2019 Payroll Breakdown YTD", 7, 2, ""], #=>
-    ["2019 Material Costs YTD", 8, 0, ""], #=>
-    ["2019 Payroll Breakdown YTD", 8, 0, ""], #=>
-    ["2018 Material Costs", 9, 0, ""], #=>
-    ["2018 Material Costs", 9, 3, ""], #=>
-    ["2018 Material Costs", 10, 0, ""], #=>
-    ["2018 Sales Report", 10, 1, ""], #=>
-    ["2018 Sales Report", 11, 3, ""], #=>
-    ["2018 Tax Report", 11, 0, ""], #=>
-    ["2018 Payroll Breakdown", 11, 3, ""], #=>
-    ["2019 Tax Report (estimated)", 12, 1, ""], #=>
-    ["2019 Lease Report - YTD", 13, 1, ""], #=>
-    ["2019 Overhead - YTD", 13, 0, ""], #=>
-    ["2019 Overhead - YTD", 13, 3, ""], #=>
-    ["2018 Rental Revenue", 14, 2, ""], #=>
-    ["2018 Overhead", 14, 0, ""], #=>
-        
   ]
 }
 
@@ -119,7 +89,7 @@ def main
   make_companies
   make_positions
   make_accounts
-  make_packages
+  
 end
 
 def make_users
@@ -158,19 +128,12 @@ end
 def make_accounts
   DATA[:accounts].each do |account|
     new_account = Account.new
-    
     new_account.name = account[0]
     new_account.company_id = account[1]
     new_account.save
   end
 end
 
-def make_packages
-  DATA[:packages].each do |package|
-   bob = Package.new(name: package[0], account_id: package[1], status: package[2], due_date: package[3])
-    bob.save 
-  end
-end
 
 
 main

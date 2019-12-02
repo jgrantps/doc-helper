@@ -9,19 +9,7 @@ class ApplicationController < ActionController::Base
   def user_role_types
     return User.roles.keys
   end
-
-  def package_status
-   return Package.status
-  end
-
-  def current_packages
-    if current_user.admin?
-      Package.all
-    else
-      current_user.packages
-    end
-  end
-  
+   
   def resource_name
     :user
   end

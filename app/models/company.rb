@@ -1,6 +1,5 @@
 class Company < ApplicationRecord
   has_many :accounts
-  has_many :packages, through: :accounts
   has_many :positions
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
