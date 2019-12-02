@@ -10,6 +10,7 @@ class Account < ApplicationRecord
 
 
   scope :specific, -> (name) {where(id: name.accounts)}
+  
   def users
     self.company.users
   end

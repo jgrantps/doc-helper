@@ -1,6 +1,6 @@
-<%# passed to "users/dashboard/main_display" via yielded "content_for :upper_block" block in view file %>
+<%# passed to "associates/highlight/main_display" via yielded "content_for :upper_block" block in view file %>
 <%# displays upper ribbon in browser, includeing search bar, "new package" button, etc... %>
-<%# Iterates on "users/dashboard/avatar" partial for avatar imaging %>
+<%# Iterates on "associates/highlight/avatar" partial for avatar imaging %>
 
 
 <div class="flex-shrink-0 border-b-2 border-gray-200">
@@ -37,14 +37,10 @@
     </div>
     <div class="flex items-center justify-between py-2">
       <div class="flex items-center">
-        <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @title %></h2>
+        <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @account.company.name %> - <%=@account.name%></h2>
 
-        <div class="ml-6 flex items-center">
-
-          <% @company.users.where(:role => user_role).each do |user| %>
-            <%= render partial: 'users/dashboard/avatar', locals: {:avatar => user} %>
-          <% end %>
-        </div>
+        
+        
       </div>
       <div class="flex">
         <span class="inline-flex p-1 bg-gray-200 border rounded-lg items-center">

@@ -5,8 +5,8 @@ class User < ApplicationRecord
   has_many :accounts, through: :companies
   has_many :account_comments, through: :accounts
   has_many :packages, through: :accounts
+  
   has_many :package_comments, through: :packages
-  has_many :documents, through: :packages
   
   accepts_nested_attributes_for :positions
  # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
@@ -21,6 +21,10 @@ class User < ApplicationRecord
   
   def set_default_role
     self.role ||= :contact
+  end
+
+  def documents
+    Document.where(:package_id => self.packages)  
   end
 
   def associate_categories(var="all")

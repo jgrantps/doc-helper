@@ -10,11 +10,18 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
     byebug
   end
+  
+  def show
+    @account = Account.find(account_params_show[:id])
+  end
+
 
   private
 
-  def account_params
-      params.require(:account).permit(:name, :company_id, company_attributes: [:name])
+  def account_params_show 
+    params.permit(:user_id, :id)
   end
 
+
+  
 end

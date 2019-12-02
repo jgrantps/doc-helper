@@ -1,0 +1,6 @@
+<%# passed to "accounts/highlight/main_display" to be rendered in accounts/index view %>
+<% sorted_packages.each do |package| %>
+  <%# easdfnd %>
+    <%= render partial: 'accounts/highlight/tile', locals: {:associate => package}%>  
+  <% end %>
+     
