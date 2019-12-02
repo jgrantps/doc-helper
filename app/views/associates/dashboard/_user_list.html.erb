@@ -1,6 +1,4 @@
-<%# passed to "_user_sidebar.html.erb through "main_display.html.erb" via yielded "content_for :user_sidebar" block in view files %>
-<%# renders clickable tallies of different user types associated with current_user %>
- 
+<h1 class="text-xs" id="iddd">associates/dashboard/user_list</h1>
 <% if @company %>
 
   <%= link_to company_associates_path(@company, {:role => role}), class: "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200" do %>

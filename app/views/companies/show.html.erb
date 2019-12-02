@@ -1,3 +1,5 @@
+<h1 class="text-xs" id="iddd">companies/show</h1>
+
 <%# controls rendering of top ribbon %>
 <%= content_for :upper_block do %>
   <%= render partial: 'companies/dashboard/upper_block', locals: {:company_users => @company.users, :user_role => "manager"} %>

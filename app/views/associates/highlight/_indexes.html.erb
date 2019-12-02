@@ -1,6 +1,4 @@
-<%# passed to "users/highlight/main_display" via "content_for :main_panel" in view files %>
-<%# renders collection of current_user.packages by passing "user/highlight/package" collection partial %>
-
+<h1 class="text-xl" id="iddd">associates/highlight/indexes</h1>
 <% if @company %>
   <main class="p-3 inline-flex" id="company_reference_point">
     <% @company.accounts.each do |account| %>
@@ -8,7 +6,7 @@
         <h3 clas="text-sm font-medium text-gray-900"><%= account.name.titleize %></h3>
         <ul class="mt-2">
           <li class="mt-3">                  
-            <%= render partial: 'associates/highlight/associate_profiles', locals: {:sorted_packages => account.packages} %>   
+            <%= render partial: 'accounts/highlight/associate_profiles', locals: {:sorted_packages => account.packages} %>   
           </li>            
         </ul>
       </div>

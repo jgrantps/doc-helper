@@ -1,6 +1,7 @@
-<%# passed to "associates/highlight/main_display" to be rendered in associates/index view %>
+<h1 class="text-xs" id="iddd">associates/highlight/associate_profiles</h1>
+
 <% sorted_packages.each do |package| %>
-  <%# easdfnd %>
+ 
     <%= render partial: 'associates/highlight/tile', locals: {:associate => package}%>  
   <% end %>
      
