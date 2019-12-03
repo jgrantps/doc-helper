@@ -24,7 +24,7 @@
 
 <%# Primary RenderLayer for the page (_main_display.html.erb) %>
 <div>
-<h1 class="text-2xl">company show page!!!!</h1>
+
   <% if current_user.admin? %>
     <%= render partial: 'companies/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
   <% else%>

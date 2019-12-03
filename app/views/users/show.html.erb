@@ -1,9 +1,7 @@
 <%# controls rendering of top ribbon %>
-<%= content_for :upper_block do %>
-  <%= render partial: 'users/dashboard/upper_block', locals: {:colleague_type => "all"} %>
-<% end %>
-
-
+<%#= content_for :upper_block do %>
+  <%#= render partial: 'users/dashboard/upper_block', locals: {:colleague_type => "all"} %>
+<%# end %>
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
@@ -21,14 +19,14 @@
   <%= render partial: 'associates/dashboard/user_sidebar', locals: {} %>
 <% end %>
     
-<h1 class="text-2xl">main view file = users#show</h1>
+
 <%# Primary RenderLayer for the page (_main_display.html.erb) %>
 <div>
   <% if current_user.admin? %>
 <h1 class="text-2xl">I'm an admin</h1>
-    <%= render partial: 'users/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
+    <%#= render partial: 'users/dashboard/main_display', locals: {:packages => Package.all, :title => @title} %>
   <% else%>
 <h1 class="text-2xl">I'm NOT an admin</h1>
-    <%= render partial: 'users/dashboard/main_display', locals: {:packages => @packages, :title => @title} %> 
+    <%#= render partial: 'users/dashboard/main_display', locals: {:packages => @packages, :title => @title} %> 
   <% end %>
 </div>

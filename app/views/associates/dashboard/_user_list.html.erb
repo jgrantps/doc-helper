@@ -1,11 +1,8 @@
-<%# passed to "_user_sidebar.html.erb through "main_display.html.erb" via yielded "content_for :user_sidebar" block in view files %>
-<%# renders clickable tallies of different user types associated with current_user %>
- 
 <% if @company %>
 
   <%= link_to company_associates_path(@company, {:role => role}), class: "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200" do %>
     <span id="test" class="text-sm font-medium text-gray-700"><%= role.titleize.pluralize%></span>
-    <span class="text-xs font-semibold text-gray-700"><%= @company.associated_users(role, current_user.name).count %></span>
+    <span class="text-xs font-semibold text-gray-700"><%= @company.associated_users(role, current_user).count %></span>
    
   <% end %>
 
@@ -13,7 +10,7 @@
 
   <%= link_to user_associates_path(current_user.id, {:role => role}), class: "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200" do %>
     <span id="test" class="text-sm font-medium text-gray-700"><%= role.titleize.pluralize%></span>
-    <span class="text-xs font-semibold text-gray-700"><%= current_user.associated_users(role, current_user.name).distinct.count %></span>
+    <span class="text-xs font-semibold text-gray-700"><%= current_user.associated_users(role, current_user).distinct.count %></span>
   <% end %>
 
 <% end %>

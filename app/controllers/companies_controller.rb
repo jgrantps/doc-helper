@@ -1,5 +1,4 @@
 class CompaniesController < ApplicationController
-
   def index
     redirect_to company_users_all_path(current_user)
   end

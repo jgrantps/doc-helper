@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   before_action :authorize_admin, except: [:index, :show, :filtered, :managers, :contacts, :admins, :all]
  
   def index

@@ -50,18 +50,18 @@ class User < ApplicationRecord
     end
   end
   
-  def associated_users(var="all")
-    if self.admin?
+  def associated_users(var="all", main_user)
+    if main_user.admin?
       if var == "all"
-        User.where.not(name: "#{self.name}")      
+        main_user.where.not(name: "#{main_user.name}")      
       else
-        User.where(role: var).where.not(name: "#{self.name}")
+        main_user.where(role: var).where.not(name: "#{main_user.name}")
       end
     else
       if var == "all"
-        self.associates.where.not(name: "#{self.name}")      
+        main_user.associates.where.not(name: "#{main_user.name}")      
       else
-        self.associates.where(role: var).where.not(name: "#{self.name}")
+        main_user.associates.where(role: var).where.not(name: "#{main_user.name}")
       end
     end
   end
