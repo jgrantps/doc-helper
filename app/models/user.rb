@@ -11,14 +11,30 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :positions
  # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
 
- scope :specific, -> (name) {where(id: name.associates)}
+ 
+ # Include default devise modules. Others available are:
+ # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+ devise :invitable, :database_authenticatable, :registerable,
+ :recoverable, :rememberable, :validatable, :confirmable
+ 
+ scope :specific_for, -> (name, rle) {where(role: rle).where.not(id: name).distinct}
+ scope :specific_to, -> (name) {where.not(id: name).distinct}
+ 
+ 
+ def associate_categories(var="all")
+   if var == "all"
+     self.associates.select(:role).distinct
+     #self.associates.select(:role).distinct.each { |category| category[:role] }
+   else
+     self.associates.select(:role).distinct.where(:role => var)
+   end
+ end
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable, :confirmable
-  
-  enum role: [:manager, :contact, :admin]
+
+
+ 
+ 
+ enum role: [:manager, :contact, :admin]
   after_initialize :set_default_role, :if => :new_record?
   
   def set_default_role
@@ -29,14 +45,14 @@ class User < ApplicationRecord
     Document.where(:package_id => self.packages)  
   end
 
-  def associate_categories(var="all")
-    if var == "all"
-      self.associates.select(:role).distinct
-      #self.associates.select(:role).distinct.each { |category| category[:role] }
+  def all_associated_users
+    if self.admin?
+      User.where.not(name: "#{self.name}")
     else
-      self.associates.select(:role).distinct.where(:role => var)
+      self.associates.where.not(name: "#{self.name}")
     end
   end
+
 
   def current_user_companies
     current_user.companies  
@@ -49,13 +65,13 @@ class User < ApplicationRecord
       "Associated "+var.titleize.pluralize
     end
   end
-  
+ 
   def associated_users(var="all", main_user)
     if main_user.admin?
       if var == "all"
-        main_user.where.not(name: "#{main_user.name}")      
+        main_user.associates.where.not(name: "#{main_user.name}")      
       else
-        main_user.where(role: var).where.not(name: "#{main_user.name}")
+        main_user.associates.where(role: var).where.not(name: "#{main_user.name}")
       end
     else
       if var == "all"

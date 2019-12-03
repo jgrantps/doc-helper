@@ -3,8 +3,6 @@
   <%= render partial: 'companies/dashboard/upper_block', locals: {:company_users => @company.users, :user_role => "manager"} %>
 <% end %>
 
-
-
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
   <%= render partial: 'companies/dashboard/company_profiles', locals: {:accounts => @company.accounts} %> 

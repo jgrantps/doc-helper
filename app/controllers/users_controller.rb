@@ -23,31 +23,4 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # ---- actions to filter sorted users based on current_user ----
-  def all 
-    @users = current_user.all_associated_users
-      @title = "All of #{current_user.name}'s Colleagues"
-  end
-  
-  def managers 
-    @users = current_user.all_associated_users
-    @title = "#{current_user.name}'s Manager Colleagues"
-    if params[:company_id]
-      @company = Company.find(params[:company_id])
-    end  
-    
-
-  end
-
-  def admins
-    @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Admin Colleagues"
-  end
-
-  def contacts
-    @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Contacts"
-  end
-
-
 end
