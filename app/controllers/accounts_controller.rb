@@ -6,20 +6,27 @@ class AccountsController < ApplicationController
     3.times {@account.packages.build}
   end
 
+  
+  def index
+    
+  end
+
   def create
     @account = Account.new(account_params)
-    byebug
   end
   
   def show
-    @account = Account.find(account_params_show[:id])
+    if account_params[:associate_id]
+    @associate = User.find(account_params[:associate_id])
+    end
+    @account = Account.find(account_params[:id])
   end
 
 
   private
 
-  def account_params_show 
-    params.permit(:user_id, :id)
+  def account_params 
+    params.permit(:user_id, :id, :associate_id)
   end
 
 

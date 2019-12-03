@@ -1,11 +1,20 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :user_role_types, :all_users, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  helper_method :iteration, :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   
-  def all_users
-    User.all
-  end
+  
+  def iteration_switch
+    company_reference = []
+    user_reference = []
+    account_reference = []
+    if params.include?(:company_id)
+      c = Company.find(:company_id)
+      
+    elsif params.include?(:user_id)
+    end
 
+  end
+  
   def user_role_types
     return User.roles.keys
   end

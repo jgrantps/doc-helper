@@ -7,6 +7,7 @@ class Package < ApplicationRecord
   validates :name, presence: true
   
 
+  scope :specific, -> (name) {where(id: name.packages)}
 
   def company 
    self.account.company 

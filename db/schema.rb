@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(version: 2019_11_19_200037) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "documents", force: :cascade do |t|
-    t.string "name"
-    t.integer "package_id"
-    t.boolean "complete?"
-    t.datetime "due_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "package_comments", force: :cascade do |t|
     t.string "comment"
     t.integer "package_id"

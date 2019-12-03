@@ -25,9 +25,13 @@ Rails.application.routes.draw do
     resources :associates, only: [:index, :show]
   end
 
+  resources :associates do 
+    resources :accounts, only: [:index, :show]
+  end
+
 
   resources :accounts
   resources :packages
-  resources :documents
+  
   
 end

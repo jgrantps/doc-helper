@@ -22,7 +22,7 @@ class AssociatesController < ApplicationController
   private
 
   def associates_params
-    params.permit(:role,:id, :user_id, :company_id)  
+    params.permit(:role, :id, :user_id, :company_id)  
   end
   
  
