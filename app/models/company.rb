@@ -9,19 +9,22 @@ class Company < ApplicationRecord
 
   scope :specific, -> (name) {where(id: name.companies)}
 
-  def associated_users(var="all")
+  def associated_users(var =  "all", excluded_name)
     if var == "all"
-      self.associates.where.not(name: "#{self.name}")      
+      self.associates.where.not(name: excluded_name)      
     else
-      self.associates.where(role: var).where.not(name: "#{self.name}")
+      self.associates.where(role: var).where.not(name: excluded_name)
+     
     end
   end
 
+
+
   def associate_categories(var="all")
     if var == "all"
-      self.associates.select(:role).distinct
+      self.associates.select(:role).distinct.where.not(name: "#{self.name}")
     else
-      self.associates.select(:role).distinct.where(:role => var)
+      self.associates.select(:role).distinct.where(:role => var).where.not(name: "#{self.name}")
     end
   end
 

@@ -32,23 +32,7 @@ class CompaniesController < ApplicationController
       @title = "All of #{@company.name}'s Associates"
   end
   
-  def managers 
-    
-    @company = Company.find(company_params[:company_id])
-    @title = "#{@company.name}'s Managers"
-    
-  end
   
-  def admins
-    @company = Company.find(company_params[:company_id])
-    @users = current_user.all_associated_users
-    @title = "#{@company.name}'s Admin Colleagues"
-  end
-  
-  def contacts
-    @company = Company.find(company_params[:company_id])
-    @title = "#{@company.name}'s Contacts"
-  end
 
 private
 
