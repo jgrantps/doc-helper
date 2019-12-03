@@ -7,7 +7,7 @@
 
 <%# controls rendering of main interactive section %>
 <%= content_for :main_panel do %>
-  <%= render partial: 'companies/dashboard/company_profiles', locals: {:ary => @company.accounts} %> 
+  <%= render partial: 'companies/dashboard/company_profiles', locals: {:accounts => @company.accounts} %> 
 <% end %>
 
 <%# controls rendering of data sidebar %>

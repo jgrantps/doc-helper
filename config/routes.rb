@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   
   resources :companies do
     resources :associates, only: [:index, :show]
+    resources :accounts, only: [:index, :show]
   end
 
   resources :associates do 
@@ -30,8 +31,8 @@ Rails.application.routes.draw do
   end
 
 
-  resources :accounts
-  resources :packages
-  
+  resources :accounts do
+    resources :packages
+  end
   
 end
