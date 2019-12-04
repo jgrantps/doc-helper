@@ -7,7 +7,14 @@
   
     <div class="flex justify-between">
       <%= tile_contents(element) %>
-      <%= tile_avatar(element) %>
+    <div class="ml-6 flex items-center">
+      <% element.users.distinct.first(3).each do |user| %>
+        <span class="-ml-2 rounded-full border-2 border-white">
+          <img class="h-6 w-6 rounded-full object-cover" src="<%= user.url %>" alt="profile photo">
+        </span>
+      <% end%>
+    </div>
+      
     </div>
     <div class="flex mt-2 justify-between items-baseline">
     

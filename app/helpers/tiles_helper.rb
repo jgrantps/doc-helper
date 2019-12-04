@@ -40,15 +40,20 @@ module TilesHelper
     end
   end
 
-  def tile_avatar(element)
-    content_tag(:div, element, :class => "ml-6 flex items-center" ) do
-      element.users.distinct.first(5).each do |user|
-        content_tag(:span, user, :class =>"-ml-2 rounded-full border-2 border-white") do 
-          content_tag(:img, user, :class => "h-6 w-6 rounded-full object-cover", :src => user.url, :alt => "profile photo")
-        end 
-      end
-    end
-  end
+  # def tile_avatar(element)
+  #   capture do
+  #     content_tag(:div, element, :class => "ml-6 flex items-center" ) do
+  #       element.users.distinct.each.first(3) do |user|
+  #        content_tag(:span, element, :class =>"-ml-2 rounded-full border-2 border-white") do
+  #           content_tag(:img, element, :class => "h-6 w-6 rounded-full object-cover", :src => user.url, :alt => "profile photo"))
+  #        end
+  #     end
+  #   end
+  # end
+
+  
+
+
   
   def tile_link(element)
     link_to package_package_comments_path(element) do
