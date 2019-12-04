@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  helper_method :specified_associates, :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  
   layout "dashboard"
   
   #=> returns a "controller#action"-type string for the accessed route.  Used for conditional logic in helper methods.
@@ -9,6 +10,10 @@ class ApplicationController < ActionController::Base
     @src_action = "#{self.action_name}"  
     @src = "#{@src_controller}##{@src_action}"  
     @src_test = "coming from the source_ids in the application_controller"  
+  end
+
+  def specified_associates(rrole)
+    self.associates.where(role: rrole).where.not(id: self).distinct
   end
   
   def user_role_types

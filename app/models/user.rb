@@ -31,7 +31,9 @@ class User < ApplicationRecord
  end
 
 
-
+ def specified_associates(user_role:, company:)
+  self.associates.where(role: user_role).where.not(id: self).distinct.merge(Company.where(id: company))
+ end
  
  
  enum role: [:manager, :contact, :admin]

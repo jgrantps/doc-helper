@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     resources :accounts, only: [:index, :show]
   end
 
+  resources :packages do
+    resources :package_comments
+  end
+
 
   resources :accounts do
     resources :packages
