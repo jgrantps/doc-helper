@@ -9,12 +9,11 @@ class UsersController < ApplicationController
 
   
   def show
+    self.source_ids
     if signed_in?  
-     
-      @packages = current_user.packages
+      @tiling_elements = current_user.packages
       @title = "#{current_user.name}'s Packages"
-      @test= "hello world from controller"
-      @src = "#{self.controller_name}##{self.action_name}"
+      @column_headings = Package.status
     else
       redirect_to root_path  
     end      

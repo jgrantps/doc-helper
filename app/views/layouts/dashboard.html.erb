@@ -51,11 +51,9 @@
 
 <%# LEFT SIDE OF SCREEN %>          
       <div class="flex-1 min-w-0 flex flex-col bg-white">
-          <%= upper_block(@controller_action) %>      
-        <div class="flex-1 overflow-auto">
-          <%# main dashboard area - kanban cards, etc... %>
-          <%= canvas(@src) %>      
-          <%#= yield :main_panel %>    
+        <%= upper_block(controller_action: @src) %>      
+        <div class="flex-1 overflow-auto">        
+          <%= canvas(column_headings: @column_headings) %>
         </div>
       </div>
     </div>

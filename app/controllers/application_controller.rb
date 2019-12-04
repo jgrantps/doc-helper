@@ -1,18 +1,13 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :iteration, :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  helper_method :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   layout "dashboard"
   
-  def iteration_switch
-    company_reference = []
-    user_reference = []
-    account_reference = []
-    if params.include?(:company_id)
-      c = Company.find(:company_id)
-      
-    elsif params.include?(:user_id)
-    end
-
+  def source_ids
+    @src_controller = "#{self.controller_name}"  
+    @src_action = "#{self.action_name}"  
+    @src = "#{@src_controller}##{@src_action}"  
+    @src_test = "coming from the source_ids in the application_controller"  
   end
   
   def user_role_types
