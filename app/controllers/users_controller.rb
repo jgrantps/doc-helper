@@ -9,9 +9,12 @@ class UsersController < ApplicationController
 
   
   def show
-    if signed_in?   
+    if signed_in?  
+     
       @packages = current_user.packages
       @title = "#{current_user.name}'s Packages"
+      @test= "hello world from controller"
+      @src = "#{self.controller_name}##{self.action_name}"
     else
       redirect_to root_path  
     end      

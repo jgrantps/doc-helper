@@ -6,6 +6,8 @@ class CompaniesController < ApplicationController
   def show
    @company = Company.find(company_params[:id])
    @title = @company.name
+   @src = "#{self.controller_name}##{self.action_name}"
+
    
   end
 
