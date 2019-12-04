@@ -25,6 +25,11 @@ gem 'cancancan'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+
+
+
+gem 'actionview', '~> 6.0', '>= 6.0.1'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

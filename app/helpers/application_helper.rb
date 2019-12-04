@@ -14,7 +14,6 @@ module ApplicationHelper
   def canvas(column_headings:)
 
     # logic to display either forms or columns with appropriate tiles.
-    #if !form?
      render partial: "dashboard_elements/canvas_elements/column_display", locals: {:column_headings => column_headings}  #=> display columns and pass through necessary locals to specify the colunn tiles.
         
   end
