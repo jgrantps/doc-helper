@@ -11,9 +11,9 @@ class UsersController < ApplicationController
   def show
     self.source_ids
     if signed_in?  
+      @column_headings = Package.status
       @tiling_elements = current_user.packages
       @title = "#{current_user.name}'s Packages"
-      @column_headings = Package.status
     else
       redirect_to root_path  
     end      

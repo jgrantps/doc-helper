@@ -22,10 +22,5 @@ module ApplicationHelper
 
 
   #logic to control contents inside of the columns tiles IF called by the CANVAS method.
-  def tiles(tiling_elements:, sorting_condition: )
-    filtered_tile_collection = tiling_elements.where(:status => sorting_condition)
-    
-    render partial: "dashboard_elements/sub_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
-    locals: {:indexes => "indexes", :account => "account", :status => "status",:name => "name", :company => "company", :users => "users"}
-  end
+  
 end

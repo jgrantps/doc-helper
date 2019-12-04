@@ -18,7 +18,13 @@ class Company < ApplicationRecord
     end
   end
 
-
+  def account_headings
+    ary = []
+    self.accounts.each do |i|
+      ary<< i.name
+    end
+    ary
+  end
 
   def associate_categories(var="all")
     if var == "all"

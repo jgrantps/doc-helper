@@ -4,9 +4,12 @@ class CompaniesController < ApplicationController
   end
 
   def show
-   @company = Company.find(company_params[:id])
-   @title = @company.name
-   @src = "#{self.controller_name}##{self.action_name}"
+    self.source_ids
+    @company = Company.find(company_params[:id])
+    @column_headings = @company.account_headings
+    @tiling_elements = @company.packages
+    @title = @company.name 
+   
 
    
   end
