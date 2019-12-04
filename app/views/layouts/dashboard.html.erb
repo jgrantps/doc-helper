@@ -43,8 +43,9 @@
 
 
         <%# Menu Tally of all Users associated with current_user %>
-          <%#= yield :user_sidebar %>
+          
           <%= user_sidebar_menu(@variables_from_controllers) %>
+        <%# ^ yields to the helper method that encapsulates the template component found in the dashboard_elements folder  %>
             
         <%# Menu Tally of all Companies OR Accounts associated with current_user %>
           
