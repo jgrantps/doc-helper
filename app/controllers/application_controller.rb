@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   layout "dashboard"
   
+  #=> returns a "controller#action"-type string for the accessed route.  Used for conditional logic in helper methods.
   def source_ids
     @src_controller = "#{self.controller_name}"  
     @src_action = "#{self.action_name}"  

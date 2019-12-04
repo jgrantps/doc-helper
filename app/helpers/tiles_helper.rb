@@ -4,7 +4,6 @@ module TilesHelper
     case @src_controller 
     when "companies"
       account = @company.accounts.find_by(name: sorting_condition)
-      
       filtered_tile_collection = tiling_elements.specific(account)
 
     when "users" || "associates"
@@ -12,7 +11,7 @@ module TilesHelper
       
     end
 
-    render partial: "dashboard_elements/sub_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
+    render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
     locals: {:indexes => "indexes", :account => "account", :status => "status",:name => "name", :company => "company", :users => "users"}
   end
 end
