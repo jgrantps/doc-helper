@@ -3,7 +3,7 @@ module TilesHelper
   def tiles(tiling_elements:, sorting_condition:)
     
     
-    case @src_controller 
+    case params[:controller]
       
       when "companies"
         account = @company.accounts.find_by(name: sorting_condition)
