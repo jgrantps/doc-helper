@@ -1,19 +1,18 @@
-<div class="mt-2"> 
+ 
 
     <%# Counts ALL USERS!!! %>
 
          
 
-        <% current_user.class.roles.keys.each do |role| %>
-        <%= user_count(role) %>
-          <%#= render partial: 'users/dashboard/user_list', locals: {:role => role}  %>
-        <% end %>
+        <%# current_user.class.roles.keys.each do |role| %>
+        <%= associates_filter %>
+          
+        <%# end %>
 
 
 
 
 
-    </div>
-    <%# lower level tally of Associated Users sorted By roles. %>
+  
 
       
