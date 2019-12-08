@@ -1,18 +1,18 @@
 class AssociatesController < ApplicationController
+
   def index
-    if associates_params[:user_id]
-      @role = associates_params[:role]  
-      @user = User.find(associates_params[:user_id])
-      @associates = @user.associated_users(@role)
-    else
-      @role = associates_params[:role]
-      @company = Company.find(associates_params[:company_id])
-      @associates = @company.associated_users(@role, current_user.name)
-      
-    end
+    
+    @role = associates_params[:role]
+    
+    @associates = current_user.specified_associates(rle: @role)
+    @tiling_elements = @associates
+    @column_headings = current_user.company_names
+    @title = "#{current_user.name}'s Associates"
+    
   end
   
   def show
+   
     @associate = User.find(associates_params[:id])
     if associates_params[:company_id]
       @company = Company.find(associates_params[:company_id])

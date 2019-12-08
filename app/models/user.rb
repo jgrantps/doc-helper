@@ -30,8 +30,15 @@ class User < ApplicationRecord
    end
  end
 
+ def specified_associates(rle:)
+  self.associates.where(role: rle).where.not(id: self).distinct
+end
 
- def specified_associates(user_role:, company:)
+def company_names
+  self.companies.pluck(:name)  
+end
+ 
+ def specified_company_associates(user_role:, company:)
   self.associates.where(role: user_role).where.not(id: self).distinct.merge(Company.where(id: company))
  end
  
@@ -65,22 +72,6 @@ class User < ApplicationRecord
       "All Associates"
     else
       "Associated "+var.titleize.pluralize
-    end
-  end
- 
-  def associated_users(var="all", main_user)
-    if main_user.admin?
-      if var == "all"
-        main_user.associates.where.not(name: "#{main_user.name}")      
-      else
-        main_user.associates.where(role: var).where.not(name: "#{main_user.name}")
-      end
-    else
-      if var == "all"
-        main_user.associates.where.not(name: "#{main_user.name}")      
-      else
-        main_user.associates.where(role: var).where.not(name: "#{main_user.name}")
-      end
     end
   end
 

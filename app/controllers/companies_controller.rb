@@ -1,5 +1,7 @@
 class CompaniesController < ApplicationController
   def index
+    self.source_ids
+    @src_controller == "associates"
     redirect_to company_users_all_path(current_user)
   end
 

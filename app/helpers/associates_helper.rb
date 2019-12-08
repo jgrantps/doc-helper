@@ -19,7 +19,7 @@ module AssociatesHelper
   end
   
   def associate_count(role)
-   tag.span current_user.specified_associates(user_role: role, company: @company).count, class: ["text-xs", "font-semibold", "text-gray-700"] 
+   tag.span current_user.specified_associates(rle: role).count, class: ["text-xs", "font-semibold", "text-gray-700"] 
   end
 
 end
