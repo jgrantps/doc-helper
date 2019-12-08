@@ -106,7 +106,7 @@ class User < ApplicationRecord
       when "manager"
         return "account"
       when "contact"
-        return ""
+        return "package"
     end
   end
 

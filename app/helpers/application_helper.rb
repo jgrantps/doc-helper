@@ -3,11 +3,7 @@ module ApplicationHelper
     render partial: "dashboard_elements/upper_block", locals: {:title => controller_action}
   end
 
-  def user_sidebar_menu(f)
-    render partial: "dashboard_elements/user_sidebar", locals: {:title => f}
-  end
-
-  def data_sidebar_menu(f)
+   def data_sidebar_menu(f)
     render partial: "dashboard_elements/data_sidebar", locals: {:title => f, :test => @test}
   end
 

@@ -8,8 +8,7 @@ class ApplicationController < ActionController::Base
   def source_ids
     @src_controller = "#{self.controller_name}"  
     @src_action = "#{self.action_name}"  
-    @src = "#{@src_controller}##{@src_action}"  
-    @src_test = "coming from the source_ids in the application_controller"  
+    @src = "#{@src_controller}##{@src_action}"    
   end
 
   def specified_associates(rrole)

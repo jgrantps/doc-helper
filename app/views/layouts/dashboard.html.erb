@@ -41,9 +41,9 @@
             <h2 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Associates</h2>
             <% end %>
 
-            <%= user_sidebar_menu(@variables_from_controllers) %>
-            <%# ^ yields to the helper method that encapsulates the template component found in the dashboard_elements folder  %>                                             
-            <%= data_sidebar_menu(@test) %>
+            <%= associates_sidebar_menu %>
+            <%# ^ logic for displaying sorted associates.  Organized in associates_helper.rb  %>                                             
+            <%= domains_sidebar_menu %>
             <%# ^ yields to the helper method that encapsulates the template component found in the dashboard_elements folder  %>
           </nav>
         </div>

@@ -1,6 +1,6 @@
 module AssociatesHelper
 
-  def associates_filter
+  def associates_sidebar_menu
     content_tag(:div, class: "mt-2") do
       current_user.class.roles.keys.each do |role| 
        concat associates_link(role)
@@ -15,11 +15,11 @@ module AssociatesHelper
   end
 
   def associate_title(role)
-    concat tag.span role.titleize.pluralize, class: ["text-xs", "font-semibold", "text-gray-700"] 
+   tag.span role.titleize.pluralize, class: ["text-xs", "font-semibold", "text-gray-700"] 
   end
   
   def associate_count(role)
-    concat tag.span current_user.associates.specific_for(current_user, role).count, class: ["text-xs", "font-semibold", "text-gray-700", "flex"] 
+   tag.span current_user.specified_associates(user_role: role, company: @company).count, class: ["text-xs", "font-semibold", "text-gray-700"] 
   end
 
 end
