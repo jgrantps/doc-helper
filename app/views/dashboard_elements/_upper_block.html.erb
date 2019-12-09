@@ -35,13 +35,11 @@
       <div class="flex items-center">
         <h2 class="text-2xl font-semibold text-gray-900 leading-tight"><%= @title.titleize.pluralize %></h2>
 
-        <div class="ml-6 flex items-center">
-
-          <% current_user.associates.specific_to(current_user).each do |associate| %>          
-            <%= render partial: 'users/dashboard/avatar', locals: {:avatar => associate} %>
-          <% end %>
+        
+          <%= tile_avatar(current_user)%>
           
-        </div>
+          
+        
       </div>
       <div class="flex">
         <span class="inline-flex p-1 bg-gray-200 border rounded-lg items-center">

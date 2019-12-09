@@ -66,7 +66,7 @@ module TilesHelper
   
   def tile_flag(element)
     
-    if @src_controller == "associates" || @src_controller == "users"
+    if element.class.name == "Associate" || element.class.name == "User"
       output = element.name
     else 
       output = element.status
@@ -84,28 +84,29 @@ module TilesHelper
   
   def tile_avatar(element)
     content_tag(:div, class: "ml-6 flex items-center" ) do
-      avatar_lineup(element)
+       avatar_lineup(element)
     end
   end
 
-  def avatar_lineup(var)
-    if @src_controller = "associates"
-      span(var)
+  def avatar_lineup(element)
+    if element.class.name == "User" || element.class.name == "Associate"
+      span(element)
     else 
-      var.users.distinct.each.first(3) do |user|
+      element.users.distinct.each.first(3) do |user|
         span(user)
       end
     end
   end
 
-  def span(var)
-    concat tag("span", class: "-ml-2 rounded-full border-2 border-white") do 
-      pic_tag(var) 
+  def span(user)
+     content_tag("span", class: "-ml-2 rounded-full border-2 border-white") do 
+     pic_tag(user) 
     end
   end
 
-  def pic_tag(var)
-    tag("img", class: "h-6 w-6 rounded-full object-cover", :src => var.url, :alt => "profile photo")
+  def pic_tag(user)
+    
+     tag("img", class: "h-6 w-6 rounded-full object-cover", :src => user.url, :alt => "profile photo")
   end
 
   private
