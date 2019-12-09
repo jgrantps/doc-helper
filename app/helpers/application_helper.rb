@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def upper_block(controller_action:)
-    render partial: "dashboard_elements/upper_block", locals: {:title => controller_action}
+  def upper_block
+    render partial: "dashboard_elements/upper_block"
   end
 
    def data_sidebar_menu(f)

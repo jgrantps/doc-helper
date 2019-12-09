@@ -25,4 +25,11 @@ class UsersController < ApplicationController
   def edit
   end
 
+  private
+
+  def users_params
+    params.permit(:role, :controller,:action, :user_id)
+  end
+
+
 end
