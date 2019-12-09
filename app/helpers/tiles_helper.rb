@@ -3,7 +3,7 @@ module TilesHelper
   def tiles(tiling_elements:, sorting_condition:)
     
     
-    case params[:controller]
+    case tiles_params[:controller]
       
       when "companies"
         account = @company.accounts.find_by(name: sorting_condition)
@@ -20,7 +20,7 @@ module TilesHelper
         locals: {:indexes => "indexes", :account => "account", :status => "status",:name => "name", :users => "users"}
         
       when "associates"
-        raise params.inspect
+        
         associates = @associates
         filtered_tile_collection = tiling_elements.merge(Company.where(name: sorting_condition))
         
@@ -106,6 +106,12 @@ module TilesHelper
 
   def pic_tag(var)
     tag("img", class: "h-6 w-6 rounded-full object-cover", :src => var.url, :alt => "profile photo")
+  end
+
+  private
+
+  def tiles_params
+    params.permit(:controller, :action, :id, :company_id, :user_id, :role)
   end
 
 end

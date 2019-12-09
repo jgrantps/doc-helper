@@ -12,7 +12,6 @@ class AssociatesController < ApplicationController
   end
   
   def show
-   
     @associate = User.find(associates_params[:id])
     if associates_params[:company_id]
       @company = Company.find(associates_params[:company_id])
