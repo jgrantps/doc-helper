@@ -5,11 +5,11 @@ module UpperblockHelper
     end
   end
 
+  # => New Package Button
+
   def new_package
-    
      new_package_svg +
-     new_package_button_text
-    
+     new_package_button_text    
   end
 
   def new_package_svg
@@ -28,4 +28,6 @@ module UpperblockHelper
       link_to "NEW PACKAGE", new_package_path
     end  
   end
+
+  # => *****
 end

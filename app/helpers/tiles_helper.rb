@@ -3,7 +3,7 @@ module TilesHelper
   def tiles(tiling_elements:, sorting_condition:)
     
     
-    case tiles_params[:controller]
+    case strong_params[:controller]
       
       when "companies"
         account = @company.accounts.find_by(name: sorting_condition)
@@ -111,7 +111,7 @@ module TilesHelper
 
   private
 
-  def tiles_params
+  def strong_params
     params.permit(:controller, :action, :id, :company_id, :user_id, :role)
   end
 

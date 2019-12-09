@@ -1,0 +1,45 @@
+<main class="py-5  w-full item-center inline-flex">
+  <div class="w-full h-auto item-center">
+
+    <%= form_for(@account, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |account| %>
+      <div class="flex item-center">
+        <%= account.label :name, "Account Name:",class: 'text-xl item-center text-gray-900 mr-4 leading-tight' %>
+        <%= account.text_field :name, class:'border border-gray-250 rounded' %>
+      </div>
+      <br>
+      <br>
+       <%= company_select(account) %>
+      
+
+      <br>
+      <br>
+    <!-- NESTED FORM FOR NEW COMPANY -->
+      <p class="company field title">Create a News Company</p>
+        <%= account.fields_for :company do |company_fields| %>
+        <div class="nested_fields">
+          <%= company_fields.label :name%>
+          <%= company_fields.text_field :name, class:'border border-gray-250 rounded'  %>
+        </div>
+            <br>
+            <br>
+        <% end %>
+    <!-- NESTED FORM FOR NEW PACKAGE -->
+        <p>Add new packages</p>
+        <%= account.fields_for :packages do |package_fields| %>
+        <div class="flex items-center py-2 justify-right">
+          <div class="mx-4">
+            <%= package_fields.label :name %>
+            <%= package_fields.text_field :name, class:'border border-gray-250 rounded'  %>
+          </div>          
+          <div class="mx-4">
+            <%= package_fields.label :due_date %>
+            <%= package_fields.text_field :due_date, class:'border border-gray-250 rounded'  %>
+          </div>
+        </div>
+        <% end %>
+
+    <%=account.submit "Create Account", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200" %>
+    <% end %>
+  </div>
+</main>
+
