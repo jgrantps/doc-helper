@@ -13,9 +13,11 @@ module ApplicationHelper
     
     if strong_params[:action] == "new" || strong_params[:action] == "edit"
      
+      #=> display form and pass attributes directly from controller and models.
       render partial: "dashboard_elements/canvas_elements/forms/new_account"
     else
-     render partial: "dashboard_elements/canvas_elements/column_display", locals: {:column_headings => column_headings}  #=> display columns and pass through necessary locals to specify the colunn tiles.
+      #=> display columns and pass through necessary locals to specify the colunn tiles.
+     render partial: "dashboard_elements/canvas_elements/column_display", locals: {:column_headings => column_headings}  
     end
   end  
 end

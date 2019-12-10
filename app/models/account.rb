@@ -15,6 +15,19 @@ class Account < ApplicationRecord
     self.company.users
   end
 
+  def form_subject
+    self  
+  end
+
+  def form_child
+    package
+  end
+
+  def form_parent
+    company
+  end
+  
+
   def package_attributes=(attributes)
     
     attributes.values.each do |values|

@@ -1,7 +1,7 @@
 <main class="py-5  w-full item-center inline-flex">
   <div class="w-full h-auto item-center">
 
-    <%= form_for(@account, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |account| %>
+    <%= form_for(@subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |account| %>
       <div class="flex item-center">
         <%= account.label :name, "Account Name:",class: 'text-xl item-center text-gray-900 mr-4 leading-tight' %>
         <%= account.text_field :name, class:'border border-gray-250 rounded' %>

@@ -1,9 +1,21 @@
 module FormHelper
+  
+
+  def formm(object)
+    content_tag("main", class: "py-5 w-full item-center inline-flex") do 
+      content_tag("div", class: "w-full h-auto item-center") do 
+        form(object)
+      end  
+    end
+  end
+
+
+
 
   def form(object)
     form_for(object, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
-       concat tag.br      
+       concat tag.br   
       concat parent_select(instance)
        concat tag.br      
       concat nested_new_parent(instance)
@@ -90,7 +102,7 @@ module FormHelper
      concat child_fields.select :status, Package.status  
     end
   end  
-  
+  #=> Submit Button
   def submit_form(instance)
     instance.submit "Create Account", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end
