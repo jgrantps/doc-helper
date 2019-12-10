@@ -1,5 +1,7 @@
 <main class="py-5  w-full item-center inline-flex">
   <div class="w-full h-auto item-center">
+    <%= form(@account) %>
+
 
     <%= form_for(@account, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |account| %>
       <div class="flex item-center">
@@ -8,21 +10,13 @@
       </div>
       <br>
       <br>
-       <%= company_select(account) %>
-      
-
+       <%= parent_select(account) %>
       <br>
       <br>
     <!-- NESTED FORM FOR NEW COMPANY -->
-      <p class="company field title">Create a News Company</p>
-        <%= account.fields_for :company do |company_fields| %>
-        <div class="nested_fields">
-          <%= company_fields.label :name%>
-          <%= company_fields.text_field :name, class:'border border-gray-250 rounded'  %>
-        </div>
-            <br>
-            <br>
-        <% end %>
+        <%= nested_new_parent(account) %>
+       <br>
+       <br>
     <!-- NESTED FORM FOR NEW PACKAGE -->
         <p>Add new packages</p>
         <%= account.fields_for :packages do |package_fields| %>
@@ -32,8 +26,9 @@
             <%= package_fields.text_field :name, class:'border border-gray-250 rounded'  %>
           </div>          
           <div class="mx-4">
-            <%= package_fields.label :due_date %>
-            <%= package_fields.text_field :due_date, class:'border border-gray-250 rounded'  %>
+            <%= package_fields.label :status %>
+            <%= package_fields.select :status, Package.status  %>
+            
           </div>
         </div>
         <% end %>
