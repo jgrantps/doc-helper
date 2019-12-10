@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-       #raise params.inspect
+      
       redirect_to root_path
     else
        #raise params.inspect
