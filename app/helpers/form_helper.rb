@@ -46,21 +46,17 @@ module FormHelper
     case current_user.role
       
     when "admin"
-     concat instance.label :company_id, "Associated Company" 
-            instance.collection_select :company_id, Company.all, :id, :name, prompt: true
+     concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
+            instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
       
     when "manager"
-     concat instance.label :company_id, @subject.form_parent_variables[:title]
-            instance.collection_select @subject.form_parent_variables[:var1], current_user.send(@subject.form_parent_variables[:var2]), :id, :name, prompt: true
+     concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
+            instance.collection_select @subject.form_parent_variables[:var_id], current_user.send(@subject.form_parent_variables[:var_to_s]), :id, :name, prompt: true
       
     when "contact"
     end
   end
   
-  # def testy(instance)
-  #   instance.collection_select :company_id, current_user.companies, :id, :name, prompt: true
-  # end
-
   #=> adds "new parent" as a nested component to the new primary subject form if user is "admin", ignores the field if otherwise
   def nested_new_parent(instance)
     if current_user.role == "manager"

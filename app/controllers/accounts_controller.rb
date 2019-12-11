@@ -12,14 +12,28 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.new(account_params)
-    if @account.save
-      
-      redirect_to root_path
+    
+    if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
+      @account = Account.new(account_params)
+      @company = Company.find(account_params[:company_id])
+      @company.accounts << @account
+      if @account.save
+        
+        raise params.inspect
+        redirect_to root_path
+      else
+        raise params.inspect
+        redirect_to root_path
+      end
+      raise params.inspect
     else
-       #raise params.inspect
+      @company = Company.find(account_params[:company_id])
+      @account= @company.accounts.find_by(:name=> account_params[:name])
+      @account.save 
+      raise_params.inspect
       redirect_to root_path
     end
+
 
   end
   

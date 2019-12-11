@@ -2,9 +2,10 @@ class Package < ApplicationRecord
   has_many :documents
   has_many :package_comments
   belongs_to :account 
+  accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
   
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
-  validates :name, presence: true
+  # validates :name, presence: true
   
 
   scope :specific, -> (name) {where(id: name.packages)}
@@ -29,7 +30,9 @@ class Package < ApplicationRecord
   
   ## form helpers to be called in forms
   def form_parent_variables
-    {:title => "Associated Accounts", :var1 => :account_id, :var2 =>"accounts"}
+    {:title => "Associated Accounts", 
+     :var_id => :account_id, 
+     :var_to_s =>"accounts"}
   end
 
 
