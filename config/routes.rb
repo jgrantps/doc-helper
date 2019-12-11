@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   
   post "accounts/new", to: "accounts#create"
 
-  #garbage routes for testing
   
-
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
     invitations: 'invitations'
@@ -30,6 +28,8 @@ Rails.application.routes.draw do
   resources :associates do 
     resources :accounts, only: [:index, :show]
   end
+  
+  resource :packages, only: [:new, :create, :update, :edit, :delete]
 
   resources :packages do
     resources :package_comments
@@ -37,7 +37,8 @@ Rails.application.routes.draw do
 
 
   resources :accounts do
-    resources :packages
+    resources :packages, only: [:index, :show]
   end
+
   
 end

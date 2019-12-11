@@ -1,10 +1,10 @@
 module FormHelper
   
 
-  def formm(object)
+  def form(subject)
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
       content_tag("div", class: "w-full h-auto item-center") do 
-        form(object)
+        form_structure(subject)
       end  
     end
   end
@@ -12,8 +12,8 @@ module FormHelper
 
 
 
-  def form(object)
-    form_for(object, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
+  def form_structure(subject)
+    form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
        concat tag.br   
       concat parent_select(instance)
@@ -42,26 +42,30 @@ module FormHelper
 
 
 #=> filters nested companies to choose from based on user role.
-  def parent_select(account)
+  def parent_select(instance)
     case current_user.role
       
     when "admin"
-     concat account.label :company_id, "Associated Company" 
-            account.collection_select :company_id, Company.all, :id, :name, prompt: true
+     concat instance.label :company_id, "Associated Company" 
+            instance.collection_select :company_id, Company.all, :id, :name, prompt: true
       
     when "manager"
-     concat account.label :company_id, "Associated Company" 
-            account.collection_select :company_id, current_user.companies, :id, :name, prompt: true
+     concat instance.label :company_id, @subject.form_parent_variables[:title]
+            instance.collection_select @subject.form_parent_variables[:var1], current_user.send(@subject.form_parent_variables[:var2]), :id, :name, prompt: true
       
     when "contact"
     end
   end
+  
+  # def testy(instance)
+  #   instance.collection_select :company_id, current_user.companies, :id, :name, prompt: true
+  # end
 
   #=> adds "new parent" as a nested component to the new primary subject form if user is "admin", ignores the field if otherwise
-  def nested_new_parent(account)
-    if current_user.role == "admin"
+  def nested_new_parent(instance)
+    if current_user.role == "manager"
       concat tag.p "Create a New Company"
-      account.fields_for :company do |parent_fields|
+      instance.fields_for :company do |parent_fields|
         concat nested_parent_fields(parent_fields)    
       end
     end

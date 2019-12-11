@@ -65,11 +65,17 @@ module TilesHelper
   end
   
   def tile_flag(element)
-    
-    if element.class.name == "Associate" || element.class.name == "User"
-      output = element.name
-    else 
-      output = element.status
+    case element.class.name
+      when "Associate"
+        output = element.name
+      when "User"
+        output = element.name
+      when "Package"
+        output = element.account.name
+      when "Account"
+        output = element.account.name
+      when "Company"
+        ouptut = element.name
     end
     
     content_tag(:span, element, :class => "ml-1 py-1 text-sm font-medium leading-tight text-teal-900") do            

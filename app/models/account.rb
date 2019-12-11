@@ -20,13 +20,16 @@ class Account < ApplicationRecord
   end
 
   def form_child
-    package
+    self.packages
   end
 
-  def form_parent
-    company
+  def form_parent(instance)
+    instance.collection_select :company_id, current_user.companies, :id, :name, prompt: true
   end
   
+  def form_parent_variables
+    {:title => "Associated Companies", :var1 => :company_id, :var2 =>"companies"}
+  end
 
   def package_attributes=(attributes)
     

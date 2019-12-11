@@ -7,9 +7,9 @@ class PackagesController < ApplicationController
 
   def new
     @title = "Add New Package"
-    @package = Package.new
-    @package.build_account
-    3.times {@package.package_comments.build}
+    @subject = Package.new
+    @subject.build_account
+    3.times {@subject.package_comments.build}
   end
 
   def create
@@ -22,5 +22,11 @@ class PackagesController < ApplicationController
   end
 
   def delete
+  end
+
+  private
+
+  def packages_params 
+    params.require(:package).permit(:user_id, :id, :associate_id, :name, :company_id, company_attributes: [:name], packages_attributes: [:name, :status])
   end
 end

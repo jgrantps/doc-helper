@@ -24,6 +24,22 @@ class Package < ApplicationRecord
 
   def self.status    
     self.statuses.keys 
-  end  
+  end
+
+  
+  ## form helpers to be called in forms
+  def form_parent_variables
+    {:title => "Associated Accounts", :var1 => :account_id, :var2 =>"accounts"}
+  end
+
+
+  def form_subject
+    self
+  end
+
+  def form_children
+    self.package_comments
+  end
+
  
 end
