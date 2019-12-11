@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
       @company.accounts << @account
       if @account.save
         
-        raise params.inspect
+        # raise params.inspect
         redirect_to root_path
       else
         raise params.inspect

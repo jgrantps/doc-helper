@@ -16,6 +16,7 @@ module FormHelper
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
       concat tag.br
+
       if strong_params[:controller] != "packages"
         concat subject.form_select_parent_label(instance: instance)   
         concat subject.form_select_parent(instance: instance, current_user: current_user)   
@@ -23,6 +24,7 @@ module FormHelper
         concat nested_new_parent(instance)
         concat tag.br      
       end
+      nested_parent_tag(instance)
       concat new_child(instance)
       concat submit_form(instance)
     end
@@ -37,6 +39,7 @@ module FormHelper
   end
 
   def primary_subject_details(instance)
+    # raise params.inspect
    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
@@ -109,14 +112,13 @@ module FormHelper
      concat child_fields.select :status, Package.status  
     end
   end  
+
+  def nested_parent_tag(instance)
+    concat hidden_field_tag :account_id, strong_params[:account_id]  
+  end
+
   #=> Submit Button
   def submit_form(instance)
-    instance.submit "Create Account", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
+    instance.submit "Create #{@subject.class.name}", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end
-  
-  
-
-
-
 end
-####=> adds "new child" as a nested component to the new primarysubject form

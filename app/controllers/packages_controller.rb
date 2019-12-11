@@ -14,6 +14,17 @@ class PackagesController < ApplicationController
   end
 
   def create
+    # raise params.inspect
+    @title = "hello there"
+    @account = Account.find(route_params[:account_id])
+    @package = Package.new(packages_params)
+    @package.account = @account
+
+    if @package.save
+      redirect_to user_company_path(current_user, @account.company)
+    else
+      redirect_to root_path
+    end
   end
 
   def update
@@ -28,7 +39,7 @@ class PackagesController < ApplicationController
   private
 
   def packages_params 
-    params.require(:package).permit(:user_id, :account_id, :id, :associate_id, :name, :company_id, company_attributes: [:name], packages_attributes: [:name, :status])
+    params.require(:package).permit(:user_id, :account_id, :id, :associate_id, :name, :company_id, account_attributes: [:name], packages_attributes: [:name, :status])
   end
 
   def route_params
