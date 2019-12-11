@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :accounts, only: [:index, :show]
   end
   
-  resource :packages, only: [:new, :create, :update, :edit, :delete]
+ 
 
   resources :packages do
     resources :package_comments
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
 
   resources :accounts do
-    resources :packages, only: [:index, :show]
+    resources :packages
   end
 
   

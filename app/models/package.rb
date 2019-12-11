@@ -29,10 +29,21 @@ class Package < ApplicationRecord
 
   
   ## form helpers to be called in forms
+  def form_select_parent(instance:, current_user:)
+    instance.collection_select :account_id, current_user.accounts.where(:company_id => 2), :id, :name, prompt: true
+  end
+  
+  def form_select_parent_label(instance:)
+    instance.label self.account_id, "Associated Accounts"
+  end
+  
+
+
   def form_parent_variables
-    {:title => "Associated Accounts", 
+    {:title => "Associated Account", 
      :var_id => :account_id, 
-     :var_to_s =>"accounts"}
+     :var_to_s =>"accounts",
+     :var_all => Account.all}
   end
 
 

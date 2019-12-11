@@ -15,10 +15,11 @@ module FormHelper
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
-       concat tag.br   
-      concat parent_select(instance)
+       concat tag.br
+       concat subject.form_select_parent_label(instance: instance)   
+       concat subject.form_select_parent(instance: instance, current_user: current_user)   
        concat tag.br      
-      concat nested_new_parent(instance)
+       concat nested_new_parent(instance)
        concat tag.br      
       concat new_child(instance)
       concat submit_form(instance)
@@ -34,24 +35,26 @@ module FormHelper
   end
 
   def primary_subject_details(instance)
-   concat instance.label :name, "Account Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
+   concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
 
 
 
 
-#=> filters nested companies to choose from based on user role.
+#=> filters nested parent instances to choose from based on user role.
   def parent_select(instance)
     case current_user.role
       
     when "admin"
-     concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
+      instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
             instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
       
     when "manager"
-     concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
-            instance.collection_select @subject.form_parent_variables[:var_id], current_user.send(@subject.form_parent_variables[:var_to_s]), :id, :name, prompt: true
+    #  concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
+            # instance.collection_select @subject.form_parent_variables[:var_id], current_user.send(@subject.form_parent_variables[:var_to_s]), :id, :name, prompt: true
+        
+            concat @subject.form_parent(instance: instance, current_user: current_user)
       
     when "contact"
     end
@@ -106,5 +109,10 @@ module FormHelper
   def submit_form(instance)
     instance.submit "Create Account", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end
+  
+  
+
+
+
 end
 ####=> adds "new child" as a nested component to the new primarysubject form
