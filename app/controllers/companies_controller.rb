@@ -1,7 +1,6 @@
 class CompaniesController < ApplicationController
   def index
-    self.source_ids
-    
+
     redirect_to company_users_all_path(current_user)
   end
 

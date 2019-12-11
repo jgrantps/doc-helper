@@ -3,6 +3,8 @@ class AccountsController < ApplicationController
     @title = "Add New Account:"
     @subject = Account.new
     @subject.build_company
+    @child_class_attribute = Package.status
+    @child_collection_attribute = :status
     3.times {@subject.packages.build}
   end
 
@@ -25,7 +27,6 @@ class AccountsController < ApplicationController
         raise params.inspect
         redirect_to root_path
       end
-      raise params.inspect
     else
       @company = Company.find(account_params[:company_id])
       @account= @company.accounts.find_by(:name=> account_params[:name])

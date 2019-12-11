@@ -15,6 +15,9 @@ module FormHelper
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
+      if @subject_collection_attribute
+        concat primary_subject_collection_selection(instance)
+      end
       concat tag.br
 
       if strong_params[:controller] != "packages"
@@ -24,6 +27,7 @@ module FormHelper
         concat nested_new_parent(instance)
         concat tag.br      
       end
+
       nested_parent_tag(instance)
       concat new_child(instance)
       concat submit_form(instance)
@@ -39,10 +43,26 @@ module FormHelper
   end
 
   def primary_subject_details(instance)
-    # raise params.inspect
    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
+
+#=> Main subject Supplemental form elements(collection select)
+  def primary_subject_collection_selection(instance)
+    content_tag("div", class: "mx-4") do 
+      concat instance.label @subject_collection_attribute 
+      concat instance.select @subject_collection_attribute, @subject_class_attribute    
+    end
+  end
+
+
+
+  # def child_fields_components2(child_fields)
+  #   content_tag("div", class: "mx-4") do
+  #     concat child_fields.label @child_collection_attribute 
+  #     concat child_fields.select @child_collection_attribute, @child_class_attribute  
+  #   end
+  # end  
 
 
 
@@ -55,10 +75,7 @@ module FormHelper
       instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
             instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
       
-    when "manager"
-    #  concat instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
-            # instance.collection_select @subject.form_parent_variables[:var_id], current_user.send(@subject.form_parent_variables[:var_to_s]), :id, :name, prompt: true
-        
+    when "manager"        
             concat @subject.form_parent(instance: instance, current_user: current_user)
       
     when "contact"
@@ -92,24 +109,24 @@ module FormHelper
 
   def new_child_fields_wrapper(child_fields)
     content_tag("div", class:"flex items-center py-2 justify-right") do
-     concat child_fields_components1(child_fields)
-     if strong_params[:controller] == "accounts"
-      concat child_fields_components2(child_fields)
-     end
+      concat child_fields_components1(child_fields)
+      if strong_params[:controller] == "accounts"
+        concat child_fields_components2(child_fields)
+      end
     end
   end
 
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
-     concat child_fields.label @subject.form_child_reference 
-     concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
+      concat child_fields.label @subject.form_child_reference 
+      concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
     end
   end
   
   def child_fields_components2(child_fields)
-    content_tag("div", class: "mx-4") do 
-     concat child_fields.label :status 
-     concat child_fields.select :status, Package.status  
+    content_tag("div", class: "mx-4") do
+      concat child_fields.label @child_collection_attribute 
+      concat child_fields.select @child_collection_attribute, @child_class_attribute  
     end
   end  
 
@@ -122,3 +139,22 @@ module FormHelper
     instance.submit "Create #{@subject.class.name}", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end
 end
+
+
+
+
+# instance:
+
+# "<select name=\"package[status]\" id=\"package_status\">
+#   <option value=\"backlog\">backlog</option>
+# \n<option value=\"in_progress\">in_progress</option>
+# \n<option value=\"ready_for_review\">ready_for_review</option>
+# \n<option value=\"complete\">complete</option></select>"
+
+# child_fields:
+
+# "<select name=\"account[packages_attributes][0][status]\" id=\"account_packages_attributes_0_status\">
+# <option value=\"backlog\">backlog</option>\n
+# <option value=\"in_progress\">in_progress</option>\n
+# <option value=\"ready_for_review\">ready_for_review</option>\n
+# <option value=\"complete\">complete</option></select>"

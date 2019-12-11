@@ -65,17 +65,18 @@ module TilesHelper
   end
   
   def tile_flag(element)
+    # raise params.inspect
     case element.class.name
       when "Associate"
         output = element.name
       when "User"
         output = element.name
       when "Package"
-        output = element.account.name
+        output = element.status
       when "Account"
         output = element.account.name
       when "Company"
-        ouptut = element.name
+        ouptut = element.status
     end
     
     content_tag(:span, element, :class => "ml-1 py-1 text-sm font-medium leading-tight text-teal-900") do            
