@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
       @company = Company.find(account_params[:company_id])
       @account= @company.accounts.find_by(:name=> account_params[:name])
       @account.save 
-      raise_params.inspect
+    
       redirect_to root_path
     end
 

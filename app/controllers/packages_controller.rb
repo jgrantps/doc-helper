@@ -27,7 +27,7 @@ class PackagesController < ApplicationController
   end
 
   def create
-    @title = "hello there"
+    
     @account = Account.find(route_params[:account_id])
     @package = Package.new(packages_params)
     @package.account = @account

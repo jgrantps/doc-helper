@@ -65,14 +65,18 @@ module TilesHelper
   end
   
   def tile_flag(element)
-    # raise params.inspect
     case element.class.name
+      
       when "Associate"
         output = element.name
       when "User"
         output = element.name
       when "Package"
-        output = element.status
+        if strong_params[:controller] == "companies"
+          output = element.status
+        else
+          output = element.account.name
+        end
       when "Account"
         output = element.account.name
       when "Company"
