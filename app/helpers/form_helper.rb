@@ -1,7 +1,7 @@
 module FormHelper
-  
-
+  #=> builds the referenced parent in the nested route
   def form(subject)
+    
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
       content_tag("div", class: "w-full h-auto item-center") do 
         form_structure(subject)
@@ -15,12 +15,14 @@ module FormHelper
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
-       concat tag.br
-       concat subject.form_select_parent_label(instance: instance)   
-       concat subject.form_select_parent(instance: instance, current_user: current_user)   
-       concat tag.br      
-       concat nested_new_parent(instance)
-       concat tag.br      
+      concat tag.br
+      if strong_params[:controller] != "packages"
+        concat subject.form_select_parent_label(instance: instance)   
+        concat subject.form_select_parent(instance: instance, current_user: current_user)   
+        concat tag.br      
+        concat nested_new_parent(instance)
+        concat tag.br      
+      end
       concat new_child(instance)
       concat submit_form(instance)
     end
@@ -79,8 +81,8 @@ module FormHelper
   
   #=> adds "new child" as a nested component to the new primary_subject form
   def new_child(instance)
-    concat tag.p "Add new Packages" 
-    instance.fields_for :packages do |child_fields|
+    concat tag.p "#{@subject.form_child_title}" 
+    instance.fields_for @subject.form_child do |child_fields|
       new_child_fields_wrapper(child_fields) 
     end
   end
@@ -88,14 +90,16 @@ module FormHelper
   def new_child_fields_wrapper(child_fields)
     content_tag("div", class:"flex items-center py-2 justify-right") do
      concat child_fields_components1(child_fields)
-     concat child_fields_components2(child_fields)      
+     if strong_params[:controller] == "accounts"
+      concat child_fields_components2(child_fields)
+     end
     end
   end
 
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
-     concat child_fields.label :name 
-     concat child_fields.text_field :name, class:'border border-gray-250 rounded'  
+     concat child_fields.label @subject.form_child_reference 
+     concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
     end
   end
   

@@ -3,6 +3,7 @@ class Package < ApplicationRecord
   has_many :package_comments
   belongs_to :account 
   accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
+  accepts_nested_attributes_for :package_comments, reject_if: proc {|attributes| attributes['comment'].blank?}
   
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   # validates :name, presence: true
@@ -51,9 +52,15 @@ class Package < ApplicationRecord
     self
   end
 
-  def form_children
-    self.package_comments
+  def form_child
+    :package_comments
   end
 
- 
+  def form_child_title
+    "Add A New Package Comment"  
+  end
+
+  def form_child_reference
+    :comment
+  end
 end

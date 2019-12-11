@@ -20,6 +20,10 @@ class Account < ApplicationRecord
     end
   end
 
+  def kompany
+    Company.find(self[:company_id])
+  end
+
 
   def users
     self.company.users
@@ -30,7 +34,15 @@ class Account < ApplicationRecord
   end
 
   def form_child
-    self.packages
+    :packages
+  end
+
+  def form_child_title
+    "Add New Packages"  
+  end
+
+  def form_child_reference
+    :name
   end
 
   def form_select_parent(instance:, current_user:)

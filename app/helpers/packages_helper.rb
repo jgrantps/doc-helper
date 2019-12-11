@@ -27,10 +27,9 @@ module PackagesHelper
  end
 
  def new_package_button_text(heading)
-    c = Company.find(strong_params[:id])
+   c = Company.find(strong_params[:id])
 
    content_tag("span", class: "") do
-    
      link_to "NEW PACKAGE", new_account_package_path(Account.new_package_reference(companny: c, name: heading).first.id) 
    end  
  end

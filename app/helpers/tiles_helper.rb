@@ -118,7 +118,7 @@ module TilesHelper
   private
 
   def strong_params
-    params.permit(:controller, :action, :id, :company_id, :user_id, :role)
+    params.permit(:controller, :action, :id, :company_id, :user_id, :role, :account_id)
   end
 
 end
