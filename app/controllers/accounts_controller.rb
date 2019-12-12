@@ -15,20 +15,17 @@ class AccountsController < ApplicationController
   end
 
   def create
-    # raise params.inspect
+    
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
-      # byebug
-      @account = Account.new(account_params)
-      
-      @company = Company.find(account_params[:company_id])
-      @company.accounts << @account
-      
-      if @account.save
-        
-        # raise params.inspect
-        redirect_to root_path
+      @account = Account.new(account_params) 
+      if !@account.company     
+        @company = Company.find(account_params[:company_id])
+        @company.accounts << @account
+      end
+      if @account.save        
+       
+        redirect_to user_company_path(current_user, @company)
       else
-        raise params.inspect
         redirect_to root_path
       end
 
@@ -40,16 +37,14 @@ class AccountsController < ApplicationController
       @account = @pre_account     
       @account.save 
       
-      redirect_to root_path
+      redirect_to user_company_path(current_user, @company)
     end
-
-
   end
   
   def show
     raise params.inspect
     if account_params[:associate_id]
-    @associate = User.find(account_params[:associate_id])
+      @associate = User.find(account_params[:associate_id])
     end
     @account = Account.find(account_params[:id])
   end

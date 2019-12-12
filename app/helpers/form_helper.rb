@@ -84,7 +84,7 @@ module FormHelper
   
   #=> adds "new parent" as a nested component to the new primary subject form if user is "admin", ignores the field if otherwise
   def nested_new_parent(instance)
-    if current_user.role == "manager"
+    if current_user.role == "admin"
       concat tag.p "Create a New Company"
       instance.fields_for :company do |parent_fields|
         concat nested_parent_fields(parent_fields)    
