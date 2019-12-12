@@ -2,31 +2,31 @@
   <div class="block p-5 bg-white rounded-lg shadow">
     <div class="flex justify-left py-2 mb-4" id="tile_title">
    
-     <%= tile_title(element) %>
-   
-   </div>
-  
-    <div class="flex justify-between">
-    
-      <%= tile_contents(element) %>
-      <%= tile_avatar(element) %>      
-    
-    </div>
-
-    <div class="flex mt-2 justify-between items-baseline">
-    
-      <%= tile_link(element)%>
-
+     <%= tile_title(element: element) %>
       <div>
         <span class="px-2 inline-flex items-center bg-teal-100 rounded">
           <svg class="h-2 w-2 text-teal-500" viewBox="0 0 8 8" fill="currentColor">
           <circle cx="4" cy="4" r="3" />
           </svg>
                     
-          <%= tile_flag(element)%>           
+          <%= tile_flag(element: element)%>           
           
         </span>
       </div>
+   
+   </div>
+  
+    <div class="flex justify-between">
+    
+      <%= tile_contents(element: element, variable: variable) %>
+      <%= tile_avatar(element: element) %>      
+    
+    </div>
+
+    <div class="flex mt-2 justify-between items-baseline">
+    
+      <%= tile_link(element: element)%>
+
     </div>
   </div>
 

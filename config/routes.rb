@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   
  
   
+  get 'package_comments/new'
+  get 'package_comments/create'
+  get 'package_comments/show'
+  get 'package_comments/update'
+  get 'package_comments/delete'
+  get 'package_comments/edit'
   post "accounts/new", to: "accounts#create"
 
   

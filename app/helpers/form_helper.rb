@@ -1,5 +1,5 @@
 module FormHelper
-  #=> builds the referenced parent in the nested route
+  #=> styling wrappers
   def form(subject)
     
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
@@ -8,10 +8,12 @@ module FormHelper
       end  
     end
   end
-
-
-
-
+  
+  
+  
+  
+  #=> main method for composing the form's structure.  
+  #=> Builds out the main subject, nested parents and children, and the submit button.
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
@@ -47,25 +49,14 @@ module FormHelper
    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
 
-#=> Main subject Supplemental form elements(collection select)
+  
+#=> Main subject Supplemental form elements(attribute collection select)
   def primary_subject_collection_selection(instance)
     content_tag("div", class: "mx-4") do 
       concat instance.label @subject_collection_attribute 
       concat instance.select @subject_collection_attribute, @subject_class_attribute    
     end
   end
-
-
-
-  # def child_fields_components2(child_fields)
-  #   content_tag("div", class: "mx-4") do
-  #     concat child_fields.label @child_collection_attribute 
-  #     concat child_fields.select @child_collection_attribute, @child_class_attribute  
-  #   end
-  # end  
-
-
-
 
 #=> filters nested parent instances to choose from based on user role.
   def parent_select(instance)
@@ -139,22 +130,3 @@ module FormHelper
     instance.submit "Create #{@subject.class.name}", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end
 end
-
-
-
-
-# instance:
-
-# "<select name=\"package[status]\" id=\"package_status\">
-#   <option value=\"backlog\">backlog</option>
-# \n<option value=\"in_progress\">in_progress</option>
-# \n<option value=\"ready_for_review\">ready_for_review</option>
-# \n<option value=\"complete\">complete</option></select>"
-
-# child_fields:
-
-# "<select name=\"account[packages_attributes][0][status]\" id=\"account_packages_attributes_0_status\">
-# <option value=\"backlog\">backlog</option>\n
-# <option value=\"in_progress\">in_progress</option>\n
-# <option value=\"ready_for_review\">ready_for_review</option>\n
-# <option value=\"complete\">complete</option></select>"
