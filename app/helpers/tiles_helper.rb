@@ -1,8 +1,6 @@
 module TilesHelper
 #logic to control contents inside of the columns tiles IF called by the CANVAS method.
-  def tiles(tiling_elements:, sorting_condition:)
-    
-    
+  def tiles(tiling_elements:, sorting_condition:)  
     case strong_params[:controller]
       
       when "companies"

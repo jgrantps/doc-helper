@@ -11,10 +11,11 @@ class AccountsController < ApplicationController
   
   def index
     
+    raise params.inspect
   end
 
   def create
-    
+    # raise params.inspect
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
       @account = Account.new(account_params)
       @company = Company.find(account_params[:company_id])
@@ -28,10 +29,11 @@ class AccountsController < ApplicationController
         redirect_to root_path
       end
     else
+      @account = Account.new(account_params)
       @company = Company.find(account_params[:company_id])
       @account= @company.accounts.find_by(:name=> account_params[:name])
       @account.save 
-    
+    # raise params.inspect
       redirect_to root_path
     end
 
@@ -39,6 +41,7 @@ class AccountsController < ApplicationController
   end
   
   def show
+    raise params.inspect
     if account_params[:associate_id]
     @associate = User.find(account_params[:associate_id])
     end

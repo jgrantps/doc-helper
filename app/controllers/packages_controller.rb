@@ -33,7 +33,6 @@ class PackagesController < ApplicationController
     @package.account = @account
     
     if @package.save
-      raise params.inspect
       redirect_to user_company_path(current_user, @account.company)
     else
       redirect_to root_path

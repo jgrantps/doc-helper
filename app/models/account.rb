@@ -5,16 +5,15 @@ class Account < ApplicationRecord
   has_many :positions, through: :company
   has_many :users, through: :positions
   accepts_nested_attributes_for :company, reject_if: proc {|attributes| attributes['name'].blank?}
-   accepts_nested_attributes_for :packages, reject_if: proc {|attributes| attributes['name'].blank?}
+  accepts_nested_attributes_for :packages, reject_if: proc {|attributes| attributes['name'].blank?}
 
   scope :company, -> (name) {where(company_id: name)}
   scope :namme, -> (namme) {where(name: namme)}
   
   def packages_attributes=(attributes)
-    
     attributes.values.each do |values|
-      
       if !values[:name].blank?
+        raise params.inspect
         self.packages << Package.find_or_create_by(values)
       end
     end
