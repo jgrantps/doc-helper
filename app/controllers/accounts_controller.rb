@@ -17,9 +17,12 @@ class AccountsController < ApplicationController
   def create
     # raise params.inspect
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
+      # byebug
       @account = Account.new(account_params)
+      
       @company = Company.find(account_params[:company_id])
       @company.accounts << @account
+      
       if @account.save
         
         # raise params.inspect
@@ -28,12 +31,15 @@ class AccountsController < ApplicationController
         raise params.inspect
         redirect_to root_path
       end
+
     else
       @account = Account.new(account_params)
       @company = Company.find(account_params[:company_id])
-      @account= @company.accounts.find_by(:name=> account_params[:name])
+      @pre_account= @company.accounts.find_by(:name=> account_params[:name])
+      @pre_account.packages<<@account.packages
+      @account = @pre_account     
       @account.save 
-    # raise params.inspect
+      
       redirect_to root_path
     end
 
