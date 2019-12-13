@@ -3,7 +3,8 @@ class PackageCommentsController < ApplicationController
   end
   
   def new
-    @subject = PackageComment.new
+    # raise params.inspect
+    @subject = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_params[:package_id])
     @title = "here we are"
     @path = new_package_package_comment_path(packagecomments_params[:package_id])
     

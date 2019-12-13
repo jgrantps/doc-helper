@@ -17,21 +17,22 @@ module FormHelper
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       concat primary_subject(instance)
-      if @subject_collection_attribute
-        concat primary_subject_collection_selection(instance)
-      end
-      concat tag.br
+      
+      # if @subject_collection_attribute
+      #   concat primary_subject_collection_selection(instance)
+      # end
+      # concat tag.br
 
-      if strong_params[:controller] != "packages"
-        concat subject.form_select_parent_label(instance: instance)   
-        concat subject.form_select_parent(instance: instance, current_user: current_user)   
-        concat tag.br      
-        concat nested_new_parent(instance)
-        concat tag.br      
-      end
+      # if strong_params[:controller] != "packages"
+      #   concat subject.form_select_parent_label(instance: instance)   
+      #   concat subject.form_select_parent(instance: instance, current_user: current_user)   
+      #   concat tag.br      
+      #   concat nested_new_parent(instance)
+      #   concat tag.br      
+      # end
 
-      nested_parent_tag(instance)
-      concat new_child(instance)
+      # nested_parent_tag(instance)
+      # concat new_child(instance)
       concat submit_form(instance)
     end
   end
@@ -40,9 +41,19 @@ module FormHelper
 #=> Main subject the form eg: Account, Package, etc...
   def primary_subject(instance)
     content_tag("div", class: "flex item-center") do
-      primary_subject_details(instance)
+      if strong_params[:controller] == "package_comments"
+        primary_subject_details_comments(instance)
+      else
+        primary_subject_details(instance)
+      end
     end
+  end  
+    
+  def primary_subject_details_comments(instance)
+   concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
+   concat instance.text_field :comment, class:'border border-gray-250 rounded'
   end
+  
 
   def primary_subject_details(instance)
    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
