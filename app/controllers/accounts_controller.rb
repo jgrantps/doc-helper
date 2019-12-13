@@ -10,8 +10,6 @@ class AccountsController < ApplicationController
 
   
   def index
-    
-    raise params.inspect
   end
 
   def create
@@ -22,9 +20,9 @@ class AccountsController < ApplicationController
         @company = Company.find(account_params[:company_id])
         @company.accounts << @account
       end
-      if @account.save        
-       
-        redirect_to user_company_path(current_user, @company)
+
+      if @account.save         
+        redirect_to user_company_path(current_user, @account.company.id)
       else
         redirect_to root_path
       end
@@ -55,7 +53,5 @@ class AccountsController < ApplicationController
   def account_params 
     params.require(:account).permit(:user_id, :id, :associate_id, :name, :company_id, company_attributes: [:name], packages_attributes: [:name, :status])
   end
-
-
   
 end

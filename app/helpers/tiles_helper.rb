@@ -69,10 +69,8 @@ module TilesHelper
     package.package_comments.each do |comment|
       commentor = User.find(comment.user_id)     
       concat "#{comment.comment}  |  #{commentor.name}" 
-     
-       concat tag.br 
-    end
-   
+      concat tag.br 
+    end   
   end
 
 
@@ -131,7 +129,7 @@ module TilesHelper
   end
 
   def span(element: )
-     content_tag("span", class: "-ml-2 rounded-full border-2 border-white") do 
+    content_tag("span", class: "-ml-2 rounded-full border-2 border-white") do 
      pic_tag(user: element) 
     end
   end
