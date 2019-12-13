@@ -32,6 +32,7 @@ class PackagesController < ApplicationController
     @package = Package.new(packages_params)
     @package.account = @account
     
+    # raise params.inspect
     if @package.save
       redirect_to user_company_path(current_user, @account.company)
     else
@@ -51,7 +52,7 @@ class PackagesController < ApplicationController
   private
 
   def packages_params 
-    params.require(:package).permit(:user_id, :status, :account_id, :id, :associate_id, :name, :company_id, account_attributes: [:name], packages_attributes: [:name, :status])
+    params.require(:package).permit(:user_id, :status, :account_id, :id, :associate_id, :name, :company_id, account_attributes: [:name], packages_attributes: [:user_id, :name, :status], package_comments_attributes: [:user_id, :comment])
   end
 
   def route_params

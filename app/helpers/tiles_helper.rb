@@ -37,8 +37,6 @@ module TilesHelper
       output.upcase
     end
   end
-  
-
 
 
   #=> shows comments -if any- for packages.  Shows associate's position in the company for users/associates.
@@ -50,7 +48,9 @@ module TilesHelper
       when "User"
         user_role(element: element, company_name: variable)          
       when "Package"
-        package_comments(element: element, company_name: variable)
+        content_tag(:h2, element, :class => "text-sm font-medium font-bold text-gray-900") do
+          package_comments(element: element, company_name: variable)
+        end
       when "Account"
         output = element.account.name
       when "Company"
@@ -63,13 +63,16 @@ module TilesHelper
     company = Company.find_by(:name => company_name)
     role = Position.where(:user_id => element).where(:company_id => company).first.title
   end
-
+  
   def package_comments(element:, company_name:)
     package = element 
     package.package_comments.each do |comment|
-      commentor = User.find(comment.user_id)
-      "#{comment.comment} | #{commentor.name}"
+      commentor = User.find(comment.user_id)     
+      concat "#{comment.comment}  |  #{commentor.name}" 
+     
+       concat tag.br 
     end
+   
   end
 
 
@@ -140,7 +143,7 @@ module TilesHelper
   private
 
   def strong_params
-    params.permit(:controller, :action, :id, :company_id, :user_id, :role, :account_id)
+    params.permit(:controller, :action, :id, :company_id, :user_id, :role, :account_id, :package_id)
   end
 
 end

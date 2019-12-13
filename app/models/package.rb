@@ -3,11 +3,24 @@ class Package < ApplicationRecord
   has_many :package_comments
   belongs_to :account 
   accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
-  accepts_nested_attributes_for :package_comments, reject_if: proc {|attributes| attributes['comment'].blank?}
+  # accepts_nested_attributes_for :package_comments, reject_if: proc {|attributes| attributes['comment'].blank?}
   
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   # validates :name, presence: true
   
+  def author(user)
+    user
+  end
+
+
+  def package_comments_attributes=(attributes)
+    attributes.values.each do |values|
+      if !values[:comment].blank?
+        comment = PackageComment.new(values)        
+        self.package_comments << comment
+      end
+    end
+  end
 
   scope :specific, -> (name) {where(id: name.packages)}
 

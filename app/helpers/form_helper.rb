@@ -16,25 +16,33 @@ module FormHelper
   #=> Builds out the main subject, nested parents and children, and the submit button.
   def form_structure(subject)
     form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
-      concat primary_subject(instance)
-      
-      # if @subject_collection_attribute
-      #   concat primary_subject_collection_selection(instance)
-      # end
-      # concat tag.br
+      if strong_params[:controller] == "package_comments"        
+        concat primary_subject(instance)
+        concat hidden_package_id(instance)     
+        concat submit_form(instance)
+        
+      else 
+        concat primary_subject(instance)
+        
+        if @subject_collection_attribute
+          concat primary_subject_collection_selection(instance)
+        end
 
-      # if strong_params[:controller] != "packages"
-      #   concat subject.form_select_parent_label(instance: instance)   
-      #   concat subject.form_select_parent(instance: instance, current_user: current_user)   
-      #   concat tag.br      
-      #   concat nested_new_parent(instance)
-      #   concat tag.br      
-      # end
+        concat tag.br
+    
+        if strong_params[:controller] != "packages"
+          concat subject.form_select_parent_label(instance: instance)   
+          concat subject.form_select_parent(instance: instance, current_user: current_user)   
+          concat tag.br      
+          concat nested_new_parent(instance)
+          concat tag.br      
+        end
 
-      # nested_parent_tag(instance)
-      # concat new_child(instance)
-      concat submit_form(instance)
-    end
+        nested_parent_tag(instance)
+        concat new_child(instance)
+        concat submit_form(instance)
+      end
+    end      
   end
 
 
@@ -122,6 +130,9 @@ module FormHelper
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
       concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
+      concat child_fields.hidden_field :user_id, value: current_user.id
+     
+      # concat child_fields.hidden_field :user_id, current_user 
     end
   end
   
