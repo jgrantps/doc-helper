@@ -6,10 +6,12 @@ class PackageCommentsController < ApplicationController
     package = Package.find(packagecomments_package[:package_id])
     @subject = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id])
     @title = "Comment for #{package.account.name} > #{package.name}"
+    
     @path = new_package_package_comment_path(packagecomments_package[:package_id])
   end
 
   def create
+    # raise params.inspect
     if !packagecomments_comment[:comment].blank?
       package = Package.find(packagecomments_package[:package_id])
       new_comment = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id], :comment => packagecomments_comment[:comment])

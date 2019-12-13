@@ -14,12 +14,12 @@ module FormHelper
   #=> main method for composing the form's structure.  
   #=> Builds out the main subject, nested parents and children, and the submit button.
   def form_structure(subject)
-    form_for(subject, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
+    form_for(subject, url: package_package_comments_path(strong_params[:package_id]), html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       if strong_params[:controller] == "package_comments"        
         concat primary_subject(instance)
-        concat hidden_package_id(instance)     
+        # concat hidden_package_id(instance)     
         concat submit_form(instance)
-        
+        # raise params.inspect
       else 
         concat primary_subject(instance)
         
@@ -89,7 +89,6 @@ module FormHelper
       
     when "manager"        
             concat @subject.form_parent(instance: instance, current_user: current_user)
-      
     when "contact"
     end
   end
