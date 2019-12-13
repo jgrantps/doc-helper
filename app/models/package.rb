@@ -15,7 +15,7 @@ class Package < ApplicationRecord
 
   def package_comments_attributes=(attributes)
     attributes.values.each do |values|
-      raise params.inspect
+      # raise params.inspect
       if !values[:comment].blank?
         comment = PackageComment.new(values)        
         self.package_comments << comment

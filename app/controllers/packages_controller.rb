@@ -22,17 +22,23 @@ class PackagesController < ApplicationController
       @subject_collection_attribute = :status
       
       #=> pre-emptive build of child elements
-      3.times {@subject.package_comments.build(:user_id => current_user.id)}
-      
-      
+      3.times {@subject.package_comments.build(:user_id => current_user.id)}      
     end
+
+    
     
     def create
       if !packages_params[:name].empty?
+        
         @account = Account.find(route_params[:account_id])
-        # b= packages_params[:package_comments_attributes].to_h.each{|v| v[1].merge!(:user_id => current_user.id)}
-        raise params.inspect
-       @package = Package.new(packages_params)
+        pp = packages_params
+        pc = pp[:package_comments_attributes]
+        pc.select do |key, hash|
+          hash["user_id"] = current_user.id
+        end
+        pp.merge(pc)
+        
+       @package = Package.new(pp)
       @package.account = @account
       
       if @package.save
@@ -60,7 +66,7 @@ class PackagesController < ApplicationController
 
   def packages_params 
     params.require(:package).permit(:user_id, :status, :account_id, :id, :associate_id, :name, :company_id, account_attributes: [:name],
-     packages_attributes: [:user_id, :name, :status], package_comments_attributes: [:comment, :user_id]).merge(packages_params[:package_comments_attributes].values.each {|v| v[:user_id]=current_user.id})
+     packages_attributes: [:user_id, :name, :status], package_comments_attributes: [:comment, :user_id])
     #.merge(package_comments_attributes: [:comment, user_id: current_user.id])
   end
 
