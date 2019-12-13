@@ -82,8 +82,7 @@ module FormHelper
 
   #=> filters nested parent instances to choose from based on user role.
   def parent_select(instance)
-    case current_user.role
-      
+    case current_user.role      
     when "admin"
       instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
             instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
@@ -142,6 +141,9 @@ module FormHelper
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
       concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
+     
+     
+      #=> PROBLEM FIELD ---> CAN BE MANIPULATED IN BROWSER DOM!!!
       concat child_fields.hidden_field :user_id, value: current_user.id
     end
   end

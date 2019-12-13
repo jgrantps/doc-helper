@@ -5,13 +5,16 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    redirect_to root_path if !current_user.companies.include?(@company)
-    self.source_ids
     @company = Company.find(company_params[:id])
-    @column_headings = @company.account_headings
-    @tiling_elements = @company.packages
-    @title = @company.name 
-   
+    if current_user.companies.include?(@company)
+      self.source_ids
+      @column_headings = @company.account_headings
+      @tiling_elements = @company.packages
+      @title = @company.name 
+    else
+      redirect_to root_path 
+    end
+
 
    
   end

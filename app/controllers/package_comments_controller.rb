@@ -3,27 +3,26 @@ class PackageCommentsController < ApplicationController
   end
   
   def new
-    # raise params.inspect
     package = Package.find(packagecomments_package[:package_id])
     @subject = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id])
     @title = "Comment for #{package.account.name} > #{package.name}"
     @path = new_package_package_comment_path(packagecomments_package[:package_id])
-    
-    # raise params.inspect
-
-
-   
   end
 
   def create
-    package = Package.find(packagecomments_package[:package_id])
-    new_comment = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id], :comment => packagecomments_comment[:comment])
-    if new_comment.save
-      package.package_comments << new_comment
-    redirect_to user_company_path(current_user, package.company)
-    end
+    if !packagecomments_comment[:comment].blank?
+      package = Package.find(packagecomments_package[:package_id])
+      new_comment = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id], :comment => packagecomments_comment[:comment])
+      
+      if new_comment.save
+        package.package_comments << new_comment
+        redirect_to user_company_path(current_user, package.company)
+      end 
 
-    #  raise params.inspect
+    else
+      package = Package.find(packagecomments_package[:package_id])
+      redirect_to user_company_path(current_user, package.company)
+    end
   end
 
   def show
