@@ -3,10 +3,6 @@ module ApplicationHelper
     render partial: "dashboard_elements/upper_block"
   end
 
-   def data_sidebar_menu(title)
-    render partial: "dashboard_elements/data_sidebar", locals: {:title => title, :test => @test}
-  end
-
   def canvas(column_headings:)
   # main component of the Dashboard
   # logic to display either forms or columns with appropriate tiles.
