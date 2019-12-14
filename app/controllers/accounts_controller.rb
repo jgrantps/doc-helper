@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   def new
+    @route_path = user_accounts_path(current_user.id)
     @title = "Add New Account:"
     @subject = Account.new
     @subject.build_company

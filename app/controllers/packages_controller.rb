@@ -6,6 +6,7 @@ class PackagesController < ApplicationController
   end
 
   def new
+      @route_path = account_packages_path(route_params[:account_id])
       #=> reified RESTful parent provided to build @title
       @nested_route_object = Account.find(route_params[:account_id])
    

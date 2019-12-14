@@ -7,10 +7,13 @@ class PackageCommentsController < ApplicationController
     @subject = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id])
     @title = "Comment for #{package.account.name} > #{package.name}"
     
-    @path = new_package_package_comment_path(packagecomments_package[:package_id])
+    @route_path = package_package_comments_path(packagecomments_package[:package_id])
   end
 
   def create
+    redirect_to root_path if !current_user.packages.include?(Package.find(packagecomments_package[:package_id]))
+
+
     # raise params.inspect
     if !packagecomments_comment[:comment].blank?
       package = Package.find(packagecomments_package[:package_id])

@@ -20,6 +20,12 @@ class CompaniesController < ApplicationController
   end
 
   def new
+    @route_path = user_companies_path(current_user.id)
+    @title = "Create a New Company"
+    @subject = Company.new
+    # @subject.build_positions
+    3.times {@subject.accounts.build}
+    
   end
 
   def create

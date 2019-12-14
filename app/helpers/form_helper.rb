@@ -13,33 +13,37 @@ module FormHelper
   
   #=> main method for composing the form's structure.  
   #=> Builds out the main subject, nested parents and children, and the submit button.
+  #=> Routes the form submission to path based on the supplying controller.
   def form_structure(subject)
-    form_for(subject, url: package_package_comments_path(strong_params[:package_id]), html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
-      if strong_params[:controller] == "package_comments"        
+    form_for(subject, url: @route_path, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
+      case strong_params[:controller]
+     
+      when "packages"
         concat primary_subject(instance)
-        # concat hidden_package_id(instance)     
+        concat tag.br      
+        concat new_child(instance)
         concat submit_form(instance)
-        # raise params.inspect
-      else 
+      
+      when "package_comments"
         concat primary_subject(instance)
-        
-        if @subject_collection_attribute
-          concat primary_subject_collection_selection(instance)
-        end
+        concat submit_form(instance)
 
-        concat tag.br
-    
-        if strong_params[:controller] != "packages"
-          concat subject.form_select_parent_label(instance: instance)   
-          concat subject.form_select_parent(instance: instance, current_user: current_user)   
-          concat tag.br      
-          concat nested_new_parent(instance)
-          concat tag.br      
-        end
-        
+      when "companies"
+        concat submit_form(instance)
+
+      when "accounts"
+        concat subject.form_select_parent_label(instance: instance)   
+        concat subject.form_select_parent(instance: instance, current_user: current_user)   
+        concat tag.br      
+        concat nested_new_parent(instance)
+        concat tag.br      
         nested_parent_tag(instance)
         concat new_child(instance)
         concat submit_form(instance)
+
+      when "associates"
+        concat submit_form(instance)
+
       end
     end      
   end
@@ -59,18 +63,17 @@ module FormHelper
       end
     end
   end  
+
   #=> distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
    concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
    concat instance.text_field :comment, class:'border border-gray-250 rounded'
   end
-  
 
   def primary_subject_details(instance)
    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
-
   
   #=> Main subject Supplemental form elements(attribute collection select)
   def primary_subject_collection_selection(instance)
@@ -107,6 +110,7 @@ module FormHelper
     end
   end
   
+  #=> styles nested parent label and text fields.
   def nested_parent_fields(parent_fields)
     content_tag("div", class: "nested_fields") do
       concat parent_fields.label :name
@@ -139,11 +143,7 @@ module FormHelper
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
-      concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'  
-     
-     
-      #=> PROBLEM FIELD ---> CAN BE MANIPULATED IN BROWSER DOM!!!
-      concat child_fields.hidden_field :user_id, value: current_user.id
+      concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'
     end
   end
   
