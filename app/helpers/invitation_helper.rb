@@ -33,7 +33,7 @@ module InvitationHelper
   def child_fields(instance:)
     instance.fields_for :position do |p|
       p.fields_for :companies do |c|
-        # raise params.inpsect
+        raise params.inpsect
       concat  c.label label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
       concat  c.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
       end

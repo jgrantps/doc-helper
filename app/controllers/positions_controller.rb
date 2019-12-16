@@ -1,5 +1,6 @@
 class PositionsController < ApplicationController
   def new
+    @subject = Position.new
   end
 
   def create
