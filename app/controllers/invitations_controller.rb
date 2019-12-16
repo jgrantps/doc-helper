@@ -4,7 +4,7 @@ class InvitationsController < Devise::InvitationsController
 
   # PUT /resource/invitation
   def create
-    # raise params.inspect
+     raise params.inspect
     # super
    if @user.save
   end

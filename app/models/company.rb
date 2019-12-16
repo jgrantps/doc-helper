@@ -43,5 +43,9 @@ class Company < ApplicationRecord
     self.users  
   end
 
+  def form_child_title
+    "Add New Company"  
+  end
+
 
 end

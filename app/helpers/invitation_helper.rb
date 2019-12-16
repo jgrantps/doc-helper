@@ -8,6 +8,7 @@ module InvitationHelper
       
       concat  instance.label :role, class: "text-xl item-center text-gray-900 mr-4 leading-tight"
       concat  instance.select :role, User.roles.keys.to_a, class: "input" 
+      concat child_fields(instance: instance)
       concat  instance.submit t("devise.invitations.new.submit_button")
      
     end
@@ -29,7 +30,13 @@ module InvitationHelper
     end
   end
 
-  def child_field
-    
+  def child_fields(instance:)
+    instance.fields_for :position do |p|
+      p.fields_for :companies do |c|
+        # raise params.inpsect
+      concat  c.label label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title]
+      concat  c.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
+      end
+    end
   end
 end

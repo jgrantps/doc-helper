@@ -31,6 +31,13 @@ class User < ApplicationRecord
    end
  end
 
+ def form_parent_variables
+  {:title => "from the user model", 
+   :var_id => :company_id, 
+   :var_to_s =>"companies",
+   :var_all => Company.all}
+end
+
  def specified_associates(rle:)
   self.associates.where(role: rle).where.not(id: self).distinct
 end

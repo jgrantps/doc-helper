@@ -3,6 +3,13 @@ Rails.application.routes.draw do
  
   
  
+  get 'positions/new'
+  get 'positions/create'
+  get 'positions/update'
+  get 'positions/delete'
+  get 'positions/index'
+  get 'positions/show'
+  get 'positions/edit'
   post "accounts/new", to: "accounts#create"
 
   
