@@ -2,7 +2,9 @@ module DomainsHelper
 
   def domains_sidebar_menu 
     content_tag(:div, id: "sidebar") do
-      domains_title + domains_collection(current_user.domains) + new_domain
+      domains_title + 
+      domains_collection(current_user.domains) + 
+      new_domain
     end
   end
 
@@ -29,7 +31,8 @@ module DomainsHelper
 
   def new_domain
     content_tag(:button, class: "mt-3 py-2 px-3 flex items-center text-sm font-medium text-gray-600 border border-gray-300 rounded hover:bg-gray-200") do 
-      cross + add_domain_link  
+      cross + 
+      add_domain_link  
     end
   end
 

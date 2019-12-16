@@ -1,5 +1,15 @@
 class AssociatesController < ApplicationController
 
+  def new
+  @route_path = user_accounts_path(current_user.id)
+  @title = "Add New User:"
+   @subject = User.new
+  # # @subject.build_company
+  # @child_class_attribute = Position.title
+  # @child_collection_attribute = :status
+  # 3.times {@subject.packages.build}  
+  end
+
   def index
     
     @role = associates_params[:role]

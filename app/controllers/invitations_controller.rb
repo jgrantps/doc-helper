@@ -4,10 +4,9 @@ class InvitationsController < Devise::InvitationsController
 
   # PUT /resource/invitation
   def create
-    super
-    #  byebug
-     #=> build out the position relationships in the form here!!!
-    #@user.positions.build()
+    # raise params.inspect
+    # super
+   if @user.save
   end
 
   def update
