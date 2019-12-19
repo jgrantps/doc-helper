@@ -4,9 +4,9 @@ class InvitationsController < Devise::InvitationsController
 
   # PUT /resource/invitation
   def create
-     raise params.inspect
-    # super
-   if @user.save
+    super
+     @user = User.new(new_user_params)
+   
   end
 
   def update
@@ -28,6 +28,12 @@ class InvitationsController < Devise::InvitationsController
 
   def update_sanitized_params
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
+  end
+
+  
+
+  def new_user_params
+    params.require(:user).permit(:name, :role, :email, positions_attributes: [:title, :company_id, company_attributes: [:name]])
   end
 
 end

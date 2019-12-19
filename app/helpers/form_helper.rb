@@ -4,7 +4,8 @@ module FormHelper
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
       content_tag("div", class: "w-full h-auto item-center") do 
         if strong_params[:controller] == "associates"
-         invitation_form(subject)
+          render partial: "dashboard_elements/invitation_template", locals: {:subject => subject}  
+        #  invitation_form(subject)
         else
           form_structure(subject)
         end  

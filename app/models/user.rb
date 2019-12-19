@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :package_comments, through: :packages
   
   accepts_nested_attributes_for :positions,  reject_if: proc {|attributes| attributes['title'].blank?}
-  accepts_nested_attributes_for :companies, reject_if: proc {|attributes| attributes['name'].blank?}
+  # accepts_nested_attributes_for :companies, reject_if: proc {|attributes| attributes['name'].blank?}
  # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
 
  

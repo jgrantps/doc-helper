@@ -4,15 +4,11 @@ class AssociatesController < ApplicationController
   @route_path = user_accounts_path(current_user.id)
   @title = "Add New User:"
    @subject = User.new
-  @subject.positions.build
-   
-  3.times do
+  # @subject.positions.build
     p = @subject.positions.build
     p.build_company
-    # raise params.inspect
-   end 
-  # @child_class_attribute = Position.title
-  # @child_collection_attribute = :status
+    
+ 
   end
 
   def index
