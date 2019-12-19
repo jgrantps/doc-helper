@@ -4,8 +4,9 @@ class InvitationsController < Devise::InvitationsController
 
   # POST /resource/invitation
   def create
-    # byebug
+
     super
+    
   end
 
   ##=> added to allow for customized params to be for tested forms.
@@ -27,7 +28,6 @@ class InvitationsController < Devise::InvitationsController
   protected
 
   def invite_params
-    # byebug
     new_user_params
   end
 

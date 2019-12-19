@@ -5,7 +5,7 @@ class Company < ApplicationRecord
   has_many :positions
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
-
+  accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
 
   scope :specific, -> (name) {where(id: name.companies)}
 
@@ -39,13 +39,30 @@ class Company < ApplicationRecord
     titles.uniq
   end
 
-  def involved_users
-    self.users  
+  def form_select_parent(instance:, current_user:)
+    raise params
+    instance.collection_select :associate.id, User.all, :id, :name, prompt: true
+  end
+
+
+  def form_select_parent_label(instance:)
+    instance.label self, "Associated Users"
+  end
+
+  def form_child
+    :accounts
   end
 
   def form_child_title
-    "Add New Company"  
+    "Add New Accounts"  
   end
 
+  def form_child_reference
+    :name
+  end
+
+  def involved_users
+    self.users  
+  end
 
 end

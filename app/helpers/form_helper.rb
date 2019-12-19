@@ -3,44 +3,40 @@ module FormHelper
   def form(subject)    
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
       content_tag("div", class: "w-full h-auto item-center") do 
-        if strong_params[:controller] == "associates"
-          render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
-        #  invitation_form(subject)
-        else
+        # if strong_params[:controller] == "associates"
+        #   render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
+        # #  invitation_form(subject)
+        # else
           form_structure(subject)
-        end  
+        # end  
       end  
     end
   end
-  
-
-  
-  
-  
-  
+   
   
   #=> main method for composing the form's structure.  
   #=> Builds out the main subject, nested parents and children, and the submit button.
   #=> Routes the form submission to path based on the supplying controller.
-  
-  def form_structure(subject)
+    def form_structure(subject)
     form_for(subject, url: @route_path, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
       case strong_params[:controller]
-        
-      when "packages"
+              
+      ## New Associate form
+      when "associates"
+        render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
+      
+      ## New Company form  
+      when "companies"
         concat primary_subject(instance)
+        concat subject.form_select_parent_label(instance: instance)   
+        concat subject.form_select_parent(instance: instance, current_user: current_user)   
         concat tag.br      
         concat new_child(instance)
         concat submit_form(instance)
-        
-      when "package_comments"
-        concat primary_subject(instance)
-        concat submit_form(instance)
-        
-      when "companies"
-        concat submit_form(instance)
-        
+          
+      ## New Account form
       when "accounts"
+        concat primary_subject(instance)
         concat subject.form_select_parent_label(instance: instance)   
         concat subject.form_select_parent(instance: instance, current_user: current_user)   
         concat tag.br      
@@ -48,6 +44,19 @@ module FormHelper
         concat tag.br      
         nested_parent_tag(instance)
         concat new_child(instance)
+        concat submit_form(instance)
+            
+      ## New Package form
+      when "packages"
+        concat primary_subject(instance)
+        concat primary_subject_collection_selection(instance)
+        concat tag.br      
+        concat new_child(instance)
+        concat submit_form(instance)
+        
+      ## New Package Comment form
+      when "package_comments"
+        concat primary_subject(instance)
         concat submit_form(instance)
         
       end
