@@ -1,6 +1,6 @@
 <%# raise params.inspect%>
 <h1 class="text-xl">  add a new associate</h1>
-<%= form_for subject, url: user_invitation_path do |f|%>
+<%= form_for @subject, url: user_invitation_path do |f|%>
   <%=f.label :name%>
   <%=f.text_field :name%>
     <br>

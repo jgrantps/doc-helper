@@ -5,12 +5,9 @@ class User < ApplicationRecord
   has_many :accounts, through: :companies
   has_many :account_comments, through: :accounts
   has_many :packages, through: :accounts
-  
   has_many :package_comments, through: :packages
   
   accepts_nested_attributes_for :positions,  reject_if: proc {|attributes| attributes['title'].blank?}
-  # accepts_nested_attributes_for :companies, reject_if: proc {|attributes| attributes['name'].blank?}
- # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
 
  
  # Include default devise modules. Others available are:
@@ -21,6 +18,12 @@ class User < ApplicationRecord
  scope :specific_for, -> (name, rle) {where(role: rle).where.not(id: name).distinct}
  scope :specific_to, -> (name) {where.not(id: name).distinct}
  
+ 
+
+
+
+
+
  
  def associate_categories(var="all")
    if var == "all"

@@ -1,14 +1,14 @@
 class InvitationsController < Devise::InvitationsController
-
+  layout "application"
   before_action :update_sanitized_params, only: :update
 
-  # PUT /resource/invitation
+  # POST /resource/invitation
   def create
+    # byebug
     super
-     @user = User.new(new_user_params)
-   
   end
 
+  ##=> added to allow for customized params to be for tested forms.
   def update
     respond_to do |format|
       format.js do
@@ -26,14 +26,19 @@ class InvitationsController < Devise::InvitationsController
 
   protected
 
+  def invite_params
+    # byebug
+    new_user_params
+  end
+
   def update_sanitized_params
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
   end
+
 
   
 
   def new_user_params
     params.require(:user).permit(:name, :role, :email, positions_attributes: [:title, :company_id, company_attributes: [:name]])
   end
-
 end

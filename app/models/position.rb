@@ -5,7 +5,10 @@ class Position < ApplicationRecord
 
 
   def company_attributes=(attributes)
-  raise params.inspect
+    if !attributes[:name].empty?
+      self.company = Company.find_or_create_by(attributes)
+      raise params.inspect
+    end
   end
 
   def form_child_title
