@@ -14,6 +14,7 @@ module FormHelper
   end
    
   
+  
   #=> main method for composing the form's structure.  
   #=> Builds out the main subject, nested parents and children, and the submit button.
   #=> Routes the form submission to path based on the supplying controller.
@@ -28,12 +29,25 @@ module FormHelper
       ## New Company form  
       when "companies"
         concat primary_subject(instance)
-        concat subject.form_select_parent_label(instance: instance)   
-        concat subject.form_select_parent(instance: instance, current_user: current_user)   
+        concat tag.br      
+        concat tag.br      
+        # concat subject.form_select_parent_label(instance: instance)   
+        concat assign_new_associates(instance: instance, current_user: current_user)
+        # concat subject.form_select_parent(instance: instance, current_user: current_user)   
+        concat tag.br      
         concat tag.br      
         concat new_child(instance)
         concat submit_form(instance)
+
           
+
+
+
+
+
+
+
+
       ## New Account form
       when "accounts"
         concat primary_subject(instance)
@@ -132,8 +146,40 @@ module FormHelper
       concat parent_fields.text_field :name, class:'border border-gray-250 rounded'
     end
   end
-  
-  
+
+
+  ###################
+  #=> adds "new associate" as a nested component to a new company.
+  def assign_new_associates(instance:, current_user:)  
+    content_tag("div", class: "trialzzz")  do
+      current_user.class.roles.keys.each do |key|     
+        concat ( 
+          instance.fields_for :positions do |position_fields|
+            concat positions(position_fields: position_fields)   
+            concat associates(position_fields: position_fields, key: key)   
+          end 
+        )               
+      end 
+    end  
+  end
+
+  def positions(position_fields:)
+    content_tag("div", class: "nested_fields") do
+      concat position_fields.label :title
+      concat position_fields.text_field :title, class: 'border border-gray-250 rounded' 
+    end
+  end
+
+  def associates(key:, position_fields:)
+    position_fields.fields_for :associate do |associate_fields|
+      content_tag("div", class: "nested_fields") do
+        concat associate_fields.label self, "Dropdown of #{key}s:" 
+        concat associate_fields.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
+        concat tag.br
+      end
+    end
+  end
+
   
   
   ###################
@@ -181,5 +227,26 @@ module FormHelper
   #=> Submit Button
   def submit_form(instance)
     instance.submit "Create #{@subject.class.name}", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
-  end    
+  end 
+  
+  
+
+
+
+
+
+  # #=> adds "new associate" as a nested component to the new company.
+  # def assign_new_associates(instance:, current_user:)    
+  #   current_user.class.roles.keys.each do |key|     
+  #     instance.fields_for :positions do |position_fields|
+  #       position_fields.label :title
+  #       position_fields.text_field :title, class: 'border border-gray-250 rounded'        
+  #       position_fields.fields_for :associate do |associate_fields|          
+  #         associate_fields.label self, "Dropdown of #{key}s:" 
+  #         associate_fields.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
+  #         tag.br
+  #       end
+  #     end                
+  #   end   
+  # end
 end

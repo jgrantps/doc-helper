@@ -1,12 +1,13 @@
 class AccountsController < ApplicationController
+  
   def new
     @route_path = user_accounts_path(current_user.id)
     @title = "Add New Account:"
     @subject = Account.new
     @subject.build_company
+    3.times {@subject.packages.build}
     @child_class_attribute = Package.status
     @child_collection_attribute = :status
-    3.times {@subject.packages.build}
   end
 
   

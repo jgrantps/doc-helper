@@ -1,4 +1,14 @@
 class CompaniesController < ApplicationController
+  
+  def new  
+    @route_path = user_companies_path(current_user.id)
+    @title = "Create a New Company:"
+    @subject = Company.new
+    3.times {@subject.positions.build}
+    3.times {@subject.accounts.build}
+    @child_class_attribute = Account.name
+  end
+  
   def index
     redirect_to company_users_all_path(current_user)
   end
@@ -13,14 +23,6 @@ class CompaniesController < ApplicationController
     else
       redirect_to root_path 
     end   
-  end
-
-  def new  
-    @route_path = user_companies_path(current_user.id)
-    @title = "Create a New Company"
-    @subject = Company.new
-    # @subject.build_positions
-    3.times {@subject.accounts.build}
   end
 
   def create

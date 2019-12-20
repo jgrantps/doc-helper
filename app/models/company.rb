@@ -6,7 +6,8 @@ class Company < ApplicationRecord
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
-
+  accepts_nested_attributes_for :positions, reject_if: proc {|attributes| attributes[:title].blank?}
+  
   scope :specific, -> (name) {where(id: name.companies)}
 
   def associated_users(var =  "all", excluded_name)
@@ -35,26 +36,33 @@ class Company < ApplicationRecord
   end
 
   def titles
-    titles = self.positions.map {|position| position.title }
-    titles.uniq
+    self.positions.pluck(:title).uniq    
   end
 
   def form_select_parent(instance:, current_user:)
-    raise params
-    instance.collection_select :associate.id, User.all, :id, :name, prompt: true
+    capture do
+      User.roles.keys.each do |key|
+         instance.label self, "Dropdown of #{key}s:" 
+        instance.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
+      end
+    end
   end
+
+  def iterated_keys(instance:)
+  end
+
 
 
   def form_select_parent_label(instance:)
-    instance.label self, "Associated Users"
-  end
-
-  def form_child
-    :accounts
+    # instance.label self, "Separate method!:"
   end
 
   def form_child_title
     "Add New Accounts"  
+  end
+
+  def form_child
+    :accounts
   end
 
   def form_child_reference

@@ -15,6 +15,7 @@ class User < ApplicationRecord
  devise :invitable, :database_authenticatable, :registerable,
  :recoverable, :rememberable, :validatable, :confirmable
  
+ scope :role_is, -> (rle) {where(role: rle)}
  scope :specific_for, -> (name, rle) {where(role: rle).where.not(id: name).distinct}
  scope :specific_to, -> (name) {where.not(id: name).distinct}
  
