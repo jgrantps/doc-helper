@@ -25,7 +25,8 @@ gem 'cancancan'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-
+gem 'omniauth', '~> 1.9'
+gem 'omniauth-twitter'
 
 
 gem 'actionview', '~> 6.0', '>= 6.0.1'
