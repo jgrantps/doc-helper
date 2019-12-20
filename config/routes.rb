@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
-    invitations: 'invitations'
+    invitations: 'invitations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   } 
   resources :dashboard, only: [:index]
   resources :home, only: [:index]
