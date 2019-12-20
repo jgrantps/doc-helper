@@ -7,7 +7,6 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def create
-     byebug
   end
 
   def new

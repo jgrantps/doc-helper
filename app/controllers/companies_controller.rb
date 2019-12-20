@@ -4,11 +4,21 @@ class CompaniesController < ApplicationController
     @route_path = user_companies_path(current_user.id)
     @title = "Create a New Company:"
     @subject = Company.new
-    3.times {@subject.positions.build}
-    3.times {@subject.accounts.build}
+    p = @subject.positions.build
+    p.build_user
+    @subject.accounts.build
     @child_class_attribute = Account.name
   end
   
+  def create
+    
+    @company = Company.new(new_company_params)
+    if @company.save
+      @company.add_creator(creator: current_user)
+      redirect_to company_path(current_user.id, @company.id)
+    end
+  end
+
   def index
     redirect_to company_users_all_path(current_user)
   end
@@ -23,13 +33,6 @@ class CompaniesController < ApplicationController
     else
       redirect_to root_path 
     end   
-  end
-
-  def create
-    @company = Company.new(new_company_params)
-    if @company.save
-      redirect_to company_path(current_user.id, @company.id)
-    end
   end
 
   def edit
@@ -48,6 +51,6 @@ private
   end
 
   def new_company_params
-    params.require(:company).permit(:name, accounts_attributes: [:name])
+    params.require(:company).permit(:name, accounts_attributes: [:name], positions_attributes: [:title, :current_user => current_user, user_attributes: [:id, :user_id, :name]])
   end
 end

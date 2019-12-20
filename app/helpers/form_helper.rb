@@ -147,6 +147,9 @@ module FormHelper
     end
   end
 
+  
+
+
 
   ###################
   #=> adds "new associate" as a nested component to a new company.
@@ -155,30 +158,43 @@ module FormHelper
       current_user.class.roles.keys.each do |key|     
         concat ( 
           instance.fields_for :positions do |position_fields|
-            concat positions(position_fields: position_fields)   
+            concat content_tag(:h2, "#{key.titleize}")
+            concat positions(position_fields: position_fields, key: key)   
             concat associates(position_fields: position_fields, key: key)   
+            concat tag.br
+            concat tag.br
           end 
         )               
       end 
     end  
   end
 
-  def positions(position_fields:)
+  def positions(position_fields:, key:)
     content_tag("div", class: "nested_fields") do
+      
       concat position_fields.label :title
       concat position_fields.text_field :title, class: 'border border-gray-250 rounded' 
+      concat tag.br
     end
   end
-
+  
+  
   def associates(key:, position_fields:)
-    position_fields.fields_for :associate do |associate_fields|
+    position_fields.fields_for :user do |user_fields|
       content_tag("div", class: "nested_fields") do
-        concat associate_fields.label self, "Dropdown of #{key}s:" 
-        concat associate_fields.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
+        concat user_fields.label self, "Select #{key}: " 
+        concat user_fields.collection_select :id, User.role_is(key), :id, :name, prompt: true
+        #  concat user_fields.text_field :id, class: 'border border-gray-250 rounded' 
+        
         concat tag.br
       end
     end
   end
+
+
+
+
+
 
   
   
@@ -228,25 +244,4 @@ module FormHelper
   def submit_form(instance)
     instance.submit "Create #{@subject.class.name}", class: "bg-gray-100 flex items-center mt-4 py-1 px-3 border border-gray-500 rounded cursor-pointer hover:bg-gray-200"
   end 
-  
-  
-
-
-
-
-
-  # #=> adds "new associate" as a nested component to the new company.
-  # def assign_new_associates(instance:, current_user:)    
-  #   current_user.class.roles.keys.each do |key|     
-  #     instance.fields_for :positions do |position_fields|
-  #       position_fields.label :title
-  #       position_fields.text_field :title, class: 'border border-gray-250 rounded'        
-  #       position_fields.fields_for :associate do |associate_fields|          
-  #         associate_fields.label self, "Dropdown of #{key}s:" 
-  #         associate_fields.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
-  #         tag.br
-  #       end
-  #     end                
-  #   end   
-  # end
 end

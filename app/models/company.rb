@@ -6,9 +6,36 @@ class Company < ApplicationRecord
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
-  accepts_nested_attributes_for :positions, reject_if: proc {|attributes| attributes[:title].blank?}
+  
   
   scope :specific, -> (name) {where(id: name.companies)}
+
+
+  def positions_attributes=(attributes)
+    attributes.values.each do |values|      
+      # raise params.inspect
+      if (!values[:title].blank? && !values[:user_attributes][:id].blank?)
+        #  raise params.inspect
+        self.positions.build(:title => values[:title], :user_id => values[:user_attributes][:id])
+      end
+    end
+  end
+
+  def add_creator(creator:)
+    c = self.positions.build(:title => "Creator", :user_id => creator.id)
+    c.save
+  end
+  
+  def user_attributes=(attributes)
+    raise params.inspect
+  end
+
+
+
+
+
+
+
 
   def associated_users(var =  "all", excluded_name)
     if var == "all"
