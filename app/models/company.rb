@@ -13,9 +13,7 @@ class Company < ApplicationRecord
 
   def positions_attributes=(attributes)
     attributes.values.each do |values|      
-      # raise params.inspect
       if (!values[:title].blank? && !values[:user_attributes][:id].blank?)
-        #  raise params.inspect
         self.positions.build(:title => values[:title], :user_id => values[:user_attributes][:id])
       end
     end

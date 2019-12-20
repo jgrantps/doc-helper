@@ -1,5 +1,6 @@
 module TilesHelper
-#logic to control contents inside of the columns tiles when called by the CANVAS method.
+
+  ##Control contents inside of the columns tiles when called by the CANVAS method.
   def tiles(tiling_elements:, sorting_condition:)  
     case strong_params[:controller]
       
@@ -8,13 +9,15 @@ module TilesHelper
       filtered_tile_collection = tiling_elements.specific(account)
       render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
       locals: {variable: ""}
+
     when "users" 
-      filtered_tile_collection = tiling_elements.where(:status => sorting_condition)
+      filtered_tile_collection = tiling_elements.where(:status => sorting_condition).distinct
       render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
-      locals: {variable: ""}        
+      locals: {variable: ""}   
+
     when "associates"
       associates = @associates
-      filtered_tile_collection = tiling_elements.merge(Company.where(name: sorting_condition))        
+      filtered_tile_collection = tiling_elements.merge(Company.where(name: sorting_condition)).distinct
       render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
       locals: {variable: sorting_condition}        
     end    
@@ -72,10 +75,6 @@ module TilesHelper
       concat tag.br 
     end   
   end
-
-
-
-
   
   def tile_link(element:)
     link_to new_package_package_comment_path(element) do

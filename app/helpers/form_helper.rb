@@ -183,9 +183,7 @@ module FormHelper
     position_fields.fields_for :user do |user_fields|
       content_tag("div", class: "nested_fields") do
         concat user_fields.label self, "Select #{key}: " 
-        concat user_fields.collection_select :id, User.role_is(key), :id, :name, prompt: true
-        #  concat user_fields.text_field :id, class: 'border border-gray-250 rounded' 
-        
+        concat user_fields.collection_select :id, User.role_is(key), :id, :name, prompt: true        
         concat tag.br
       end
     end

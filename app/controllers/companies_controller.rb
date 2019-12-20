@@ -11,7 +11,6 @@ class CompaniesController < ApplicationController
   end
   
   def create
-    
     @company = Company.new(new_company_params)
     if @company.save
       @company.add_creator(creator: current_user)

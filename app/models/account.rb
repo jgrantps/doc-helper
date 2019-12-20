@@ -22,7 +22,6 @@ class Account < ApplicationRecord
     Company.find(self[:company_id])
   end
 
-
   def users
     self.company.users
   end

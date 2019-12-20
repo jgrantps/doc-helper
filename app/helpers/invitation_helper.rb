@@ -10,14 +10,12 @@ module InvitationHelper
       concat  instance.select :role, User.roles.keys.to_a, class: "input" 
       concat child_fields(instance: instance)
       concat  instance.submit t("devise.invitations.new.submit_button")
-     
     end    
   end
   
   def invitation_email_form(parent_builder:)
     resource.class.invite_key_fields.each do |field|
-       concat email_fields(parent_builder: parent_builder, field: field)      
-      
+       concat email_fields(parent_builder: parent_builder, field: field)
     end
   end
   
