@@ -23,17 +23,9 @@ class User < ApplicationRecord
  
   def self.from_omniauth(auth)
     self.where(:email => auth.info.email).first_or_create do |user|
-      # raise "inside user model".inspect
       user.password = Devise.friendly_token[0,20]
     end
   end
-
-  # def email_required?
-  #   false 
-  # end
-
-
-
  
  def associate_categories(var="all")
    if var == "all"

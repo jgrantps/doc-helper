@@ -1,18 +1,5 @@
 Rails.application.routes.draw do
   
- 
-  
- 
-  get 'positions/new'
-  get 'positions/create'
-  get 'positions/update'
-  get 'positions/delete'
-  get 'positions/index'
-  get 'positions/show'
-  get 'positions/edit'
-  post "accounts/new", to: "accounts#create"
-
-  
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
     invitations: 'invitations',
@@ -29,26 +16,26 @@ Rails.application.routes.draw do
     resources :accounts
   end
   
+  resources :positions
   resources :companies do
     resources :associates, only: [:index, :show]
     resources :accounts, only: [:index, :show]
   end
-
+  
   resources :associates do 
     resources :accounts, only: [:index, :show]
-  end
+  end  
   
- 
-
   resources :packages do
     resources :package_comments
   end
-
+  
   resources :package_comments 
   
   resources :accounts do
     resources :packages
   end
-
+  post "accounts/new", to: "accounts#create"
+  
   
 end

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  # before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :specified_associates, :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   
