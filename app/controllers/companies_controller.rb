@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  
+  layout "dashboard"
   def new  
     @route_path = user_companies_path(current_user.id)
     @title = "Create a New Company:"

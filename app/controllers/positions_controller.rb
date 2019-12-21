@@ -1,4 +1,5 @@
 class PositionsController < ApplicationController
+  layout "dashboard"
   def new
     @subject = Position.new
   end

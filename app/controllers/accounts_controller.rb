@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
-  
+  protect_from_forgery :except => :create 
+  layout "dashboard"
   def new
     @route_path = user_accounts_path(current_user.id)
     @title = "Add New Account:"
@@ -15,7 +16,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    
+    # skip_before_action :verify_authenticity_token
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
       @account = Account.new(account_params) 
       if !@account.company     
@@ -42,7 +43,6 @@ class AccountsController < ApplicationController
   end
   
   def show
-    raise params.inspect
     if account_params[:associate_id]
       @associate = User.find(account_params[:associate_id])
     end

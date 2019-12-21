@@ -1,5 +1,5 @@
 class AssociatesController < ApplicationController
-
+  layout "dashboard"
   def new
   @route_path = user_accounts_path(current_user.id)
   @title = "Add New User:"
