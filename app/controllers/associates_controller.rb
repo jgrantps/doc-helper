@@ -1,10 +1,10 @@
 class AssociatesController < ApplicationController
   layout "dashboard"
   def new
-  @route_path = user_accounts_path(current_user.id)
-  @title = "Add New User:"
+  @route_path = user_invitation_path
+  @title = "Add New:"
    @subject = User.new
-  # @subject.positions.build
+  
     p = @subject.positions.build
     p.build_company
     
