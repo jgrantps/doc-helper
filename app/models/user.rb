@@ -21,15 +21,10 @@ class User < ApplicationRecord
  scope :specific_to, -> (name) {where.not(id: name).distinct}
  
  
-
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      # user.email = auth.info.email
-      # user.password = Devise.friendly_token[0,20]
-      
-      current_user = User.find_by(:name => auth.info.name)
-      # byebug
-      # user.username = auth.infor.nickname
+    self.where(:email => auth.info.email).first_or_create do |user|
+      # raise "inside user model".inspect
+      user.password = Devise.friendly_token[0,20]
     end
   end
 
