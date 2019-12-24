@@ -20,12 +20,12 @@ module DomainsHelper
   def domains_collection(domains)
    concat (content_tag(:div, class: "mt-2 -mx-3") do
       domains.all.each do |domain|
-        concat(domains_link(domain))
+        concat(domain_link(domain))
       end
     end)
   end
   
-  def domains_link(domain)
+  def domain_link(domain)
     link_to user_company_path(current_user.id, domain.id), :class=> "flex justify-between item-center px-3 py-1 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-200" do 
       domain.name      
     end

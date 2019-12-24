@@ -85,6 +85,7 @@ module TilesHelper
   end
   
   def tile_flag(element:)
+    # raise params.inspect
     case element.class.name
       
       when "Associate"

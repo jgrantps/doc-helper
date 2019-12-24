@@ -10,6 +10,7 @@ module ApplicationHelper
     if strong_params[:action] == "new" || strong_params[:action] == "edit"
       ## display form and pass appropriate components directly from controllers.
       form(@subject)
+    
     else
       ## display columns and pass through necessary locals to specify the colunn tiles.
      render partial: "dashboard_elements/canvas_elements/column_display", locals: {:column_headings => column_headings}  
