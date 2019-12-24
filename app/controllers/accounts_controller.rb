@@ -22,8 +22,9 @@ class AccountsController < ApplicationController
         @company = Company.find(account_params[:company_id])
         @company.accounts << @account
       end
-
+      
       if @account.save         
+        @account.company.add_creator(creator: current_user)
         redirect_to user_company_path(current_user, @account.company.id)
       else
         redirect_to root_path

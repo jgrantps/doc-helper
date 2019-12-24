@@ -17,11 +17,11 @@ class CompaniesController < ApplicationController
       redirect_to company_path(current_user.id, @company.id)
     end
   end
-
+  
   def index
     redirect_to company_users_all_path(current_user)
   end
-
+  
   def show
     @company = Company.find(company_params[:id])
     if current_user.companies.include?(@company)
