@@ -5,7 +5,7 @@ class Account < ApplicationRecord
   has_many :positions, through: :company
   has_many :users, through: :positions
 
-  accepts_nested_attributes_for :company, reject_if: proc {|attributes| attributes['name'].blank?}
+  # accepts_nested_attributes_for :company, reject_if: proc {|attributes| attributes['name'].blank?}
   
   scope :company, -> (name) {where(company_id: name)}
   scope :namme, -> (namme) {where(name: namme)}
@@ -16,6 +16,19 @@ class Account < ApplicationRecord
         self.packages << Package.find_or_create_by(values)
       end
     end
+  end
+
+  def company_attributes=(attributes)
+    if !attributes[:name].blank?
+      if Company.find_by(:name => attributes[:name])
+        # raise "find".inspect
+        self.company = Company.find_by(:name => attributes[:name])
+      else
+        # raise "create".inspect
+        self.company = Company.create(:name => attributes[:name])
+        self.company.positions << Position.new(:title => "Creator", :user_id => attributes[:user_id], :company_id => self.company)
+      end
+    end 
   end
 
   def kompany

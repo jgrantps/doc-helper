@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   protect_from_forgery :except => :create 
   layout "dashboard"
+  
   def new
     @route_path = user_accounts_path(current_user.id)
     @title = "Add New Account:"
@@ -15,9 +16,20 @@ class AccountsController < ApplicationController
   def index
   end
 
+
+
+  
+  
   def create
+    ap = account_params
+    cp = ap[:company_attributes]
+    cp[:user_id] = current_user.id
+  
+    ap.merge(cp)
+  
+    
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
-      @account = Account.new(account_params) 
+      @account = Account.new(ap) 
       if !@account.company     
         @company = Company.find(account_params[:company_id])
         @company.accounts << @account

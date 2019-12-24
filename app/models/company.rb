@@ -8,6 +8,7 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
   
   
+
   scope :specific, -> (name) {where(id: name.companies)}
 
 
