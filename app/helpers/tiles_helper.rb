@@ -85,7 +85,6 @@ module TilesHelper
   end
   
   def tile_flag(element:)
-    # raise params.inspect
     case element.class.name
       
       when "Associate"
@@ -137,5 +136,11 @@ module TilesHelper
   def pic_tag(user:)    
      tag("img", class: "h-6 w-6 rounded-full object-cover", :src => user.url, :alt => "profile photo")
   end
+
+
+
+############################
+
+
 
 end
