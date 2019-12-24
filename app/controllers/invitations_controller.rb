@@ -4,9 +4,7 @@ class InvitationsController < Devise::InvitationsController
 
   # POST /resource/invitation
   def create
-
     super
-    
   end
 
   ##=> added to allow for customized params to be for tested forms.
@@ -33,10 +31,7 @@ class InvitationsController < Devise::InvitationsController
 
   def update_sanitized_params
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
-  end
-
-
-  
+  end 
 
   def new_user_params
     params.require(:user).permit(:name, :role, :email, positions_attributes: [:title, :company_id, company_attributes: [:name]])

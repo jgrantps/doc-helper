@@ -2,8 +2,8 @@ class AssociatesController < ApplicationController
   layout "dashboard"
   def new
   @route_path = user_invitation_path
-  @title = "Add New:"
-   @subject = User.new
+  @title = "Add New Associate:"
+  @subject = User.new
   
     p = @subject.positions.build
     p.build_company
@@ -12,7 +12,6 @@ class AssociatesController < ApplicationController
   end
 
   def index
-    
     @role = associates_params[:role]
     
     @associates = current_user.specified_associates(rle: @role)
@@ -33,8 +32,5 @@ class AssociatesController < ApplicationController
 
   def associates_params
     params.permit(:role, :id, :user_id, :company_id)  
-  end
-  
- 
-  
+  end  
 end

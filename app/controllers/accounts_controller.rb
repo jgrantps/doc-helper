@@ -16,7 +16,6 @@ class AccountsController < ApplicationController
   end
 
   def create
-    # skip_before_action :verify_authenticity_token
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])
       @account = Account.new(account_params) 
       if !@account.company     

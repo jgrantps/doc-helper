@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   def index
       @users = current_user.all_associated_users
       @title = "#{current_user.name}'s Packages"
-
   end
 
   

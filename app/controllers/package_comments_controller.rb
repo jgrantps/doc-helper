@@ -13,9 +13,6 @@ class PackageCommentsController < ApplicationController
 
   def create
     redirect_to root_path if !current_user.packages.include?(Package.find(packagecomments_package[:package_id]))
-
-
-    # raise params.inspect
     if !packagecomments_comment[:comment].blank?
       package = Package.find(packagecomments_package[:package_id])
       new_comment = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id], :comment => packagecomments_comment[:comment])

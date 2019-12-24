@@ -1,46 +1,29 @@
 class PackagesController < ApplicationController
   layout "dashboard"
-  def index
-  end
-
-  def show
-  end
-
+  
   def new
-      @route_path = account_packages_path(route_params[:account_id])
-      #=> reified RESTful parent provided to build @title
-      @nested_route_object = Account.find(route_params[:account_id])
-   
-      #=> For main display in Top Ribbon Bar   
-      @title = "New Package For #{@nested_route_object.kompany.name} >> #{@nested_route_object.name}"
-
-      #=> pre-emptive build of main element
-      @subject = Package.new
+    @route_path = account_packages_path(route_params[:account_id])
+    @nested_route_object = Account.find(route_params[:account_id])     
+    @title = "New Package For #{@nested_route_object.kompany.name} >> #{@nested_route_object.name}"    
+    @subject = Package.new
+    @subject.build_account    
+    @subject_class_attribute = Package.status
+    @subject_collection_attribute = :status
+    3.times {@subject.package_comments.build(:user_id => current_user.id)}      
+  end
+  
+  def create
+    if !packages_params[:name].empty?
       
-      #=> pre-emptive build of parent element
-      @subject.build_account
-
-      @subject_class_attribute = Package.status
-      @subject_collection_attribute = :status
+      @account = Account.find(route_params[:account_id])
+      pp = packages_params
+      pc = pp[:package_comments_attributes]
+      pc.select do |key, hash|
+        hash["user_id"] = current_user.id
+      end
+      pp.merge(pc)
       
-      #=> pre-emptive build of child elements
-      3.times {@subject.package_comments.build(:user_id => current_user.id)}      
-    end
-
-    
-    
-    def create
-      if !packages_params[:name].empty?
-        
-        @account = Account.find(route_params[:account_id])
-        pp = packages_params
-        pc = pp[:package_comments_attributes]
-        pc.select do |key, hash|
-          hash["user_id"] = current_user.id
-        end
-        pp.merge(pc)
-        
-       @package = Package.new(pp)
+      @package = Package.new(pp)
       @package.account = @account
       
       if @package.save
@@ -53,6 +36,12 @@ class PackagesController < ApplicationController
       @account = Account.find(route_params[:account_id])
       redirect_to user_company_path(current_user, @account.company)
     end
+  end
+
+  def index
+  end
+
+  def show
   end
 
   def update

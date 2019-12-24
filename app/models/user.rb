@@ -50,6 +50,18 @@ end
 def company_names
   self.companies.pluck(:name)  
 end
+
+def form_child_title
+  "Add A Position:"  
+end
+
+def form_child
+  :positions
+end
+
+def form_child_reference
+  :title
+end
  
  def specified_company_associates(user_role:, company:)
   self.associates.where(role: user_role).where.not(id: self).distinct.merge(Company.where(id: company))
@@ -106,11 +118,11 @@ end
   def author
     case self.role
       when "admin"
-        return "company"
+        return ["account", "company"]
       when "manager"
-        return "account"
+        return ["account"]
       when "contact"
-        return "package"
+        return ["package"]
     end
   end
 

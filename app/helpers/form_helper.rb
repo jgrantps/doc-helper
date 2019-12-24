@@ -3,28 +3,25 @@ module FormHelper
   def form(subject)    
     content_tag("main", class: "py-5 w-full item-center inline-flex") do 
       content_tag("div", class: "w-full h-auto item-center") do 
-        # if strong_params[:controller] == "associates"
-        #   render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
-        # #  invitation_form(subject)
-        # else
           form_structure(subject)
-        # end  
       end  
     end
   end
-   
-  
+    
   
   #=> main method for composing the form's structure.  
   #=> Builds out the main subject, nested parents and children, and the submit button.
   #=> Routes the form submission to path based on the supplying controller.
     def form_structure(subject)
-    form_for(subject, url: @route_path, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance|
+    form_for(subject, url: @route_path, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance| 
       case strong_params[:controller]
-              
+      
       ## New Associate form
       when "associates"
-        render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
+        # raise params.inspect
+        concat primary_subject(instance)
+        concat new_child(instance)
+         render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
       
       ## New Company form  
       when "companies"
@@ -93,15 +90,15 @@ module FormHelper
     end
   end  
   
+  def primary_subject_details(instance)
+    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
+    concat instance.text_field :name, class:'border border-gray-250 rounded'
+  end
+  
   #=> distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
     concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
     concat instance.text_field :comment, class:'border border-gray-250 rounded'
-  end
-  
-  def primary_subject_details(instance)
-    concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    concat instance.text_field :name, class:'border border-gray-250 rounded'
   end
   
   #=> Main subject Supplemental form elements(attribute collection select)
@@ -177,8 +174,7 @@ module FormHelper
       concat tag.br
     end
   end
-  
-  
+    
   def associates(key:, position_fields:)
     position_fields.fields_for :user do |user_fields|
       content_tag("div", class: "nested_fields") do
@@ -197,7 +193,7 @@ module FormHelper
   
   
   ###################
-  #=> adds "new child" as a nested component to the new primary_subject form
+  #=> adds a new "child" option as a nested option to the new primary_subject form
   def new_child(instance)
     concat tag.p "#{@subject.form_child_title}" 
     instance.fields_for @subject.form_child do |child_fields|
@@ -209,12 +205,12 @@ module FormHelper
     content_tag("div", class:"flex items-center py-2 justify-right") do
       concat child_fields_components1(child_fields)
       if strong_params[:controller] == "accounts"
-        concat child_fields_components2(child_fields)
+        concat child_fields_attribute_dropdown(child_fields)
       end
     end
   end
   
-  #=> configures the different nested child fields (ie package, package_comment, etc...)
+  #=> determines the nested child fields  based on the @subject object (ie "package" for "accounts", etc...)
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
@@ -222,7 +218,9 @@ module FormHelper
     end
   end
   
-  def child_fields_components2(child_fields)
+  #=> provides a dropdown field for selecting attributes of the nested child field.
+  def child_fields_attribute_dropdown(child_fields)
+    # raise "dropdown".inspect
     content_tag("div", class: "mx-4") do
       concat child_fields.label @child_collection_attribute 
       concat child_fields.select @child_collection_attribute, @child_class_attribute  

@@ -1,6 +1,6 @@
 module TilesHelper
 
-  ##Control contents inside of the columns tiles when called by the CANVAS method.
+  ## Control contents inside of the columns tiles when called by the CANVAS method.
   def tiles(tiling_elements:, sorting_condition:)  
     case strong_params[:controller]
       
@@ -25,7 +25,7 @@ module TilesHelper
   
 
 
-  #=> Displays package description
+  ## Displays package description
   def tile_title(element:)
     case element.class.name
     when "User" 
@@ -42,7 +42,7 @@ module TilesHelper
   end
 
 
-  #=> shows comments -if any- for packages.  Shows associate's position in the company for users/associates.
+  ## shows comments -if any- for packages.  Shows associate's position in the company for users/associates.
   def tile_contents(element:, variable:)
     content_tag(:p, element, :class => "text-sm font-medium text-gray-900 leading-snug") do
       case element.class.name      
@@ -110,7 +110,7 @@ module TilesHelper
 
 
   
-  #=> methods for controlling avatar appearances in tiles.  
+  ## methods for controlling avatar appearances in tiles.  
   def tile_avatar(element: )
     content_tag(:div, class: "ml-6 flex items-center" ) do
        avatar_lineup(person: element)
@@ -135,12 +135,6 @@ module TilesHelper
 
   def pic_tag(user:)    
      tag("img", class: "h-6 w-6 rounded-full object-cover", :src => user.url, :alt => "profile photo")
-  end
-
-  private
-
-  def strong_params
-    params.permit(:controller, :action, :id, :company_id, :user_id, :role, :account_id, :package_id)
   end
 
 end
