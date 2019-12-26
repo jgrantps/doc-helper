@@ -23,9 +23,10 @@ class AccountsController < ApplicationController
   def create
     ap = account_params
     cp = ap[:company_attributes]
-    cp[:user_id] = current_user.id
-  
-    ap.merge(cp)
+    if !!cp
+      cp[:user_id] = current_user.id
+      ap.merge(cp)
+    end
   
     
     if !Account.find_by(name: account_params[:name], company_id: account_params[:company_id])

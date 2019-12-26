@@ -19,7 +19,7 @@ module DomainsHelper
   # Lists links to all items in the domain's collection (companies/accounts, etc...)
   def domains_collection(domains)
    concat (content_tag(:div, class: "mt-2 -mx-3") do
-      domains.all.each do |domain|
+      domains.distinct.each do |domain|
         concat(domain_link(domain))
       end
     end)

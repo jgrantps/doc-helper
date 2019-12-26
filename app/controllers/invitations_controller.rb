@@ -4,6 +4,7 @@ class InvitationsController < Devise::InvitationsController
 
   # POST /resource/invitation
   def create
+    
     super
   end
 
@@ -26,11 +27,18 @@ class InvitationsController < Devise::InvitationsController
   protected
 
   def invite_params
-    new_user_params
+    np = new_user_params
+    cp = np[:positions_attributes]["0"][:company_attributes] 
+    if !!cp
+      cp[:creator] = current_user
+      np.merge(cp)
+    end
+    new_user_params = np
+    
   end
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :url, :username])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :url, :username, :creator => current_user.id])
   end 
 
   def new_user_params

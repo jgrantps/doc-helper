@@ -48,7 +48,7 @@ end
 end
 
 def company_names
-  self.companies.pluck(:name)  
+  self.companies.distinct.pluck(:name)  
 end
 
 def form_child_title

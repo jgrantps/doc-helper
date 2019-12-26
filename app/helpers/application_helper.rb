@@ -19,6 +19,7 @@ module ApplicationHelper
 
   def column_display
     content_tag("main", class:"p-3 inline-flex") do
+      
       @column_headings.each do |heading|
        concat column_content(heading: heading)  
       end
