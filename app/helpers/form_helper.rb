@@ -13,14 +13,13 @@ module FormHelper
   #=> Builds out the main subject, nested parents and children, and the submit button.
   #=> Routes the form submission to path based on the supplying controller.
     def form_structure(subject)
-    form_for(subject, url: @route_path, html: {class: 'h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance| 
+    form_for(subject, url: @route_path, html: {class: 'from-form-helper h-full w-3/4 bg-gray-100 border-t border-r border-b rounded-r-lg border-gray-500 p-4'}) do |instance| 
       case strong_params[:controller]
       
       ## New Associate form
       when "associates"
-        # raise params.inspect
-        concat primary_subject(instance)
-        concat new_child(instance)
+       
+        # invitation_form(subject)
          render partial: "dashboard_elements/invitation_template", locals: {:resource => subject}  
       
       ## New Company form  

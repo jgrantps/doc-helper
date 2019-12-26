@@ -30,10 +30,10 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :url, :username])
   end 
 
   def new_user_params
-    params.require(:user).permit(:name, :role, :email, positions_attributes: [:title, :company_id, company_attributes: [:name]])
+    params.require(:user).permit(:name, :role, :email, :url, positions_attributes: [:title, :company_id, company_attributes: [:name]])
   end
 end

@@ -26,12 +26,19 @@
       <%= f.text_field :name %>
     </div>
 
+    <div class="field">
+      <%= f.label :url %><br />
+      <%= f.text_field :url %>
+    </div>
+
+
+
   <% end %>
 
 
 
   <div class="actions">
-  <% #byebug %>
+  
     <%= f.submit t("devise.invitations.edit.submit_button") %>
   </div>
 <% end %>

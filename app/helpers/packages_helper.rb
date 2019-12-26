@@ -4,7 +4,7 @@ module PackagesHelper
     content_tag("button", class: "px-4 py-2 my-4 flex items-center text-sm font-medium text-white bg-gray-800 rounded-lg hover:bg-gray-700") do
       concat new_package_svg 
       concat new_package_button_text(heading)
-  end
+    end
  end
 
  def new_package_svg
