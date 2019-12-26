@@ -7,7 +7,7 @@ class Company < ApplicationRecord
   has_many :associates, through: :positions, source: :user
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
   
-  
+  after_create :add_admins
 
   scope :specific, -> (name) {where(id: name.companies)}
 
@@ -23,6 +23,12 @@ class Company < ApplicationRecord
   def add_creator(creator:)
     c = self.positions.build(:title => "Creator", :user_id => creator.id)
     c.save
+  end
+
+  def add_admins 
+    User.role_is("admin").each do |user|
+      self.positions.create(:title => "system_administrator", :user_id => user.id)
+    end
   end
   
   def user_attributes=(attributes)

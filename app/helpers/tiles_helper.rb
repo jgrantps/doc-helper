@@ -25,7 +25,7 @@ def tile_framework(element:, variable:)
     content_tag("div", class: "block p-5 bg-white rounded-lg shadow" ) do
       concat upper_tile_block(element: element)
       concat contents_and_avatar(element: element, variable: variable)
-      concat tile_link(element: element)
+      concat tile_link(element: element) if strong_params[:controller] != "associates"
     end
   end
 end
@@ -122,9 +122,8 @@ end
     def package_comments(element:, company_name:)
       package = element 
       package.package_comments.each do |comment|
-        commentor = User.find(comment.user_id)     
-        concat "#{comment.comment}  |  #{commentor.name}" 
-        concat tag.br 
+        commentor = User.find(comment.user_id) 
+        concat content_tag(:div, "#{comment.comment}  |  #{commentor.name}", class: "mb-2 border-b-2")   
       end     
     end    
   

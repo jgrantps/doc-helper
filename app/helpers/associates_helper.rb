@@ -5,7 +5,7 @@ module AssociatesHelper
       current_user.class.roles.keys.each do |role| 
        concat associates_link(role)
       end
-      concat new_associate
+      concat new_associate if current_user.admin? 
     end  
   end
   
@@ -26,7 +26,7 @@ module AssociatesHelper
   def new_associate
     content_tag(:button, class: "mt-3 py-2 px-3 flex items-center text-sm font-medium text-gray-600 border border-gray-300 rounded hover:bg-gray-200") do 
       cross + 
-      add_associate_link  
+      add_associate_link 
     end
   end
 
