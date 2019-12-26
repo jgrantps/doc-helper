@@ -3,13 +3,11 @@ module TilesHelper
   ## Control contents inside of the columns tiles when called by the CANVAS method.
   def tiles(tiling_elements:, sorting_condition:)  
     case strong_params[:controller]
-      
     when "companies"
       account = @company.accounts.find_by(name: sorting_condition)
       filtered_tile_collection = tiling_elements.specific(account)
-      render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
-      locals: {variable: ""}
-
+      filtered_tile_collection.each {|element| concat tile_framework(element: element, variable: nil)}
+      
     when "users" 
       filtered_tile_collection = tiling_elements.where(:status => sorting_condition).distinct
       render partial: "dashboard_elements/canvas_elements/column_tiles", :collection => filtered_tile_collection, as: :element, 
@@ -23,6 +21,26 @@ module TilesHelper
     end    
   end
   
+
+def tile_framework(element:, variable:)
+  content_tag("li", class: "mt-3") do
+    content_tag("div", class: "block p-5 bg-white rounded-lg shadow" ) do
+      concat upper_tile_block(element: element)
+      concat contents_and_avatar(element: element, variable: variable)
+      concat tile_link(element: element)
+    end
+  end
+end
+
+
+def upper_tile_block(element:)
+  content_tag("div", class: "flex justify-between py-2 mb-4", id: "tile_title") do
+    concat tile_title(element: element)
+    concat tile_flag(element: element)
+  end
+end
+
+
 
 
   ## Displays package description
@@ -51,7 +69,7 @@ module TilesHelper
       when "User"
         user_role(element: element, company_name: variable)          
       when "Package"
-        content_tag(:h2, element, :class => "text-sm font-medium font-bold text-gray-900") do
+        content_tag(:h2, element, :class => "comment-tag text-sm font-medium font-bold text-gray-900") do
           package_comments(element: element, company_name: variable)
         end
       when "Account"
@@ -74,17 +92,19 @@ module TilesHelper
       concat "#{comment.comment}  |  #{commentor.name}" 
       concat tag.br 
     end   
-  end
+  end  
   
-  def tile_link(element:)
-    link_to new_package_package_comment_path(element) do
-      content_tag(:div, element, :class => "text-sm text-gray-600") do
-        "post a comment"
+  def tile_flag(element:)
+    tag.div do
+      content_tag("span", class: "from-helper!! px-2 inline-flex items-center bg-teal-100 rounded") do
+        concat content_tag("svg", tag("circle", cx: "4", cy: "4", r:"3"), class: "from-helper!!! block h-2 w-2 m-2 text-teal-500", viewBox:"0 0 8 8", fill:"currentColor")
+        concat tile_flag_content(element: element)
       end
     end
   end
-  
-  def tile_flag(element:)
+
+
+  def tile_flag_content(element:)
     case element.class.name
       
       when "Associate"
@@ -108,6 +128,27 @@ module TilesHelper
     end
   end  
 
+  
+  
+  def contents_and_avatar(element:, variable:)
+    content_tag("div", class: " from-helper! flex justify-between") do
+     concat tile_contents(element: element, variable: variable) 
+     concat tile_avatar(element: element)
+    end 
+  end  
+
+
+  
+  def tile_link(element:)
+    content_tag("div", class: "flex mt-2 justify-between items-baseline") do
+      link_to new_package_package_comment_path(element) do
+        content_tag(:div, element, :class => "text-sm text-gray-600") do
+          "post aaa comment"
+        end  
+      end  
+    end  
+  end  
+  
 
   
   ## methods for controlling avatar appearances in tiles.  
@@ -119,15 +160,15 @@ module TilesHelper
 
   def avatar_lineup(person:)
     if person.class.name == "User" || person.class.name == "Associate"
-      span(element: person)
+      avatar_span(element: person)
     else 
       person.users.distinct.each.first(3) do |user|
-        span(element: user)
+        avatar_span(element: user)
       end
     end
   end
 
-  def span(element: )
+  def avatar_span(element: )
     content_tag("span", class: "-ml-2 rounded-full border-2 border-white") do 
      pic_tag(user: element) 
     end

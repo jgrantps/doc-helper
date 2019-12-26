@@ -29,7 +29,7 @@ module ApplicationHelper
     content_tag("div", class: "flex-shrink-0 ml-3 w-80 mt-2 p-3 bg-gray-100 rounded") do
       content_tag("ul", class: "mt-2") do
        concat content_tag(:div, "#{heading.titleize}", class: "text-sm font-medium text-gray-900") 
-       concat tiles(tiling_elements: @tiling_elements, sorting_condition: heading)
+        tiles(tiling_elements: @tiling_elements, sorting_condition: heading)
        concat new_package(heading) if strong_params[:controller] == "companies"
       end
     end
