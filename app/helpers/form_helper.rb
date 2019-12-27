@@ -137,7 +137,7 @@ module FormHelper
   
   #=> styles nested parent label and text fields.
   def nested_parent_fields(parent_fields)
-    content_tag("div", class: "nested_fields") do
+    content_tag("div", class: "nested_fields mb-3") do
       concat parent_fields.label :name
       concat parent_fields.text_field :name, class:'border border-gray-250 rounded'
     end
@@ -150,15 +150,15 @@ module FormHelper
   ###################
   #=> adds "new associate" as a nested component to a new company.
   def assign_new_associates(instance:, current_user:)  
-    content_tag("div", class: "trialzzz")  do
+    content_tag("div", class: "")  do
       current_user.class.roles.keys.each do |key|     
         concat ( 
           instance.fields_for :positions do |position_fields|
-            concat content_tag(:h2, "#{key.titleize}")
+            concat content_tag(:h2, "#{key.titleize}", class: "mb-2 font-bold")
             concat positions(position_fields: position_fields, key: key)   
             concat associates(position_fields: position_fields, key: key)   
             concat tag.br
-            concat tag.br
+            # concat tag.br
           end 
         )               
       end 
@@ -166,7 +166,7 @@ module FormHelper
   end
 
   def positions(position_fields:, key:)
-    content_tag("div", class: "nested_fields") do
+    content_tag("div", class: "nested_fields mb-3") do
       
       concat position_fields.label :title
       concat position_fields.text_field :title, class: 'border border-gray-250 rounded' 
@@ -176,7 +176,7 @@ module FormHelper
     
   def associates(key:, position_fields:)
     position_fields.fields_for :user do |user_fields|
-      content_tag("div", class: "nested_fields") do
+      content_tag("div", class: "nested_fields mr-2") do
         concat user_fields.label self, "Select #{key}: " 
         concat user_fields.collection_select :id, User.role_is(key), :id, :name, prompt: true        
         concat tag.br

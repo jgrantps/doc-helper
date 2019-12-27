@@ -34,7 +34,13 @@ class PackageCommentsController < ApplicationController
   def update
   end
 
-  def delete
+  def destroy
+    comment = PackageComment.find(packagecomments_package[:id])
+    comment.delete
+    company = Package.find(packagecomments_package[:package_id]).company
+    redirect_to user_company_path(current_user.id, company.id)
+
+
   end
 
   def edit
@@ -48,7 +54,9 @@ class PackageCommentsController < ApplicationController
   end
 
   def packagecomments_package
-    params.permit(:package_id)
+    params.permit(:package_id, :id)
   end
+
+
 
 end
