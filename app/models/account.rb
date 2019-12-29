@@ -23,10 +23,8 @@ class Account < ApplicationRecord
   def company_attributes=(attributes)
     if !attributes[:name].blank?
       if Company.find_by(:name => attributes[:name])
-        # raise "find".inspect
         self.company = Company.find_by(:name => attributes[:name])
       else
-        # raise "create".inspect
         self.company = Company.create(:name => attributes[:name])
         self.company.positions << Position.new(:title => "Creator", :user_id => attributes[:user_id], :company_id => self.company)
       end

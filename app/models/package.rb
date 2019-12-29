@@ -5,27 +5,27 @@ class Package < ApplicationRecord
   
   alias_attribute  :parent_id, :account_id
 
+  validates :name, :presence => true
+  
   accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
     
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
-  # validates :name, presence: true
+  
+  scope :specific, -> (name) {where(id: name.packages)}
   
   def author(user)
     user
   end
 
-
   def package_comments_attributes=(attributes)
+    
     attributes.values.each do |values|
-      # raise params.inspect
-      if !values[:comment].blank?
-        comment = PackageComment.new(values)        
-        self.package_comments << comment
-      end
+      if !values[:comment].blank?       
+        self.package_comments << PackageComment.find_or_create_by(values)
+        # raise "inside".inspect
+      end     
     end
   end
-
-  scope :specific, -> (name) {where(id: name.packages)}
 
   def company 
    self.account.company 
@@ -53,8 +53,6 @@ class Package < ApplicationRecord
   def form_select_parent_label(instance:)
     instance.label self.account_id, "Associated Accounts"
   end
-  
-
 
   def form_parent_variables
     {:title => "Associated Account", 
@@ -62,7 +60,6 @@ class Package < ApplicationRecord
      :var_to_s =>"accounts",
      :var_all => Account.all}
   end
-
 
   def form_subject
     self
