@@ -52,7 +52,7 @@ module FormHelper
         concat tag.br      
         concat nested_new_parent(instance)
         concat tag.br      
-        nested_parent_tag(instance)
+        hidden_parent_tag(instance)
         concat new_child(instance)
         concat submit_form(instance)
             
@@ -61,12 +61,14 @@ module FormHelper
         concat primary_subject(instance)
         concat primary_subject_collection_selection(instance)
         concat tag.br      
+        hidden_parent_tag(instance)
         concat new_child(instance)
         concat submit_form(instance)
         
       ## New Package Comment form
       when "package_comments"
         concat primary_subject(instance)
+        hidden_parent_tag(instance)
         concat submit_form(instance)
         
       end
@@ -226,9 +228,11 @@ module FormHelper
     end
   end  
   
-  def nested_parent_tag(instance)
-    concat hidden_field_tag :account_id, strong_params[:account_id]  
+  def hidden_parent_tag(instance)
+    concat hidden_field_tag @subject.parent_id
+   raise params.inspect
   end
+
   
   
   

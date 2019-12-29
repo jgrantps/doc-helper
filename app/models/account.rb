@@ -5,6 +5,8 @@ class Account < ApplicationRecord
   has_many :positions, through: :company
   has_many :users, through: :positions
 
+  alias_attribute  :parent_id, :company_id
+
   # accepts_nested_attributes_for :company, reject_if: proc {|attributes| attributes['name'].blank?}
   
   scope :company, -> (name) {where(company_id: name)}

@@ -2,11 +2,12 @@ class PackagesController < ApplicationController
   layout "dashboard"
   
   def new
+    
     @route_path = account_packages_path(route_params[:account_id])
     @nested_route_object = Account.find(route_params[:account_id])     
     @title = "New Package For #{@nested_route_object.kompany.name} >> #{@nested_route_object.name}"    
-    @subject = Package.new
-    @subject.build_account    
+    @subject = @nested_route_object.packages.new
+    # @subject.build_account    
     @subject_class_attribute = Package.status
     @subject_collection_attribute = :status
     3.times {@subject.package_comments.build(:user_id => current_user.id)}      

@@ -2,9 +2,11 @@ class Package < ApplicationRecord
   has_many :documents
   has_many :package_comments
   belongs_to :account 
-  accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
-  # accepts_nested_attributes_for :package_comments, reject_if: proc {|attributes| attributes['comment'].blank?}
   
+  alias_attribute  :parent_id, :account_id
+
+  accepts_nested_attributes_for :account, reject_if: proc {|attributes| attributes['name'].blank?}
+    
   enum status: [:backlog, :in_progress, :ready_for_review, :complete]
   # validates :name, presence: true
   

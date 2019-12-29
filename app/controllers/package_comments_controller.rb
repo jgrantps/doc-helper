@@ -4,27 +4,25 @@ class PackageCommentsController < ApplicationController
   end
   
   def new
-    package = Package.find(packagecomments_package[:package_id])
+    @parent_package = Package.find(packagecomments_package[:package_id]) if @parent_package.blank?
     @subject = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id])
-    @title = "Comment for #{package.account.name} > #{package.name}"
-    
+    @title = "Comment for #{@parent_package.account.name} > #{@parent_package.name}"
     @route_path = package_package_comments_path(packagecomments_package[:package_id])
   end
-
+  
   def create
-    redirect_to root_path if !current_user.packages.include?(Package.find(packagecomments_package[:package_id]))
-    if !packagecomments_comment[:comment].blank?
-      package = Package.find(packagecomments_package[:package_id])
-      new_comment = PackageComment.new(:user_id => current_user.id, :package_id => packagecomments_package[:package_id], :comment => packagecomments_comment[:comment])
-      
-      if new_comment.save
-        package.package_comments << new_comment
-        redirect_to user_company_path(current_user, package.company)
-      end 
-
+    # redirect_to root_path if !current_user.packages.include?(Package.find(packagecomments_package[:package_id]))
+    @parent_package = Package.find(packagecomments_package[:package_id])
+    @subject = @parent_package.package_comments.build(packagecomments_comment)
+    
+    if @subject.save
+      redirect_to user_company_path(current_user, @parent_package.company)      
     else
-      package = Package.find(packagecomments_package[:package_id])
-      redirect_to user_company_path(current_user, package.company)
+      
+      @parent_package = Package.find(packagecomments_package[:package_id])
+      @title = "Comment for #{@parent_package.account.name} > #{@parent_package.name}"
+      # raise params.inspect
+      render :new
     end
   end
 
@@ -49,7 +47,9 @@ class PackageCommentsController < ApplicationController
   private
 
   def packagecomments_comment
-    params.require(:package_comment).permit(:comment)
+    comment_params = params.require(:package_comment).permit(:comment)
+    updated_params = comment_params.merge(:user_id => current_user.id)
+    return updated_params
     
   end
 
