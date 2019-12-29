@@ -159,7 +159,7 @@ end
     content_tag("div", class: "flex mt-2 justify-between items-baseline") do
       link_to new_package_package_comment_path(element) do
         content_tag(:div, element, :class => "text-sm text-gray-600") do
-          "post aaa comment"
+          "post a comment"
         end  
       end  
     end  

@@ -2,4 +2,8 @@
 
 @import "tailwindcss/components";
 
+.field_with_errors {
+  @apply border bg-red-200 border-red-500 rounded
+}
+
 @import "tailwindcss/utilities";

@@ -11,10 +11,19 @@ class CompaniesController < ApplicationController
   end
   
   def create
-    @company = Company.new(new_company_params)
-    if @company.save
-      @company.add_creator(creator: current_user)
-      redirect_to company_path(current_user.id, @company.id)
+    @subject = Company.new(new_company_params)
+    
+    if @subject.save
+      @subject.add_creator(creator: current_user)
+      redirect_to company_path(current_user.id, @subject.id)
+    else
+      @route_path = user_companies_path(current_user.id)
+      @title = "Create a New Company:"
+      p = @subject.positions.build
+      p.build_user
+      @subject.accounts.build
+      @child_class_attribute = Account.name
+      render :new
     end
   end
   

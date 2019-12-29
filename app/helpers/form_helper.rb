@@ -26,24 +26,13 @@ module FormHelper
       when "companies"
         concat primary_subject(instance)
         concat tag.br      
-        concat tag.br      
-        # concat subject.form_select_parent_label(instance: instance)   
-        concat assign_new_associates(instance: instance, current_user: current_user)
-        # concat subject.form_select_parent(instance: instance, current_user: current_user)   
-        concat tag.br      
-        concat tag.br      
         concat new_child(instance)
+        concat tag.br      
+        concat assign_new_associates(instance: instance, current_user: current_user)
+        concat tag.br      
         concat submit_form(instance)
 
-          
-
-
-
-
-
-
-
-
+      
       ## New Account form
       when "accounts"
         concat primary_subject(instance)
@@ -55,7 +44,8 @@ module FormHelper
         hidden_parent_tag(instance)
         concat new_child(instance)
         concat submit_form(instance)
-            
+        
+        
       ## New Package form
       when "packages"
         concat primary_subject(instance)

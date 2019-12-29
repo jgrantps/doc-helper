@@ -6,7 +6,8 @@ class Company < ApplicationRecord
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
-  
+  validates :name, :presence => true
+
   after_create :add_admins
 
   scope :specific, -> (name) {where(id: name.companies)}
