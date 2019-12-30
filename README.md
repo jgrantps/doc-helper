@@ -10,6 +10,8 @@ Once invited, users are able to sign in through their Twitter profile should the
 
 To use this application locally, clone this repository onto your computer and run ```bundle ```. 
 
+run ```yarn install --check-files ``` ensure the javascript elements of the Tailwind css framework are set up properly.
+
 navigate to ```node_modules/tailwindcss/components.css``` and paste in the following styling to achieve highlighted error fields:
 
 ```
@@ -18,7 +20,6 @@ navigate to ```node_modules/tailwindcss/components.css``` and paste in the follo
 }
 ```
 
-run ```yarn install --check-files ``` ensure the javascript elements of the Tailwind css framework are up to dat.
 
 run ```rake db:migrate```, followed by ```rake db:seed``` to take advantage of the seed data (recommended.)
 
