@@ -6,6 +6,7 @@ class Company < ApplicationRecord
   has_many :users, through: :positions
   has_many :associates, through: :positions, source: :user
   accepts_nested_attributes_for :accounts, reject_if: proc {|attributes| attributes[:name].blank?}
+  
   validates :name, :presence => true
 
   after_create :add_admins
@@ -72,11 +73,11 @@ class Company < ApplicationRecord
     self.positions.pluck(:title).uniq    
   end
 
-  def form_select_parent(instance:, current_user:)
+  def form_select_parent(instance:, current_user:, subject:)
     capture do
       User.roles.keys.each do |key|
          instance.label self, "Dropdown of #{key}s:" 
-        instance.collection_select :user_ids, User.role_is(key), :id, :name, prompt: true
+        instance.collection_select :user_ids, User.role_is(key), :id, :name, prompt: (subject.errors[:name].first || "Select A New #{ subject.form_parent_variables[:title].singularize}:")
       end
     end
   end

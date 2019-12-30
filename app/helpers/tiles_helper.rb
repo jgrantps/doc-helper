@@ -124,7 +124,7 @@ end
       package.package_comments.each do |comment|
         commentor = User.find(comment.user_id) 
         concat content_tag(:div, "#{comment.comment}  |  #{commentor.name}", class: "mb-2 border-b-2")  
-        concat link_to "DELETE COMMENT", package_package_comment_path(comment.package.id, comment.id), class: "font-xs font-light", method: "DELETE"
+        concat link_to "DELETE COMMENT", package_package_comment_path(comment.package.id, comment.id), class: "font-xs font-light", method: "DELETE"  if comment.user == current_user
       end     
     end    
   

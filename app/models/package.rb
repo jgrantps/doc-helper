@@ -46,8 +46,8 @@ class Package < ApplicationRecord
 
   
   ## form helpers to be called in forms
-  def form_select_parent(instance:, current_user:)
-    instance.collection_select :account_id, current_user.accounts.where(:company_id => 2), :id, :name, prompt: true
+  def form_select_parent(instance:, current_user:, subject:)
+    instance.collection_select :account_id, current_user.accounts.where(:company_id => 2), :id, :name, prompt: (subject.errors[:name].first || "Select A New #{ subject.form_parent_variables[:title].singularize}:")
   end
   
   def form_select_parent_label(instance:)

@@ -14,23 +14,10 @@ class AccountsController < ApplicationController
   
   
   def create
-    # ap = account_params
-    # cp = ap[:company_attributes]
-    # # raise "inside create".inspect
-    # if !!cp
-    #   cp[:user_id] = current_user.id
-    #   ap.merge(cp)
-    # end
-    
-    
-    
-    
-    
     @subject = Account.new(account_params) 
     @company = @subject.company
     
     if @subject.save
-      raise "saved!".inspect
       redirect_to user_company_path(current_user, @company)
     else
       3.times {@subject.packages.build}

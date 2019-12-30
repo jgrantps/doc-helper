@@ -26,9 +26,13 @@ class PackageCommentsController < ApplicationController
   
   def destroy
     comment = PackageComment.find(packagecomments_package[:id])
-    comment.delete
-    company = Package.find(packagecomments_package[:package_id]).company
-    redirect_to user_company_path(current_user.id, company.id)
+    if comment.user == current_user
+      comment.delete
+      company = Package.find(packagecomments_package[:package_id]).company
+      redirect_to user_company_path(current_user.id, company.id)      
+    else
+      redirect_to root_path
+    end
   end
   
   def edit

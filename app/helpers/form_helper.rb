@@ -37,7 +37,7 @@ module FormHelper
       when "accounts"
         concat primary_subject(instance)
         concat subject.form_select_parent_label(instance: instance)   
-        concat subject.form_select_parent(instance: instance, current_user: current_user)   
+        concat subject.form_select_parent(instance: instance, current_user: current_user, subject: subject)   
         concat tag.br      
         concat nested_new_parent(instance)
         concat tag.br      
@@ -83,13 +83,14 @@ module FormHelper
   
   def primary_subject_details(instance)
     concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    concat instance.text_field :name, class:'border border-gray-250 rounded'
+    # raise "errors".inspect
+    concat instance.text_field :name, class:'testtt', placeholder: (@subject.errors[:name].first || "Enter A New #{@subject.class.name}:")
   end
   
   ## distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
     concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    concat instance.text_field :comment, class:'border border-gray-250 rounded'
+    concat instance.text_field :comment, class:'testtt'
   end
   
   ## Main subject Supplemental form elements(attribute collection select)
@@ -105,10 +106,11 @@ module FormHelper
     case current_user.role      
     when "admin"
       instance.label @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:title] 
-      instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: true
+       instance.collection_select @subject.form_parent_variables[:var_id], @subject.form_parent_variables[:var_all], :id, :name, prompt: "hello there" #(@subject.errors[:name].first || "Select A New #{ @subject.form_parent_variables[:title]}:")
       
     when "manager"        
       concat @subject.form_parent(instance: instance, current_user: current_user)
+
     when "contact"
     end
   end
@@ -131,7 +133,7 @@ module FormHelper
   def nested_parent_fields(parent_fields)
     content_tag("div", class: "nested_fields mb-3") do
       concat parent_fields.label :name
-      concat parent_fields.text_field :name, class:'border border-gray-250 rounded'
+      concat parent_fields.text_field :name, class:'testtt'
     end
   end
 
@@ -161,7 +163,7 @@ module FormHelper
     content_tag("div", class: "nested_fields mb-3") do
       
       concat position_fields.label :title
-      concat position_fields.text_field :title, class: 'border border-gray-250 rounded' 
+      concat position_fields.text_field :title, class: 'testtt' 
       concat tag.br
     end
   end
@@ -205,7 +207,7 @@ module FormHelper
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
-      concat child_fields.text_field @subject.form_child_reference, class:'border border-gray-250 rounded'
+      concat child_fields.text_field @subject.form_child_reference, class:'testtt'
     end
   end
   
