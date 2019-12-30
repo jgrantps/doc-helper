@@ -83,14 +83,12 @@ module FormHelper
   
   def primary_subject_details(instance)
     concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    # raise "errors".inspect
     concat instance.text_field :name, class:'ml-2 border border-gray-250 rounded', placeholder: (@subject.errors[:name].first || "Enter A New #{@subject.class.name}:")
   end
   
   ## distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
     concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    # raise "comments".inspect
     concat instance.text_field :comment, class:'ml-2 border border-gray-250 rounded', placeholder: (@subject.errors.full_messages.first || "New #{@subject.class.name}:")
   end
   
