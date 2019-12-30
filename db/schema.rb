@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_200037) do
+ActiveRecord::Schema.define(version: 2019_12_20_220351) do
 
   create_table "account_comments", force: :cascade do |t|
     t.string "comment"
@@ -29,15 +29,6 @@ ActiveRecord::Schema.define(version: 2019_11_19_200037) do
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "documents", force: :cascade do |t|
-    t.string "name"
-    t.integer "package_id"
-    t.boolean "complete?"
-    t.datetime "due_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -90,6 +81,8 @@ ActiveRecord::Schema.define(version: 2019_11_19_200037) do
     t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "url"
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

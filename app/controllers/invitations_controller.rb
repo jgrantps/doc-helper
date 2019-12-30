@@ -1,15 +1,14 @@
 class InvitationsController < Devise::InvitationsController
-
+  layout "application"
   before_action :update_sanitized_params, only: :update
 
-  # PUT /resource/invitation
+  # POST /resource/invitation
   def create
+    
     super
-    #  byebug
-     #=> build out the position relationships in the form here!!!
-    #@user.positions.build()
   end
 
+  ##=> added to allow for customized params to be for tested forms.
   def update
     respond_to do |format|
       format.js do
@@ -27,8 +26,22 @@ class InvitationsController < Devise::InvitationsController
 
   protected
 
-  def update_sanitized_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :username])
+  def invite_params
+    np = new_user_params
+    cp = np[:positions_attributes]["0"][:company_attributes] 
+    if !!cp
+      cp[:creator] = current_user
+      np.merge(cp)
+    end
+    new_user_params = np
+    
   end
 
+  def update_sanitized_params
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:password, :password_confirmation, :invitation_token, :name, :url, :username])
+  end 
+
+  def new_user_params
+    params.require(:user).permit(:name, :role, :email, :url, positions_attributes: [:title, :company_id, company_attributes: [:name]])
+  end
 end

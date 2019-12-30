@@ -1,5 +1,9 @@
 <%# not yet being used!!! %>
 
+<div>
+<h3 class="text-xl">This is a box</h3>
+</div>
+
 <h2><%= t "devise.invitations.new.header" %></h2>
 
 <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
@@ -27,7 +31,3 @@
     <%= f.submit t("devise.invitations.new.submit_button") %>
   </div>
 <% end %>
-
-<div>
-<h3>This is a box</h3>
-</div>

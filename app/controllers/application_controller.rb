@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
+  # before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :user_role_types, :all_users, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
+  helper_method :specified_associates, :user_role_types, :current_packages,:package_status, :associated_users, :resource, :resource_name, :devise_mapping
   
-  def all_users
-    User.all
+  
+  
+  #=> returns a "controller#action"-type string for the accessed route.  Used for conditional logic in helper methods.
+  def source_ids
+    @src_controller = "#{self.controller_name}"  
+    @src_action = "#{self.action_name}"  
+    @src = "#{@src_controller}##{@src_action}"    
   end
 
+  def specified_associates(rrole)
+    self.associates.where(role: rrole).where.not(id: self).distinct
+  end
+  
   def user_role_types
     return User.roles.keys
   end
@@ -43,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_invite_path_for(resource)
-    users_path
+    root_path
   end
 
    

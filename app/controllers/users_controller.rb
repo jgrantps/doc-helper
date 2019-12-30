@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  layout "dashboard"
+  before_action :authenticate_user!
   before_action :authorize_admin, except: [:index, :show, :filtered, :managers, :contacts, :admins, :all]
  
   def index
@@ -8,8 +10,10 @@ class UsersController < ApplicationController
 
   
   def show
-    if signed_in?   
-      @packages = current_user.packages
+  
+    if signed_in?  
+      @column_headings = Package.status
+      @tiling_elements = current_user.packages
       @title = "#{current_user.name}'s Packages"
     else
       redirect_to root_path  
@@ -22,30 +26,10 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # ---- actions to filter sorted users based on current_user ----
-  def all 
-    @users = current_user.all_associated_users
-      @title = "All of #{current_user.name}'s Colleagues"
-  end
-  
-  def managers 
-    @users = current_user.all_associated_users
-    @title = "#{current_user.name}'s Manager Colleagues"
-    if params[:company_id]
-      @company = Company.find(params[:company_id])
-    end  
-    
+  private
 
-  end
-
-  def admins
-    @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Admin Colleagues"
-  end
-
-  def contacts
-    @users = current_user.all_associated_users
-      @title = "#{current_user.name}'s Contacts"
+  def users_params
+    params.permit(:role, :controller,:action, :user_id, :url)
   end
 
 

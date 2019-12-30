@@ -1,37 +1,49 @@
-<h2><%= t "devise.invitations.edit.header" %></h2>
+<div class="w-full max-w-md mx-auto my-8">
+  <div class="bg-white border border-gray-300 rounded-lg px-8 pt-6 pb-8">
+    <h2 class="heading text-2xl font-bold py-2 ">Almost There!</h2>
+    <h2 class="heading text-2xl font-bold py-2 "><%= t "devise.invitations.edit.header" %></h2>
 
-<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :invitation_token, readonly: true %>
-  <%# byebug %>
+    <%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: "rounded py-2 pl-2 pr-20 bg-gray-200" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :invitation_token, readonly: true %>
+      <%# raise params.inspect %>
 
-  <% if f.object.class.require_password_on_accepting %>
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password %>
-    </div>
+      <% if f.object.class.require_password_on_accepting %>
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autofocus: true, class: "border border-gray-300 rounded-lg my-3 py-1 w-full"%>
+        </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation %>
-    </div>
-    
-    <div class="field">
-      <%= f.label :username %><br />
-      <%= f.text_field :username %>
-    </div>
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autofocus: true, class: "border border-gray-300 rounded-lg my-3 py-1 w-full" %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :username %><br />
+          <%= f.text_field :username, autofocus: true, class: "border border-gray-300 rounded-lg my-3 py-1 w-full" %>
+        </div>
 
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name %>
-    </div>
+        <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true, class: "border border-gray-300 rounded-lg my-3 py-1 w-full" %>
+        </div>
 
-  <% end %>
+        <div class="field">
+          <%= f.label :url %><br />
+          <%= f.text_field :url, autofocus: true, class: "border border-gray-300 rounded-lg my-3 py-1 w-full" %>
+        </div>
 
 
 
-  <div class="actions">
-  <% #byebug %>
-    <%= f.submit t("devise.invitations.edit.submit_button") %>
+      <% end %>
+
+
+
+      <div class="actions">
+      
+        <%= f.submit t("devise.invitations.edit.submit_button"), class: " flex items-center py-1 px-3 bg-gray-250 border border-gray-500 rounded cursor-pointer" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

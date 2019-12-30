@@ -6,21 +6,77 @@ class User < ApplicationRecord
   has_many :account_comments, through: :accounts
   has_many :packages, through: :accounts
   has_many :package_comments, through: :packages
-  has_many :documents, through: :packages
   
-  accepts_nested_attributes_for :positions
- # accepts_nested_attributes_for resource, reject_if: proc { |attributes| attributes[:first_name].blank? }
+  accepts_nested_attributes_for :positions,  reject_if: proc {|attributes| attributes['title'].blank?}
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable, :confirmable
-  
-  enum role: [:manager, :contact, :admin]
+ 
+ # Include default devise modules. Others available are:
+ # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+ devise :invitable, :database_authenticatable, :registerable,
+        :recoverable, :rememberable, :validatable, :confirmable,
+        :omniauthable, omniauth_providers: %i[twitter]
+ 
+ scope :role_is, -> (rle) {where(role: rle)}
+ scope :specific_for, -> (name, rle) {where(role: rle).where.not(id: name).distinct}
+ scope :specific_to, -> (name) {where.not(id: name).distinct}
+ 
+ 
+  def self.from_omniauth(auth)
+    self.where(:email => auth.info.email).first_or_create do |user|
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
+ 
+ def associate_categories(var="all")
+   if var == "all"
+     self.associates.select(:role).distinct
+     #self.associates.select(:role).distinct.each { |category| category[:role] }
+   else
+     self.associates.select(:role).distinct.where(:role => var)
+   end
+ end
+
+ def form_parent_variables
+  {:title => "from the user model", 
+   :var_id => :company_id, 
+   :var_to_s =>"companies",
+   :var_all => Company.all}
+end
+
+ def specified_associates(rle:)
+  self.associates.where(role: rle).where.not(id: self).distinct
+end
+
+def company_names
+  self.companies.distinct.pluck(:name)  
+end
+
+def form_child_title
+  "Add A Position:"  
+end
+
+def form_child
+  :positions
+end
+
+def form_child_reference
+  :title
+end
+ 
+ def specified_company_associates(user_role:, company:)
+  self.associates.where(role: user_role).where.not(id: self).distinct.merge(Company.where(id: company))
+ end
+ 
+ 
+ enum role: [:manager, :contact, :admin]
   after_initialize :set_default_role, :if => :new_record?
   
   def set_default_role
     self.role ||= :contact
+  end
+
+  def documents
+    Document.where(:package_id => self.packages)  
   end
 
   def all_associated_users
@@ -30,9 +86,22 @@ class User < ApplicationRecord
       self.associates.where.not(name: "#{self.name}")
     end
   end
-  
-  def associated_users(var)
-    self.associates.where(role: var).where.not(name: "#{self.name}")
+
+
+  def current_user_companies
+    current_user.companies  
+  end
+
+  def heading(var="all")
+    if var == "all"
+      "All Associates"
+    else
+      "Associated "+var.titleize.pluralize
+    end
+  end
+
+  def roles
+    ["all", "manager", "contact", "admin"]  
   end
 
   def domain
@@ -49,11 +118,11 @@ class User < ApplicationRecord
   def author
     case self.role
       when "admin"
-        return "company"
+        return ["account", "company"]
       when "manager"
-        return "account"
+        return ["account"]
       when "contact"
-        return ""
+        return ["package"]
     end
   end
 
@@ -67,5 +136,4 @@ class User < ApplicationRecord
        return self.accounts
     end
   end
-
 end

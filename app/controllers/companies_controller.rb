@@ -1,19 +1,46 @@
 class CompaniesController < ApplicationController
-
+  layout "dashboard"
+  def new  
+    @route_path = user_companies_path(current_user.id)
+    @title = "Create a New Company:"
+    @subject = Company.new
+    p = @subject.positions.build
+    p.build_user
+    @subject.accounts.build
+    @child_class_attribute = Account.name
+  end
+  
+  def create
+    @subject = Company.new(new_company_params)
+    
+    if @subject.save
+      @subject.add_creator(creator: current_user)
+      redirect_to company_path(current_user.id, @subject.id)
+    else
+      @route_path = user_companies_path(current_user.id)
+      @title = "Create a New Company:"
+      p = @subject.positions.build
+      p.build_user
+      @subject.accounts.build
+      @child_class_attribute = Account.name
+      render :new
+    end
+  end
+  
   def index
     redirect_to company_users_all_path(current_user)
   end
-
+  
   def show
-   @company = Company.find(company_params[:id])
-   @title = @company.name
-   
-  end
-
-  def new
-  end
-
-  def create
+    @company = Company.find(company_params[:id])
+    if current_user.companies.include?(@company)
+      self.source_ids
+      @column_headings = @company.account_headings
+      @tiling_elements = @company.packages
+      @title = @company.name 
+    else
+      redirect_to root_path 
+    end   
   end
 
   def edit
@@ -25,34 +52,13 @@ class CompaniesController < ApplicationController
   def delete
   end
 
-  # ---- actions to filter sorted users based on current_user ----
-  def all 
-    @company = Company.find(company_params[:company_id])
-    @users = @company.users
-      @title = "All of #{@company.name}'s Associates"
-  end
-  
-  def managers 
-    
-    @company = Company.find(company_params[:company_id])
-    @title = "#{@company.name}'s Managers"
-    
-  end
-  
-  def admins
-    @company = Company.find(company_params[:company_id])
-    @users = current_user.all_associated_users
-    @title = "#{@company.name}'s Admin Colleagues"
-  end
-  
-  def contacts
-    @company = Company.find(company_params[:company_id])
-    @title = "#{@company.name}'s Contacts"
-  end
-
 private
 
   def company_params
     params.permit(:id, :user_id, :company_id)
+  end
+
+  def new_company_params
+    params.require(:company).permit(:name, accounts_attributes: [:name], positions_attributes: [:title, :current_user => current_user, user_attributes: [:id, :user_id, :name]])
   end
 end

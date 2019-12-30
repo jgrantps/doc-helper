@@ -1,13 +1,9 @@
 Rails.application.routes.draw do
   
-  post "accounts/new", to: "accounts#create"
-
-  #garbage routes for testing
-  
-
   devise_for :users,  controllers: {
     confirmations: 'confirmations', 
-    invitations: 'invitations'
+    invitations: 'invitations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   } 
   resources :dashboard, only: [:index]
   resources :home, only: [:index]
@@ -15,23 +11,31 @@ Rails.application.routes.draw do
   
   
   resources :users do
-    get  "/all", to: "users#all"
-    get  "/managers", to: "users#managers"
-    get  "/admins", to: "users#admins"
-    get  "/contacts", to: "users#contacts"
     resources :companies
+    resources :associates
+    resources :accounts
   end
   
+  resources :positions
   resources :companies do
-    get  "users/all", to: "companies#all"
-    get  "users/managers", to: "companies#managers"
-    get  "users/admins", to: "companies#admins"
-    get  "users/contacts", to: "companies#contacts"
+    resources :associates, only: [:index, :show]
+    resources :accounts, only: [:index, :show]
   end
-
-
-  resources :accounts
-  resources :packages
-  resources :documents
+  
+  resources :associates do 
+    resources :accounts, only: [:index, :show]
+  end  
+  
+  resources :packages do
+    resources :package_comments
+  end
+  
+  resources :package_comments 
+  
+  resources :accounts do
+    resources :packages
+  end
+  post "accounts/new", to: "accounts#create"
+  
   
 end
