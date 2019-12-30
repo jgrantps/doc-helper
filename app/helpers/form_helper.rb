@@ -90,7 +90,8 @@ module FormHelper
   ## distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
     concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    concat instance.text_field :comment, class:'ml-2 border border-gray-250 rounded'
+    # raise 
+    concat instance.text_field :comment, class:'ml-2 border border-gray-250 rounded', placeholder: (@subject.errors.full_messages.first || "Enter A New #{@subject.class.name}:")
   end
   
   ## Main subject Supplemental form elements(attribute collection select)
