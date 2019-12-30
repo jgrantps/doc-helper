@@ -72,7 +72,7 @@ module FormHelper
   ###################
   ## adds "Main subject" to the form eg: Account, Package, etc...
   def primary_subject(instance)
-    content_tag("div", class: "flex item-center") do
+    content_tag("div", class: "flex item-center mb-3") do
       if strong_params[:controller] == "package_comments"
         primary_subject_details_comments(instance)
       else
@@ -84,13 +84,13 @@ module FormHelper
   def primary_subject_details(instance)
     concat instance.label :name, "#{@subject.class} Name:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
     # raise "errors".inspect
-    concat instance.text_field :name, class:'testtt', placeholder: (@subject.errors[:name].first || "Enter A New #{@subject.class.name}:")
+    concat instance.text_field :name, class:'ml-2 border border-gray-250 rounded', placeholder: (@subject.errors[:name].first || "Enter A New #{@subject.class.name}:")
   end
   
   ## distinguishes comment field for adding comments  
   def primary_subject_details_comments(instance)
     concat instance.label :name, "#{@subject.class} comment:", class:'text-xl item-center text-gray-900 mr-4 leading-tight' 
-    concat instance.text_field :comment, class:'testtt'
+    concat instance.text_field :comment, class:'ml-2 border border-gray-250 rounded'
   end
   
   ## Main subject Supplemental form elements(attribute collection select)
@@ -133,7 +133,7 @@ module FormHelper
   def nested_parent_fields(parent_fields)
     content_tag("div", class: "nested_fields mb-3") do
       concat parent_fields.label :name
-      concat parent_fields.text_field :name, class:'testtt'
+      concat parent_fields.text_field :name, class:'ml-2 border border-gray-250 rounded'
     end
   end
 
@@ -163,7 +163,7 @@ module FormHelper
     content_tag("div", class: "nested_fields mb-3") do
       
       concat position_fields.label :title
-      concat position_fields.text_field :title, class: 'testtt' 
+      concat position_fields.text_field :title, class: 'ml-2 border border-gray-250 rounded' 
       concat tag.br
     end
   end
@@ -207,15 +207,15 @@ module FormHelper
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
-      concat child_fields.text_field @subject.form_child_reference, class:'testtt'
+      concat child_fields.text_field @subject.form_child_reference, class:'ml-2 border border-gray-250 rounded'
     end
   end
   
   ## provides a dropdown field for selecting attributes of the nested child field.
   def child_fields_attribute_dropdown(child_fields)
     content_tag("div", class: "mx-4") do
-      concat child_fields.label @child_collection_attribute 
-      concat child_fields.select @child_collection_attribute, @child_class_attribute  
+      concat child_fields.label @child_collection_attribute, class: 'mr-2' 
+      concat child_fields.select @child_collection_attribute, @child_class_attribute
     end
   end  
   

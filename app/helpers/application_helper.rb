@@ -3,6 +3,12 @@ module ApplicationHelper
     render partial: "dashboard_elements/upper_block"
   end
 
+  def ribbon_title
+    content_tag("h2", class: "text-2xl font-semibold text-gray-900 leading-tight") do
+      @title.titleize
+    end
+  end
+
   def canvas(column_headings:)
   ## main component of the Dashboard
   ## logic to display either forms or columns with appropriate tiles.

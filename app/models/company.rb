@@ -32,24 +32,12 @@ class Company < ApplicationRecord
       self.positions.create(:title => "system_administrator", :user_id => user.id)
     end
   end
-  
-  def user_attributes=(attributes)
-    raise params.inspect
-  end
-
-
-
-
-
-
-
 
   def associated_users(var =  "all", excluded_name)
     if var == "all"
       self.associates.where.not(name: excluded_name)      
     else
       self.associates.where(role: var).where.not(name: excluded_name)
-     
     end
   end
 
@@ -65,9 +53,6 @@ class Company < ApplicationRecord
     end
   end
 
-  def roles
-    ["all", "manager", "contact", "admin"]  
-  end
 
   def titles
     self.positions.pluck(:title).uniq    
@@ -80,15 +65,6 @@ class Company < ApplicationRecord
         instance.collection_select :user_ids, User.role_is(key), :id, :name, prompt: (subject.errors[:name].first || "Select A New #{ subject.form_parent_variables[:title].singularize}:")
       end
     end
-  end
-
-  def iterated_keys(instance:)
-  end
-
-
-
-  def form_select_parent_label(instance:)
-    # instance.label self, "Separate method!:"
   end
 
   def form_child_title

@@ -8,6 +8,8 @@ class Account < ApplicationRecord
   alias_attribute  :parent_id, :company_id
   validates :name, :presence => true
   # validates :company_id, :presence => true
+  ## ^^ cannot use because it gets tripped by the form instantiation sequence and throws an error.  
+  ## consider alternatives
   
   scope :company, -> (name) {where(company_id: name)}
   scope :namme, -> (namme) {where(name: namme)}
@@ -59,12 +61,8 @@ class Account < ApplicationRecord
     instance.collection_select :company_id, current_user.companies.distinct, :id, :name, prompt: (subject.errors[:name].first || "Select A New #{ subject.form_parent_variables[:title].singularize}:")
   end
   
-  
-  # (subject.errors[:name].first || "Select A New #{ subject.form_parent_variables[:title].singularize}:")
-
-
   def form_select_parent_label(instance:)
-    instance.label self.company_id, "Associated Companies"
+    instance.label self.company_id, "Associated Companies", class: 'mr-2'
   end
   
   def form_parent_variables

@@ -51,7 +51,7 @@ class Package < ApplicationRecord
   end
   
   def form_select_parent_label(instance:)
-    instance.label self.account_id, "Associated Accounts"
+    instance.label self.account_id, "Associated Accounts", class: 'mr-2'
   end
 
   def form_parent_variables
