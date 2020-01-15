@@ -13,7 +13,6 @@ class AssociatesController < ApplicationController
 
   def index
     @role = associates_params[:role]
-    
     @associates = current_user.specified_associates(rle: @role)
     @tiling_elements = @associates
     @column_headings = current_user.company_names

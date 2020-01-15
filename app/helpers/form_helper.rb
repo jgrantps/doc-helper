@@ -202,7 +202,7 @@ module FormHelper
     end
   end
   
-  ## determines the nested child fields  based on the @subject object (ie "package" for "accounts", etc...)
+  ## determines the nested child fields based on the @subject object (ie "package" for "accounts", etc...)
   def child_fields_components1(child_fields)
     content_tag("div", class: "mx-4") do 
       concat child_fields.label @subject.form_child_reference 
@@ -221,7 +221,6 @@ module FormHelper
   ## provides the subject's parent's object_id in a hidden field, abstracted as the alias_attribute 'parent_id'
   def hidden_parent_tag(instance)
     concat hidden_field_tag "parent_id", @subject.parent_id
-    # raise params.inspect
   end
 
   

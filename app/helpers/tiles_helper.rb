@@ -3,6 +3,7 @@ module TilesHelper
   ## Control contents inside of the columns tiles when called by the CANVAS method.
   def tiles(tiling_elements:, sorting_condition:)  
     case strong_params[:controller]
+    
     when "companies"
       account = @company.accounts.find_by(name: sorting_condition)
       filtered_tile_collection = tiling_elements.specific(account)
@@ -42,7 +43,7 @@ end
   def tile_title(element:)
     case element.class.name
     when "User" 
-      output = element.name
+       output = element.name
     when "Company" || "Account"
       output = element.name
     when "Package"
@@ -79,7 +80,7 @@ end
         when "Account"
           output = element.account.name
         when "Company"
-          ouptut = element.status
+          output = element.status
       end
       
       content_tag(:span, element, :class => "ml-1 py-1 text-sm font-medium leading-tight text-teal-900") do            
